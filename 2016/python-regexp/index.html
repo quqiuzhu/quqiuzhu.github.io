@@ -1,0 +1,854 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python,magic," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="屈秋竹" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="1.5 版之后，Python 内建支持正则表达式，它提供的正则表达式是 Perl 风格的。 正则表达式（或 RE）是一种小型的、高度专业化的编程语言，经常使用会感受到它的神奇之处。Python 正则表达式被编译成一系列的字节码，然后由用 C 编写的匹配引擎执行的。 本文开始给出一个匹配规则的表格，然后谈谈常用的正则表达式。然后讲了 Python 中 re 模块的函数及其相关的使用方式，最后以实例的">
+<meta name="keywords" content="python,magic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 学习笔记 正则表达式">
+<meta property="og:url" content="http://quqiuzhu.com/2016/python-regexp/index.html">
+<meta property="og:site_name" content="屈秋竹">
+<meta property="og:description" content="1.5 版之后，Python 内建支持正则表达式，它提供的正则表达式是 Perl 风格的。 正则表达式（或 RE）是一种小型的、高度专业化的编程语言，经常使用会感受到它的神奇之处。Python 正则表达式被编译成一系列的字节码，然后由用 C 编写的匹配引擎执行的。 本文开始给出一个匹配规则的表格，然后谈谈常用的正则表达式。然后讲了 Python 中 re 模块的函数及其相关的使用方式，最后以实例的">
+<meta property="og:updated_time" content="2016-04-27T07:06:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 学习笔记 正则表达式">
+<meta name="twitter:description" content="1.5 版之后，Python 内建支持正则表达式，它提供的正则表达式是 Perl 风格的。 正则表达式（或 RE）是一种小型的、高度专业化的编程语言，经常使用会感受到它的神奇之处。Python 正则表达式被编译成一系列的字节码，然后由用 C 编写的匹配引擎执行的。 本文开始给出一个匹配规则的表格，然后谈谈常用的正则表达式。然后讲了 Python 中 re 模块的函数及其相关的使用方式，最后以实例的">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Python 学习笔记 正则表达式 | 屈秋竹 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b4521611c821e63392c1d1e8ce6ef4ab";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">屈秋竹</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">看见未来</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python 学习笔记 正则表达式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-27T14:24:46+08:00" content="2016-04-27">
+              2016-04-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/python-regexp/" class="leancloud_visitors" data-flag-title="Python 学习笔记 正则表达式">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>1.5 版之后，Python 内建支持正则表达式，它提供的正则表达式是 Perl 风格的。</p>
+<p>正则表达式（或 RE）是一种小型的、高度专业化的编程语言，经常使用会感受到它的神奇之处。Python 正则表达式被编译成一系列的字节码，然后由用 C 编写的匹配引擎执行的。</p>
+<p>本文开始给出一个匹配规则的表格，然后谈谈常用的正则表达式。然后讲了 Python 中 re 模块的函数及其相关的使用方式，最后以实例的形式给出了相关函数的用法。<br><a id="more"></a></p>
+<h2 id="正则匹配表"><a href="#正则匹配表" class="headerlink" title="正则匹配表"></a>正则匹配表</h2><table>
+<thead>
+<tr>
+<th>记号</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>foo</td>
+<td>匹配foo这个字符串</td>
+</tr>
+<tr>
+<td>foo<font color="red">I</font>bar</td>
+<td>匹配foo 或者 bar</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配任何字符（除了换行符）</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配字符串开始</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配字符串结尾</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配 0 次或更多次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配 1 次或者更多次</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配 0 或 1 次</td>
+</tr>
+<tr>
+<td>{N}</td>
+<td>匹配 N 次</td>
+</tr>
+<tr>
+<td>{M,N}</td>
+<td>匹配 M 到 N 次</td>
+</tr>
+<tr>
+<td>[…]</td>
+<td>匹配 方括号里面的单个字符，可省略中间部分[a-z]</td>
+</tr>
+<tr>
+<td>[^…]</td>
+<td>匹配 不在方括号中出现的字符</td>
+</tr>
+<tr>
+<td>(*<font color="red">I</font>+<font color="red">I</font>?<font color="red">I</font>{})?</td>
+<td>后面的问号，加在前面任何一个字符上，表示匹配越短越好(非贪婪)</td>
+</tr>
+<tr>
+<td>(…)</td>
+<td>匹配括号中的正则表达式，并保存为子组</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配 [0-9] <code>\D</code> 相反</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配 [A-Za-z0-9_] <code>\W</code> 相反</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任何空白 <code>\S</code> 相反</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配单词边界 <code>\B</code> 相反</td>
+</tr>
+<tr>
+<td>\N</td>
+<td>N为一个数字，匹配子组 N</td>
+</tr>
+<tr>
+<td>\C</td>
+<td>C为特殊字符，匹配特殊字符 <code>\.</code>,<code>\*</code>等</td>
+</tr>
+<tr>
+<td>\A</td>
+<td>同 <code>^</code></td>
+</tr>
+<tr>
+<td>\Z</td>
+<td>同 <code>$</code></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>上面的表格中 <code>|</code> 以 <font color="red">I</font> 代替</p>
+</blockquote>
+<h2 id="常用正则表达式"><a href="#常用正则表达式" class="headerlink" title="常用正则表达式"></a>常用正则表达式</h2><ul>
+<li>中文字符: <code>[\u4e00-\u9fa5]</code></li>
+<li>HTML标记: <code>&lt;(\S*?)[^&gt;]*&gt;.*?&lt;/\1&gt;|&lt;.*? /&gt;</code></li>
+<li>Email地址: <code>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*</code></li>
+<li>国内电话号码: <code>\d{3}-\d{8}|\d{4}-\d{7}</code></li>
+<li>HTTP_URL: <code>(https?)://([^/]+)(/?.*)</code></li>
+<li>时间(24h制): <code>((1|0?)[0-9]|2[0-3]):([0-5][0-9])</code></li>
+<li>URL: <code>^http://([\w-]+\.)+[\w-]+(/[\w-./?%&amp;=]*)?$</code></li>
+<li>QQ号: <code>[1-9][0-9]{4,}</code></li>
+</ul>
+<h2 id="Python-的-re-模块"><a href="#Python-的-re-模块" class="headerlink" title="Python 的 re 模块"></a>Python 的 re 模块</h2><p>使用正则表达式，我们通常有下面的几种需求</p>
+<ul>
+<li>验证是否匹配字符串</li>
+<li>验证字符串中有正则表达式表示的字符</li>
+<li>符合正则表达式的字符串提取</li>
+<li>正则表达式替换</li>
+<li>字符串分割</li>
+</ul>
+<p>因此从 re 包中可以到处的函数如下</p>
+<ul>
+<li>compile(pattern, flags=0)</li>
+<li>match(pattern, string, flags=0)</li>
+<li>search(pattern, string, flags=0)</li>
+<li>findall(pattern, string, flags=0)</li>
+<li>sub(pattern, repl, string, count=0, flags=0)</li>
+<li>subn(pattern, repl, string, count=0, flags=0)</li>
+<li>split(pattern, string, maxsplit=0, flags=0)</li>
+</ul>
+<p>一般的处理流程是编译正则表达式，获取一个 regex 对象，然后使用该对象的方法。每个函数对象里面包含的方法和 re 包中包含的一样(除了 compile 函数)。 实际上是 re 模块里面的函数调用了 regex 对象的相应的方法，下面是 re 包中 match 函数的实现，其他函数也是类似的。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">match</span><span class="params">(pattern, string, flags=<span class="number">0</span>)</span>:</span></div><div class="line">    <span class="keyword">return</span> _compile(pattern, flags).match(string)</div></pre></td></tr></table></figure>
+<p>re 包中的函数是先编译 regex 对象，然后调用其方法的。因为 re 模块有一块缓存区用来保存匹配过的正则表达式，所以速度也不会很慢，但是还是建议使用 regex 对象。</p>
+<p>上面的函数都有一个 flags 参数，其实只是用来编译的，因为 re 包中的函数需要先编译再调用其他方法，所以每个函数都有一个 flag 参数。每个 flag 表示的含义如下</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># ignore case</span></div><div class="line">I = IGNORECASE = sre_compile.SRE_FLAG_IGNORECASE </div><div class="line"></div><div class="line"><span class="comment"># assume current 8-bit locale</span></div><div class="line">L = LOCALE = sre_compile.SRE_FLAG_LOCALE </div><div class="line"></div><div class="line"><span class="comment"># assume unicode locale</span></div><div class="line">U = UNICODE = sre_compile.SRE_FLAG_UNICODE </div><div class="line"></div><div class="line"><span class="comment"># make anchors look for newline</span></div><div class="line">M = MULTILINE = sre_compile.SRE_FLAG_MULTILINE </div><div class="line"></div><div class="line"><span class="comment"># make dot match newline</span></div><div class="line">S = DOTALL = sre_compile.SRE_FLAG_DOTALL </div><div class="line"></div><div class="line"><span class="comment"># ignore whitespace and comments</span></div><div class="line">X = VERBOSE = sre_compile.SRE_FLAG_VERBOSE</div></pre></td></tr></table></figure>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p><code>match()</code> 和 <code>search()</code> 如果匹配的话，会返回一个匹配对象，否则会返回 None。匹配对象有 <code>group()</code> 与 <code>groups()</code> 方法。 <code>group()</code> 会返回匹配的字符串， 而<code>groups()</code> 返回存在的子组元组的元组，如果不存在匹配的子组，则返回<code>()</code>。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">g = re.match(<span class="string">'foo'</span>, <span class="string">'foo'</span>) <span class="comment"># 匹配对象</span></div><div class="line">g.group() <span class="comment"># 'foo'</span></div><div class="line">g.groups() <span class="comment"># ()</span></div><div class="line"></div><div class="line">g = re.match(<span class="string">'foo(\d+)'</span>, <span class="string">'foo2033d'</span>) </div><div class="line">g.group() <span class="comment"># 'foo2033'</span></div><div class="line">g.groups() <span class="comment"># ('2033',)</span></div><div class="line"></div><div class="line">g = re.match(<span class="string">'^foo(\d+)'</span>, <span class="string">'foo2033d'</span>) <span class="comment"># 同上</span></div><div class="line">g = re.match(<span class="string">'^foo(\d+)$'</span>, <span class="string">'foo2033d'</span>) <span class="comment"># None</span></div><div class="line">g = re.match(<span class="string">'foo(\d+)'</span>, <span class="string">'dfoo2033d'</span>) <span class="comment"># None</span></div></pre></td></tr></table></figure>
+<p>从上面最后一组的值，可以知道，<code>re.match</code> 默认从头开始匹配，但是并不默认一定要完全匹配到字符串末尾，除非使用结束符 <code>$</code> 。</p>
+<p><code>re.search</code> 与 <code>re.match</code>的区别正在于此，<code>re.search</code>并不一定要从头开始，比如说上面四组匹配结果如下</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">g = re.search(<span class="string">'foo(\d+)'</span>, <span class="string">'foo2033d'</span>) <span class="comment"># 匹配成功</span></div><div class="line">g = re.search(<span class="string">'^foo(\d+)'</span>, <span class="string">'foo2033d'</span>) <span class="comment"># 匹配成功</span></div><div class="line">g = re.search(<span class="string">'^foo(\d+)$'</span>, <span class="string">'foo2033d'</span>) <span class="comment"># None</span></div><div class="line">g = re.search(<span class="string">'foo(\d+)'</span>, <span class="string">'dfoo2033d'</span>) <span class="comment"># 匹配成功</span></div></pre></td></tr></table></figure>
+<p><code>re.findall</code> 跟 <code>re.search</code> 与 <code>re.match</code> 的区别是什么呢？第一，<code>re.search</code> 与 <code>re.match</code> 只匹配一次。 第二，<code>re.findall</code> 总会返回一个列表，不管匹配不匹配。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">g = re.match(<span class="string">'foo(\d+)'</span>, <span class="string">'foo2033foo9d'</span>)</div><div class="line">g.group() <span class="comment"># 'foo2033'</span></div><div class="line">g.groups() <span class="comment"># ('2033',)</span></div><div class="line"></div><div class="line">l = re.findall(<span class="string">'foo(\d+)'</span>, <span class="string">'foo2033foo9d'</span>)</div><div class="line">l <span class="comment"># ['2033', '9']</span></div><div class="line">l = re.findall(<span class="string">'foo\d+'</span>, <span class="string">'foo2033foo9d'</span>)</div><div class="line">l <span class="comment"># ['foo2033', 'foo9']</span></div></pre></td></tr></table></figure>
+<p><code>re.findall</code> 返回的列表，如果正则表达式有子组，则匹配返回的子组列表，否则返回整个正则表达式的匹配列表。</p>
+<p><code>re.sub</code> 与 <code>re.subn</code> 是用来做字符串替换的，它们唯一的区别是前面的返回替换了的字符串，后面返回一个替换之后的字符串和替换次数的元组。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">r = re.sub(<span class="string">'foo(\d+)'</span>,<span class="string">'*'</span>, <span class="string">'foo2033foo9d'</span>)</div><div class="line">r <span class="comment"># '**d'</span></div><div class="line"></div><div class="line">r = re.subn(<span class="string">'foo(\d+)'</span>,<span class="string">'*'</span>, <span class="string">'foo2033foo9d'</span>)</div><div class="line">r <span class="comment"># ('**d', 2)</span></div></pre></td></tr></table></figure>
+<p><code>re.split</code> 使用正则表达式作为分隔符，但有子组和无子组的情况是不一样的，有子组的会分割字符串，但会留下子组的匹配值。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">l = re.split(<span class="string">'foo(\d+)'</span>, <span class="string">'foo2033foo9d'</span>)</div><div class="line">l <span class="comment"># ['', '2033', '', '9', 'd']</span></div><div class="line"></div><div class="line">l = re.split(<span class="string">'foo\d+'</span>, <span class="string">'foo2033foo9d'</span>)</div><div class="line">l <span class="comment"># ['', '', 'd']</span></div></pre></td></tr></table></figure>
+<p>– end –</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag">#python</a>
+          
+            <a href="/tags/magic/" rel="tag">#magic</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/python-requests/" rel="next" title="Requests 源代码浅析">
+                <i class="fa fa-chevron-left"></i> Requests 源代码浅析
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/python-descriptor/" rel="prev" title="Python 学习笔记 描述符">
+                Python 学习笔记 描述符 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="屈秋竹" />
+          <p class="site-author-name" itemprop="name">屈秋竹</p>
+          <p class="site-description motion-element" itemprop="description">看见未来</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/quqiuzhu" target="_blank" rel="external nofollow">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1878473920" target="_blank" rel="external nofollow">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title"></div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://paulgraham.com/" target="_blank" rel="external nofollow">Paul Graham</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/" target="_blank" rel="external nofollow">阮一峰</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则匹配表"><span class="nav-number">1.</span> <span class="nav-text">正则匹配表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用正则表达式"><span class="nav-number">2.</span> <span class="nav-text">常用正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python-的-re-模块"><span class="nav-number">3.</span> <span class="nav-text">Python 的 re 模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">4.</span> <span class="nav-text">例子</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">屈秋竹</span>
+</div>
+
+<div class="powered-by">
+	<a href=http://www.miitbeian.gov.cn/>浙ICP备17015868号</a>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eXu3fwClfzqDDYp3Kzrjxwd3-gzGzoHsz", "xG1eazekJ0swFCTM9D0GRMcR");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

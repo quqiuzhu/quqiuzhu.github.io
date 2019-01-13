@@ -1,0 +1,848 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="屈秋竹" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="国庆假期学习了 Dagger 2, 在这里进行一些总结。 Dagger 2 是一个由 Google 工程师开发的依赖注入库，该项目 fork 自在 Square 工作的前 Google 工程师开发的 Dagger 1。 如果你想了解 Dagger 2 的基本概念和使用方式，推荐看 Codepath 的这篇文章 Dependency Injection with Dagger 2。Dagger 2">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dagger 2 学习笔记">
+<meta property="og:url" content="http://quqiuzhu.com/2016/dagger2/index.html">
+<meta property="og:site_name" content="屈秋竹">
+<meta property="og:description" content="国庆假期学习了 Dagger 2, 在这里进行一些总结。 Dagger 2 是一个由 Google 工程师开发的依赖注入库，该项目 fork 自在 Square 工作的前 Google 工程师开发的 Dagger 1。 如果你想了解 Dagger 2 的基本概念和使用方式，推荐看 Codepath 的这篇文章 Dependency Injection with Dagger 2。Dagger 2">
+<meta property="og:updated_time" content="2016-10-29T18:26:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dagger 2 学习笔记">
+<meta name="twitter:description" content="国庆假期学习了 Dagger 2, 在这里进行一些总结。 Dagger 2 是一个由 Google 工程师开发的依赖注入库，该项目 fork 自在 Square 工作的前 Google 工程师开发的 Dagger 1。 如果你想了解 Dagger 2 的基本概念和使用方式，推荐看 Codepath 的这篇文章 Dependency Injection with Dagger 2。Dagger 2">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Dagger 2 学习笔记 | 屈秋竹 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b4521611c821e63392c1d1e8ce6ef4ab";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">屈秋竹</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">看见未来</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Dagger 2 学习笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-09T08:31:11+08:00" content="2016-10-09">
+              2016-10-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/dagger2/" class="leancloud_visitors" data-flag-title="Dagger 2 学习笔记">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>国庆假期学习了 <a href="https://github.com/google/dagger" target="_blank" rel="external">Dagger 2</a>, 在这里进行一些总结。 Dagger 2 是一个由 Google 工程师开发的依赖注入库，该项目 fork 自在 Square 工作的前 Google 工程师开发的 <a href="https://github.com/square/dagger" target="_blank" rel="external">Dagger 1</a>。</p>
+<p>如果你想了解 Dagger 2 的基本概念和使用方式，推荐看 Codepath 的这篇文章 <a href="https://github.com/codepath/android_guides/wiki/Dependency-Injection-with-Dagger-2" target="_blank" rel="external">Dependency Injection with Dagger 2</a>。Dagger 2 通过注解 <code>@Module</code> 和 <code>@Provide</code> 标注提供依赖的类和方法, 通过 <code>@Inject</code> 标注请求依赖的实例, 通过 <code>@Component</code> 将两者连接起来, 而且提供了其他的一些 Feature。看完这些之后，你可能会有两个问题</p>
+<ol>
+<li>为什么要重新开发 Dagger 2, Dagger 1 哪里不好？</li>
+<li>我现在知道怎么用了, 但是它是怎么实现的？</li>
+</ol>
+<p>第一个问题，在 Google 开发者大会上，Dagger 2 的开发者的演讲 <a href="https://www.youtube.com/watch?v=oK_XtfXPkqw" target="_blank" rel="external">DAGGER 2 - A New Type of dependency injection</a> 中，不仅讲了 Dagger 1的优缺点，还讲了依赖注入如何从 Spring -&gt; Guice -&gt; Dagger 1 -&gt; Dagger 2。 Spring 主要的缺点是繁琐, 那段替代复杂的依赖注入的 XML 和原来的 Java 代码一样丑陋；Guice 的缺点是图错误在运行时才能发现，并且开发者难以调试；Dagger 1 的缺点是，生成的代码丑陋，出错难以调试，并且运行时开销不可忽视；Dagger 2在 Dagger 1 的基础上，解决了性能问题，并且生成的代码更加优雅。</p>
+<p>第二个问题，其实在上面提到的 <a href="https://www.youtube.com/watch?v=oK_XtfXPkqw" target="_blank" rel="external">DAGGER 2 - A New Type of dependency injection</a> 的演讲中，Dagger 2 的开发者已经解释了他们是如何设计 Dagger 2 的。但他使用CoffeeMaker 来举例，而我对 CoffeeMaker 并不熟悉，因此每当看到 Heater 和 Pump 的时候就在想它到底是什么，也许我应该好好玩一下公司的咖啡机。相比之下，我更喜欢 <a href="http://jakewharton.com" target="_blank" rel="external">Jake Wharton</a>的演讲 <a href="https://www.youtube.com/watch?v=plK0zyRLIP8" target="_blank" rel="external">Jake Wharton’s Devoxx Dagger 2 Talk</a>。</p>
+<a id="more"></a>
+<h2 id="Dagger使用"><a href="#Dagger使用" class="headerlink" title="Dagger使用"></a>Dagger使用</h2><ul>
+<li>时间安排2天, 包含玩一下 dagger 项目中的例子程序</li>
+<li>annotation processors compile-time checks 在编译时检测, 所以运行时很高效</li>
+<li>简化共享实例的访问</li>
+<li>易于配置复杂依赖</li>
+<li>更容易的单元测试和集成测试</li>
+<li>限定实例, 易于管理实例的生成和销毁</li>
+</ul>
+<h3 id="Creating-Singletons"><a href="#Creating-Singletons" class="headerlink" title="Creating Singletons"></a>Creating Singletons</h3><ul>
+<li>@Module Dagger 模块, Dagger 在此寻找可以构造某个对象的实例的方法</li>
+<li>@Module 可以用来解决依赖关系, 定义所依赖的对象</li>
+<li>@Provides 提供类的实例的构造方式</li>
+<li>@Singleton 告诉 Dagger 编译器, 在某个周期内, 只能创建一次实例</li>
+<li>@Provides 修饰的方法, 根据参数来实例化某个对象, 而实例提供者, 是某个 @Module 中的一个返回值与参数相同的方法(同样被 @Provides 修饰)</li>
+<li>@Component(modules={AppModule.class, NetModule.class}) 注解组件, 参数注明提供注解的类, 需要为所有需要被注解的类, 写不同的 inject()方法, 如以下代码所示</li>
+<li>Dagger 注解不能修饰父类, 其依赖强类型</li>
+<li>@Component 修饰的接口, 最终会生成一个以 Dagger 开始的一个类, 比如以下代码生成 DaggerNetComponent 类</li>
+<li>在 Application 中初始化相关 Component</li>
+<li>在需要注入的类中, 使用已经实例化的 Component, 调用其 inject() 方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Singleton</span></div><div class="line"><span class="meta">@Component</span>(modules=&#123;AppModule.class, NetModule.class&#125;)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">NetComponent</span> </span>&#123;</div><div class="line">   <span class="function"><span class="keyword">void</span> <span class="title">inject</span><span class="params">(MainActivity activity)</span></span>;</div><div class="line">   <span class="comment">// void inject(MyFragment fragment);</span></div><div class="line">   <span class="comment">// void inject(MyService service);</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> NetComponent mNetComponent;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate();</div><div class="line"></div><div class="line">        <span class="comment">// Dagger%COMPONENT_NAME%</span></div><div class="line">        mNetComponent = DaggerNetComponent.builder()</div><div class="line">                <span class="comment">// list of modules that are part of this component need to be created here too</span></div><div class="line">                .appModule(<span class="keyword">new</span> AppModule(<span class="keyword">this</span>)) <span class="comment">// This also corresponds to the name of your module: %component_name%Module</span></div><div class="line">                .netModule(<span class="keyword">new</span> NetModule(<span class="string">"https://api.github.com"</span>))</div><div class="line">                .build();</div><div class="line"></div><div class="line">        <span class="comment">// If a Dagger 2 component does not have any constructor arguments for any of its modules,</span></div><div class="line">        <span class="comment">// then we can use .create() as a shortcut instead:</span></div><div class="line">        <span class="comment">//  mNetComponent = com.codepath.dagger.components.DaggerNetComponent.create();</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> NetComponent <span class="title">getNetComponent</span><span class="params">()</span> </span>&#123;</div><div class="line">       <span class="keyword">return</span> mNetComponent;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> </span>&#123;</div><div class="line">  <span class="meta">@Inject</span> OkHttpClient mOkHttpClient;</div><div class="line">  <span class="meta">@Inject</span> SharedPreferences sharedPreferences;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstance)</span> </span>&#123;</div><div class="line">        <span class="comment">// assign singleton instances to fields</span></div><div class="line">        <span class="comment">// We need to cast to `MyApp` in order to get the right method</span></div><div class="line">        ((MyApp) getApplication()).getNetComponent().inject(<span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Qualified-types"><a href="#Qualified-types" class="headerlink" title="Qualified types"></a>Qualified types</h3><ul>
+<li>@Provides 如果提供了返回一种类型的多种方法, 到到底选择哪一个呢, 就可以通过限定符来指定</li>
+<li>通过 Dagger 提供的 @Qualifier 注解可以定义限定符, 就像定义 annotation 一样</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Provides</span> <span class="meta">@Named</span>(<span class="string">"cached"</span>)</div><div class="line"><span class="meta">@Singleton</span></div><div class="line"><span class="function">OkHttpClient <span class="title">provideOkHttpClient</span><span class="params">(Cache cache)</span> </span>&#123;</div><div class="line">    OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line">    client.setCache(cache);</div><div class="line">    <span class="keyword">return</span> client;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Provides</span> <span class="meta">@Named</span>(<span class="string">"non_cached"</span>) <span class="meta">@Singleton</span></div><div class="line"><span class="function">OkHttpClient <span class="title">provideOkHttpClient</span><span class="params">()</span> </span>&#123;</div><div class="line">    OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line">    <span class="keyword">return</span> client;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Inject</span> <span class="meta">@Named</span>(<span class="string">"cached"</span>) OkHttpClient client;</div><div class="line"><span class="meta">@Inject</span> <span class="meta">@Named</span>(<span class="string">"non_cached"</span>) OkHttpClient client2;</div><div class="line"></div><div class="line"><span class="meta">@Qualifier</span></div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Retention</span>(RUNTIME)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> DefaultPreferences &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Scopes"><a href="#Scopes" class="headerlink" title="Scopes"></a>Scopes</h3><ul>
+<li>Scopes 是用来管理各种 Component 的生命周期的, 或者说是管理其使用范围的</li>
+<li>可以通过 Dagger 提供的注解 @Scope 来定制自己的 Scope, 但如何实现没有详细说明</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Scope</span></div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Retention</span>(value=RetentionPolicy.RUNTIME)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyActivityScope</div><div class="line">&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="dependent-components-or-subcomponents"><a href="#dependent-components-or-subcomponents" class="headerlink" title="dependent components or subcomponents"></a>dependent components or subcomponents</h3><ul>
+<li>Component 并非一定要一直存在, 有些 Component 只存在于一个 Activity 的周期之内, 或者等到 User login 之后才能做事</li>
+<li>dependent components 是父类指定可以注入的类, 子Component去按照指定的实现, 父类去掉 inject 函数, 由子类独立实现</li>
+<li>两个 dependent components 不能享有同一个 Scope, 原因是因为 <a href="https://github.com/google/dagger/issues/107#issuecomment-71073298" title="循环依赖" target="_blank" rel="external">循环依赖</a> 还是什么, 暂时看不太懂, 先略过</li>
+<li>虽然 Dagger 有能力创建 Scoped Component, 但需要开发者来实现与此 Scope 一致的行为, Dagger 并不清楚开发者是怎么实现的。 stackoverflow 上面有相关 <a href="http://stackoverflow.com/questions/28411352/what-determines-the-lifecycle-of-a-component-object-graph-in-dagger-2" title="讨论" target="_blank" rel="external">讨论</a>, 详细看完 Scope 之后再细看</li>
+<li>一个 dependent components <a href="https://github.com/codepath/dagger2-example" title="dagger2-example" target="_blank" rel="external">例程</a></li>
+<li>dependent components 继承, subcomponents 组合</li>
+<li>看过 <a href="https://github.com/vinc3m1/nowdothis" title="nowdothis" target="_blank" rel="external">Dagger demo</a> 得出结论, Scope 就是个标识, 其规范在哪些范围使用, 范围是什么主要看 Component 是什么时候创建的, 比如有个 ImgurActivityComponent, 其初始化是在 ImgurUploadActivity 的 onCreate 方法内, 这些行为都遵守了 @PerImgurActivity 这个 Scope 的约定, 如果有人在另外的 Activity 中创建 ImgurActivityComponent, 使用其注入了某个类, 开发者可以实现, 但是这个 Scope 就被破坏了。</li>
+<li>另外可以使用 @Inject 修饰 Constructor, 使其能够被用来注入, 但是什么时候使用 @Inject, 什么时候使用 @Provide 肯定有个优先级的。</li>
+<li>Constructor Injection 的两种方式如下, @Inject 和 @Provide</li>
+<li>Lazy injections</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// parent component</span></div><div class="line"><span class="meta">@Singleton</span></div><div class="line"><span class="meta">@Component</span>(modules=&#123;AppModule.class, NetModule.class&#125;)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">NetComponent</span> </span>&#123;</div><div class="line">    <span class="comment">// remove injection methods if downstream modules will perform injection</span></div><div class="line"></div><div class="line">    <span class="comment">// downstream components need these exposed</span></div><div class="line">    <span class="comment">// the method name does not matter, only the return type</span></div><div class="line">    <span class="function">Retrofit <span class="title">retrofit</span><span class="params">()</span></span>;</div><div class="line">    <span class="function">OkHttpClient <span class="title">okHttpClient</span><span class="params">()</span></span>;</div><div class="line">    <span class="function">SharedPreferences <span class="title">sharedPreferences</span><span class="params">()</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Provides</span> <span class="function">MyThing <span class="title">provideMyThing</span><span class="params">(</span></span></div><div class="line">		SharedPreferences sp,</div><div class="line">		Context context) &#123;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> <span class="keyword">new</span> MyThing(sp, context);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@PerApp</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThing</span> </span>&#123;</div><div class="line"></div><div class="line">	<span class="keyword">private</span> <span class="keyword">final</span> SharedPRefs…</div><div class="line">	<span class="keyword">private</span> <span class="keyword">final</span> Context ...</div><div class="line"></div><div class="line">	<span class="meta">@Inject</span> <span class="function"><span class="keyword">public</span> <span class="title">MyThing</span><span class="params">(</span></span></div><div class="line">SharedPreferences sp,</div><div class="line">		Context context) &#123;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Inject</span> Lazy&lt;SharedPreferences&gt; mLazySharedPrefs;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">onSaveBtnClicked</span><span class="params">()</span> </span>&#123;</div><div class="line">    mLazySharedPrefs.get()</div><div class="line">                .edit().putString(<span class="string">"status"</span>, <span class="string">"lazy..."</span>)</div><div class="line">                .apply();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h3><ul>
+<li><a href="https://docs.google.com/presentation/d/1bkctcKjbLlpiI0Nj9v0QpCcNIiZBhVsJsJp1dgU5n98/" title="Dagger 2 in Android" target="_blank" rel="external">Vince Mi’s Codepath Meetup Dagger 2 Slides</a></li>
+<li><a href="https://speakerdeck.com/jakewharton/dependency-injection-with-dagger-2-devoxx-2014" title="Dependency Injection with Dagger 2 (Devoxx 2014)" target="_blank" rel="external">Jake Wharton’s Devoxx Dagger 2 Slides</a> Tweeter API 设计</li>
+<li><a href="https://www.youtube.com/watch?v=plK0zyRLIP8" title="Jake Wharton&#39;s Devoxx Dagger 2 Talk" target="_blank" rel="external">Jake Wharton’s Devoxx Dagger 2 Talk</a> 50分钟</li>
+<li><a href="https://www.youtube.com/watch?v=oK_XtfXPkqw" title="Dagger 2 Google Developers Talk" target="_blank" rel="external">Dagger 2 Google Developers Talk</a> 40分钟</li>
+<li><a href="https://blog.gouline.net/dagger-2-even-sharper-less-square-b52101863542#.flwjtyxlk" title="Dagger 2: Even sharper, less square" target="_blank" rel="external">Dagger 2: Even sharper, less square</a> 比较 Dagger 1, 指出3缺点</li>
+<li><a href="https://www.youtube.com/watch?v=0XHx9jtxIxU" target="_blank" rel="external">Architecting Android Applications with Dagger</a> dagger 与 android 构架</li>
+</ul>
+<h2 id="依赖注入-注解与APT"><a href="#依赖注入-注解与APT" class="headerlink" title="依赖注入, 注解与APT"></a>依赖注入, 注解与APT</h2><h3 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h3><ul>
+<li>DI, IoC <a href="http://www.martinfowler.com/articles/injection.html" title="Inversion of Control Containers and the Dependency Injection pattern" target="_blank" rel="external">经典文章</a> 对比 <a href="http://www.cnblogs.com/gaochundong/archive/2013/04/12/service_locator_pattern.html" title="Service Locator 模式" target="_blank" rel="external">Service Locator 模式</a></li>
+<li>三种DI方式<ol>
+<li>Constructor Injection 是根据某种类型, 调用其一个默认实现的子类, Container 会提供一个配置接口, 并且为一个类返回一个默认实现, 当然主要是通过调用其构造方法, 并且可以配置传参</li>
+<li>Setter Injection 是在需要被注入的类中有一个 Setter 方法, 用来设置相关依赖, 在此框架会返回一个默认的实现作为参数, Spring 通过 xml 文件配置类的某一个具体实现</li>
+<li>Interface Injection 通过声明接口，框架给出默认实现，并且给出关联相关代码，而实现依赖注入, 但这里的例子没有使用注解, 而是直接使用了 Java Code</li>
+</ol>
+</li>
+<li>Service Locator 与 Dependency Injection 比较，两者都是为了去耦合，依赖注入难以理解和调试</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MovieLister</span>...</span></div><div class="line">  <span class="title">public</span> <span class="title">MovieLister</span>(<span class="title">MovieFinder</span> <span class="title">finder</span>) &#123;</div><div class="line">      <span class="keyword">this</span>.finder = finder;       </div><div class="line">  &#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColonMovieFinder</span>...</span></div><div class="line">  <span class="title">public</span> <span class="title">ColonMovieFinder</span>(<span class="title">String</span> <span class="title">filename</span>) &#123;</div><div class="line">      <span class="keyword">this</span>.filename = filename;</div><div class="line">  &#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> MutablePicoContainer <span class="title">configureContainer</span><span class="params">()</span> </span>&#123;</div><div class="line">    MutablePicoContainer pico = <span class="keyword">new</span> DefaultPicoContainer();</div><div class="line">    Parameter[] finderParams =  &#123;<span class="keyword">new</span> ConstantParameter(<span class="string">"movies1.txt"</span>)&#125;;</div><div class="line">    pico.registerComponentImplementation(MovieFinder.class, ColonMovieFinder.class, finderParams);</div><div class="line">    pico.registerComponentImplementation(MovieLister.class);</div><div class="line">    <span class="keyword">return</span> pico;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testWithPico</span><span class="params">()</span> </span>&#123;</div><div class="line">    MutablePicoContainer pico = configureContainer();</div><div class="line">    MovieLister lister = (MovieLister) pico.getComponentInstance(MovieLister.class);</div><div class="line">    Movie[] movies = lister.moviesDirectedBy(<span class="string">"Sergio Leone"</span>);</div><div class="line">    assertEquals(<span class="string">"Once Upon a Time in the West"</span>, movies[<span class="number">0</span>].getTitle());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">class MovieLister...</div><div class="line">  private MovieFinder finder;</div><div class="line">  public void setFinder(MovieFinder finder) &#123;</div><div class="line">    this.finder = finder;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">class ColonMovieFinder...</div><div class="line">  public void setFilename(String filename) &#123;</div><div class="line">      this.filename = filename;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&lt;beans&gt;</div><div class="line">    &lt;bean id="MovieLister" class="spring.MovieLister"&gt;</div><div class="line">        &lt;property name="finder"&gt;</div><div class="line">            &lt;ref local="MovieFinder"/&gt;</div><div class="line">        &lt;/property&gt;</div><div class="line">    &lt;/bean&gt;</div><div class="line">    &lt;bean id="MovieFinder" class="spring.ColonMovieFinder"&gt;</div><div class="line">        &lt;property name="filename"&gt;</div><div class="line">            &lt;value&gt;movies1.txt&lt;/value&gt;</div><div class="line">        &lt;/property&gt;</div><div class="line">    &lt;/bean&gt;</div><div class="line">&lt;/beans&gt;</div><div class="line"></div><div class="line">public void testWithSpring() throws Exception &#123;</div><div class="line">    ApplicationContext ctx = new FileSystemXmlApplicationContext("spring.xml");</div><div class="line">    MovieLister lister = (MovieLister) ctx.getBean("MovieLister");</div><div class="line">    Movie[] movies = lister.moviesDirectedBy("Sergio Leone");</div><div class="line">    assertEquals("Once Upon a Time in the West", movies[0].getTitle());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">InjectFinder</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">void</span> <span class="title">injectFinder</span><span class="params">(MovieFinder finder)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MovieLister</span> <span class="keyword">implements</span> <span class="title">InjectFinder</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">injectFinder</span><span class="params">(MovieFinder finder)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.finder = finder;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Injector</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inject</span><span class="params">(Object target)</span></span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColonMovieFinder</span> <span class="keyword">implements</span> <span class="title">MovieFinder</span>, <span class="title">Injector</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">injectFilename</span><span class="params">(String filename)</span> </span>&#123;</div><div class="line">      <span class="keyword">this</span>.filename = filename;</div><div class="line">  &#125;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inject</span><span class="params">(Object target)</span> </span>&#123;</div><div class="line">    ((InjectFinder) target).injectFinder(<span class="keyword">this</span>);        </div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tester</span> </span>&#123;</div><div class="line">  <span class="keyword">private</span> Container container;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">configureContainer</span><span class="params">()</span> </span>&#123;</div><div class="line">   container = <span class="keyword">new</span> Container();</div><div class="line">   registerComponents();</div><div class="line">   registerInjectors();</div><div class="line">   container.start();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">registerComponents</span><span class="params">()</span> </span>&#123;</div><div class="line">    container.registerComponent(<span class="string">"MovieLister"</span>, MovieLister.class);</div><div class="line">    container.registerComponent(<span class="string">"MovieFinder"</span>, ColonMovieFinder.class);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">registerInjectors</span><span class="params">()</span> </span>&#123;</div><div class="line">    container.registerInjector(InjectFinder.class, container.lookup(<span class="string">"MovieFinder"</span>));</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testIface</span><span class="params">()</span> </span>&#123;</div><div class="line">    configureContainer();</div><div class="line">    MovieLister lister = (MovieLister)container.lookup(<span class="string">"MovieLister"</span>);</div><div class="line">    Movie[] movies = lister.moviesDirectedBy(<span class="string">"Sergio Leone"</span>);</div><div class="line">    assertEquals(<span class="string">"Once Upon a Time in the West"</span>, movies[<span class="number">0</span>].getTitle());</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首先, 这个 InjectFinder 是被注入的那个类需要实现的接口, 名字有点问题, 难以理解。 需要使用 finder 的类实现 InjectFinder 接口, 会自动注入相关类。 registerComponent 是注册类, 可以通过 lookup 获取其实例。</p>
+<p>registerInjector 表达一种关系, 谁注入谁的关系, 上面经过 registerInjectors 之后 InjectFinder 与 ColonMovieFinder 就关联起来了, ColonMovieFinder 会注入到 InjectFinder 里面去。</p>
+<h3 id="JSR-330"><a href="#JSR-330" class="headerlink" title="JSR 330"></a>JSR 330</h3><ul>
+<li>JSR 330 - 2009 年发布, Spring 2.5 后支持, 依赖注入的标准</li>
+<li>@Inject 注入顺序为构造器，字段，最后是方法。超类的字段、方法将优先于子类的字段、方法被注入</li>
+<li>@Qualifier 给定的类型 T 与可选的限定器，注入器必须能够注入用户指定的类, 循环依赖, Provider<t> 然后显式调用其 get 方法。</t></li>
+<li>Provider<t> 一般由注入器实现, 可返回多个实例, 而且打破循环依赖的问题</t></li>
+<li>@Named 是默认实现的一个限定器, 参数是一个 String 类型, 大多数时候够用</li>
+<li>@Scope 用于标识作用域注解, 重新定义一个新 Scope, 不应该含有属性</li>
+<li>@Singleton 是一个Scope 实现, 对象只创建一次</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@java</span>.lang.annotation.Documented</div><div class="line"><span class="meta">@java</span>.lang.annotation.Retention(RUNTIME)</div><div class="line"><span class="meta">@javax</span>.inject.Scope</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> RequestScoped &#123;&#125;</div></pre></td></tr></table></figure>
+<h3 id="注解及APT"><a href="#注解及APT" class="headerlink" title="注解及APT"></a>注解及APT</h3><ul>
+<li>Dagger中, 注解的作用是在编译期间帮助生成代码, 运行时, 与注解已无关系</li>
+<li><a href="https://github.com/square/javapoet" title="javapoet" target="_blank" rel="external">javapoet</a>及其<a href="http://www.jianshu.com/p/95f12f72f69a" title="javapoet——让你从重复无聊的代码中解放出来" target="_blank" rel="external">详解</a> 用来生成 java 源文件的库</li>
+<li>内置注解 &amp; 元注解 &amp; 实现注解 &amp; 注解处理器</li>
+<li>注解是一种语法, 怎么处理注解才是最重要的, 我们可以编写一个类实现注解处理, 也可以使用APT</li>
+<li>一个编译时注解处理的 <a href="https://github.com/zjutkz/Knight" title="knight" target="_blank" rel="external">简单实例</a>及其<a href="http://zjutkz.net/2016/04/07/%E4%B8%87%E8%83%BD%E7%9A%84APT%EF%BC%81%E7%BC%96%E8%AF%91%E6%97%B6%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%A6%99%E7%94%A8/" title="万能的APT！编译时注解的妙用" target="_blank" rel="external">详解</a></li>
+<li><a href="http://blog.csdn.net/a1018875550/article/details/52166916" title="Android注解-编译时生成代码 (APT)" target="_blank" rel="external">APT</a> 及相关项目 <a href="https://github.com/a1018875550/ViewInject/tree/master" title="ViewInject" target="_blank" rel="external">ViewInject</a>, 完整用心地讲了具体实现</li>
+<li>@AutoService 可以自动(为 Processor)生成配置信息</li>
+<li>Android Studio 2.2 已经自带 annotationProcessor, 不再需要 APT, 即便不使用 Java 8</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 内置注解</span></div><div class="line"><span class="comment">// 方法注解，表示此注解修饰的方法覆盖了父类或是接口的方法</span></div><div class="line"><span class="comment">// 如果不是这样，则输出警告</span></div><div class="line"><span class="meta">@Override</span></div><div class="line"></div><div class="line"><span class="comment">// 对于此注解所修饰的对象（类、域、方法等）</span></div><div class="line"><span class="comment">// 当你使用了它们时编译器将输出“已废弃”警告</span></div><div class="line"><span class="meta">@Deprecated</span></div><div class="line"></div><div class="line"><span class="comment">// 关闭警告，通过给此注解的元素赋值</span></div><div class="line"><span class="comment">// 可以关闭特定警告</span></div><div class="line"><span class="meta">@SuppressWarnings</span></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// 元注解</span></div><div class="line"><span class="comment">// 定义注解所能作用的目标，说明该注解能作用于何种对象（类、方法、域……之类）。</span></div><div class="line"><span class="meta">@Target</span></div><div class="line"></div><div class="line"><span class="comment">// 定义注解保存级别</span></div><div class="line"><span class="comment">// 1.源代码注解，被编译器丢弃</span></div><div class="line"><span class="comment">// 2.类注解，class文件中可用，被VM丢弃</span></div><div class="line"><span class="comment">// 3.运行时可用，搭配反射</span></div><div class="line"><span class="meta">@Retention</span></div><div class="line"></div><div class="line"><span class="comment">// 标志将此注解包含至javadoc中</span></div><div class="line"><span class="meta">@Documented</span></div><div class="line"></div><div class="line"><span class="comment">// 说明假如此注解是类注解而且你在父类中使用此注解，那么子类将会继承此注解</span></div><div class="line"><span class="meta">@Inherited</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">// 实现注解</span></div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="meta">@Target</span>(ElementType.ANNOTATION_TYPE)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Target &#123;</div><div class="line">    ElementType[] value() <span class="keyword">default</span> &#123;ElementType.ANNOTATION_TYPE&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Dagger-2-源码"><a href="#Dagger-2-源码" class="headerlink" title="Dagger 2 源码"></a>Dagger 2 源码</h2><ul>
+<li>dagger 并不是一个 android project, 而是一个 java project, 构建工具为 maven</li>
+<li>maven 构建工具, 它如何构建, 如何集成, 如何打包 之后再说, 但其所有注解打概念得搞清楚</li>
+<li>源码 中一大部分是新功能, 新概念, 比如 MultiBindings 支持Set 和 Map的多绑定实现插件式开发; Producer 用来支持异步编程模型, 还是先看文档熟悉一下比较好</li>
+</ul>
+<h3 id="新概念"><a href="#新概念" class="headerlink" title="新概念"></a>新概念</h3><ul>
+<li>MultiBindings 就是把一些值组成一个集合, 有 set 和 map, @IntoSet 和 @StringKey 等等, 用于实现插件式构架, 稍显复杂</li>
+<li>@ProducerModule, @Produces, @ProductionComponent 是提供异步依赖注入的注解, 类似注解 @Module, @Provides, @Component</li>
+<li>@Produces 返回一个 ListenableFuture<t>, 如果其中 T 被依赖, 并且也被 @Produces 修饰, 可以通过注解 @Production 修饰 Executor 来指定</t></li>
+<li>错误处理, 被依赖的 T, 就是 Produced<t>, 如果需要做错误处理, 则在此完成, MultiBindings 和 Lazy execution 同样支持</t></li>
+<li>返回 Scope 和相应的 Component 一致  @ProductionScope</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ProducerModule</span>(includes = UserModule.class)</div><div class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">UserResponseModule</span> </span>&#123;</div><div class="line">  <span class="meta">@Produces</span></div><div class="line">  <span class="function"><span class="keyword">static</span> ListenableFuture&lt;UserData&gt; <span class="title">lookUpUserData</span><span class="params">(</span></span></div><div class="line">      User user, UserDataStub stub) &#123;</div><div class="line">    <span class="keyword">return</span> stub.lookUpData(user);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="meta">@Produces</span></div><div class="line">  <span class="function"><span class="keyword">static</span> Html <span class="title">renderHtml</span><span class="params">(UserData data, UserHtmlTemplate template)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> template.render(data);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Module</span></div><div class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ExecutorModule</span> </span>&#123;</div><div class="line">  <span class="meta">@Provides</span></div><div class="line">  <span class="meta">@Production</span></div><div class="line">  <span class="function"><span class="keyword">static</span> Executor <span class="title">executor</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> Executors.newCachedThreadPool();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Produces</span></div><div class="line"><span class="function"><span class="keyword">static</span> Html <span class="title">renderHtml</span><span class="params">(</span></span></div><div class="line">    Produced&lt;UserData&gt; data,</div><div class="line">    UserHtmlTemplate template,</div><div class="line">    ErrorHtmlTemplate errorTemplate) &#123;</div><div class="line">  <span class="keyword">try</span> &#123;</div><div class="line">    <span class="keyword">return</span> template.render(data.get());</div><div class="line">  &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</div><div class="line">    <span class="keyword">return</span> errorTemplate.render(<span class="string">"user data failed"</span>, e.getCause());</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="ComponentProcessor"><a href="#ComponentProcessor" class="headerlink" title="ComponentProcessor"></a>ComponentProcessor</h3><ul>
+<li>getSupportedOptions, initSteps 和 postRound 来自于 BasicAnnotationProcessor</li>
+<li><a href="https://github.com/google/auto" title="Auto" target="_blank" rel="external">google auto</a>, 这个项目是用来帮助自动生成代码的</li>
+<li><a href="https://github.com/google/guava" title="Google Core Libraries for Java 6+" target="_blank" rel="external">google guava</a> 是 Google 开源的 Java 库, 在Java标准库上面的一些封装, 让 java 更加优雅, <a href="https://github.com/google/guava/wiki" title="Guava User Guide" target="_blank" rel="external">guava guide</a></li>
+<li>BasicAnnotationProcessor 中接口 ProcessingStep, ElementName</li>
+</ul>
+<h4 id="BasicAnnotationProcessor-ProcessingStep"><a href="#BasicAnnotationProcessor-ProcessingStep" class="headerlink" title="BasicAnnotationProcessor.ProcessingStep"></a>BasicAnnotationProcessor.ProcessingStep</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 处理阶段, 每个处理阶段可以处理一些注解的逻辑</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ProcessingStep</span> </span>&#123;</div><div class="line">    <span class="comment">// 返回该阶段需要处理的注解类型</span></div><div class="line">    Set&lt;? extends Class&lt;? extends Annotation&gt;&gt; annotations();</div><div class="line"></div><div class="line">    <span class="comment">// 处理注解和被注解的元素, 是 SetMultimap 类型, 说明可以处理多个注解,</span></div><div class="line">    <span class="comment">// 同时每个注解可能注释了多个不同的元素</span></div><div class="line">    <span class="function">Set&lt;Element&gt; <span class="title">process</span><span class="params">(SetMultimap&lt;Class&lt;? extends Annotation&gt;, Element&gt; var1)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="BasicAnnotationProcessor-ElementName"><a href="#BasicAnnotationProcessor-ElementName" class="headerlink" title="BasicAnnotationProcessor.ElementName"></a>BasicAnnotationProcessor.ElementName</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 该类主要用来存放节点名称, 并且区分包节点和类型节点</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ElementName</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> BasicAnnotationProcessor.ElementName.Kind kind;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String name;</div><div class="line">    <span class="comment">// ... 其中一些方法简化, 是一些构造方法和一些比较相关的方法</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">enum</span> Kind &#123;</div><div class="line">        PACKAGE_NAME,</div><div class="line">        TYPE_NAME;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="BasicAnnotationProcessor-5个变量"><a href="#BasicAnnotationProcessor-5个变量" class="headerlink" title="BasicAnnotationProcessor 5个变量"></a>BasicAnnotationProcessor 5个变量</h4><ul>
+<li>deferredElementNames 未处理的元素</li>
+<li>elementsDeferredBySteps 未处理的元素(按照 ProcessingStep 区分)</li>
+<li>processorName 该 processor 的名称</li>
+<li>elements 所有元素</li>
+<li>messager 用于编译过程中报告错误</li>
+<li>steps 所有处理步骤(ProcessingStep)</li>
+</ul>
+<h4 id="RoundEnvironment"><a href="#RoundEnvironment" class="headerlink" title="RoundEnvironment"></a>RoundEnvironment</h4><ul>
+<li>这个注释处理是一轮一轮进行的, RoundEnvironment 代表这一轮的处理环境</li>
+<li>processingOver 表示上一轮处理完成, errorRaised 表示前面有错误发生</li>
+<li>getRootElements 上一轮处理的根元素</li>
+<li>getElementsAnnotatedWith 获取被注解的元素, 有两个重载的方法</li>
+</ul>
+<h4 id="BasicAnnotationProcessor-处理流程"><a href="#BasicAnnotationProcessor-处理流程" class="headerlink" title="BasicAnnotationProcessor 处理流程"></a>BasicAnnotationProcessor 处理流程</h4><ul>
+<li>init 初始化, 暴露 initSteps 给子类, 让其返回其想要实现的 ProcessingStep</li>
+<li>process 函数先检查了一些状态, 然后通过 deferredElementNames 得到了 deferredElements, 但奇怪的是, deferredElementNames 和 elements 怎么初始化</li>
+<li>只在 validElements 方法中看到 deferredElementNames 被更改, 说明 deferredElements 来自处理结束, 最可能的是上一步留下的, 未处理的 Elements</li>
+<li>validElements 做了什么呢?</li>
+<li>下载了代码之后, 看完了头部的注释, 解释了如何处理一个 ProcessingStep, 然后哪些 element 需要延迟处理, 整个逻辑就清晰了。</li>
+<li>BasicAnnotationProcessor 中, 注解处理器会多次调用 process 方法吗？ 如果未处理完成, 应该如何表征, 这是个问题, 后面慢慢弄明白</li>
+</ul>
+<p>– end –</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag">#android</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/react-native/" rel="next" title="React Native">
+                <i class="fa fa-chevron-left"></i> React Native
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/js-2016/" rel="prev" title="2016 年的 JavaScript">
+                2016 年的 JavaScript <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="屈秋竹" />
+          <p class="site-author-name" itemprop="name">屈秋竹</p>
+          <p class="site-description motion-element" itemprop="description">看见未来</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/quqiuzhu" target="_blank" rel="external nofollow">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1878473920" target="_blank" rel="external nofollow">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title"></div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://paulgraham.com/" target="_blank" rel="external nofollow">Paul Graham</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/" target="_blank" rel="external nofollow">阮一峰</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dagger使用"><span class="nav-number">1.</span> <span class="nav-text">Dagger使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Creating-Singletons"><span class="nav-number">1.1.</span> <span class="nav-text">Creating Singletons</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Qualified-types"><span class="nav-number">1.2.</span> <span class="nav-text">Qualified types</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scopes"><span class="nav-number">1.3.</span> <span class="nav-text">Scopes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dependent-components-or-subcomponents"><span class="nav-number">1.4.</span> <span class="nav-text">dependent components or subcomponents</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关资料"><span class="nav-number">1.5.</span> <span class="nav-text">相关资料</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖注入-注解与APT"><span class="nav-number">2.</span> <span class="nav-text">依赖注入, 注解与APT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖注入"><span class="nav-number">2.1.</span> <span class="nav-text">依赖注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSR-330"><span class="nav-number">2.2.</span> <span class="nav-text">JSR 330</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注解及APT"><span class="nav-number">2.3.</span> <span class="nav-text">注解及APT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dagger-2-源码"><span class="nav-number">3.</span> <span class="nav-text">Dagger 2 源码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#新概念"><span class="nav-number">3.1.</span> <span class="nav-text">新概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ComponentProcessor"><span class="nav-number">3.2.</span> <span class="nav-text">ComponentProcessor</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BasicAnnotationProcessor-ProcessingStep"><span class="nav-number">3.2.1.</span> <span class="nav-text">BasicAnnotationProcessor.ProcessingStep</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BasicAnnotationProcessor-ElementName"><span class="nav-number">3.2.2.</span> <span class="nav-text">BasicAnnotationProcessor.ElementName</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BasicAnnotationProcessor-5个变量"><span class="nav-number">3.2.3.</span> <span class="nav-text">BasicAnnotationProcessor 5个变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RoundEnvironment"><span class="nav-number">3.2.4.</span> <span class="nav-text">RoundEnvironment</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BasicAnnotationProcessor-处理流程"><span class="nav-number">3.2.5.</span> <span class="nav-text">BasicAnnotationProcessor 处理流程</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">屈秋竹</span>
+</div>
+
+<div class="powered-by">
+	<a href=http://www.miitbeian.gov.cn/>浙ICP备17015868号</a>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eXu3fwClfzqDDYp3Kzrjxwd3-gzGzoHsz", "xG1eazekJ0swFCTM9D0GRMcR");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

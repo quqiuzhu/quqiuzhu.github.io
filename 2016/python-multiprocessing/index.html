@@ -1,0 +1,777 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="屈秋竹" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="Python 解释器有一个全局解释器锁(PIL)，导致每个 Python 进程中最多同时运行一个线程，因此 Python 多线程程序并不能改善程序性能，不能发挥多核系统的优势，可以通过这篇文章了解。 但是多进程程序不受此影响， Python 2.6 引入了 multiprocessing 来解决这个问题。这里介绍 multiprocessing 模块下的进程，进程同步，进程间通信和进程管理四个方面">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 学习笔记 多进程 multiprocessing">
+<meta property="og:url" content="http://quqiuzhu.com/2016/python-multiprocessing/index.html">
+<meta property="og:site_name" content="屈秋竹">
+<meta property="og:description" content="Python 解释器有一个全局解释器锁(PIL)，导致每个 Python 进程中最多同时运行一个线程，因此 Python 多线程程序并不能改善程序性能，不能发挥多核系统的优势，可以通过这篇文章了解。 但是多进程程序不受此影响， Python 2.6 引入了 multiprocessing 来解决这个问题。这里介绍 multiprocessing 模块下的进程，进程同步，进程间通信和进程管理四个方面">
+<meta property="og:updated_time" content="2016-04-24T01:41:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 学习笔记 多进程 multiprocessing">
+<meta name="twitter:description" content="Python 解释器有一个全局解释器锁(PIL)，导致每个 Python 进程中最多同时运行一个线程，因此 Python 多线程程序并不能改善程序性能，不能发挥多核系统的优势，可以通过这篇文章了解。 但是多进程程序不受此影响， Python 2.6 引入了 multiprocessing 来解决这个问题。这里介绍 multiprocessing 模块下的进程，进程同步，进程间通信和进程管理四个方面">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Python 学习笔记 多进程 multiprocessing | 屈秋竹 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b4521611c821e63392c1d1e8ce6ef4ab";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">屈秋竹</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">看见未来</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python 学习笔记 多进程 multiprocessing
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-14T13:13:04+08:00" content="2016-04-14">
+              2016-04-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/python-multiprocessing/" class="leancloud_visitors" data-flag-title="Python 学习笔记 多进程 multiprocessing">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Python 解释器有一个全局解释器锁(PIL)，导致每个 Python 进程中最多同时运行一个线程，因此 Python 多线程程序并不能改善程序性能，不能发挥多核系统的优势，可以通过<a href="http://www.oschina.net/translate/pythons-hardest-problem" target="_blank" rel="external">这篇文章</a>了解。</p>
+<p>但是多进程程序不受此影响， Python 2.6 引入了 multiprocessing 来解决这个问题。这里介绍 multiprocessing 模块下的进程，进程同步，进程间通信和进程管理四个方面的内容。 这里主要讲解多进程的典型使用，multiprocessing 的 API 几乎是完复制了 threading 的API， 因此只需花少量的时间就可以熟悉 threading 编程了。<br><a id="more"></a></p>
+<h2 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h2><p>先来看一段代码</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process, current_process</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></div><div class="line">    time.sleep(<span class="number">1</span>)</div><div class="line">    proc = current_process()</div><div class="line">    proc.name, proc.pid</div><div class="line"></div><div class="line">sub_proc = Process(target=func, args=())</div><div class="line">sub_proc.start()</div><div class="line">sub_proc.join()</div><div class="line">proc = current_process()</div><div class="line">proc.name, proc.pid</div></pre></td></tr></table></figure>
+<p>这是在主进程中创建子进程，然后启动(start) 子进程，等待(join) 子进程执行完，再继续执行主进程的整个的执行流程。</p>
+<p>那么，一个进程应该是用来做什么的，它应该保存一些什么状态，它的生命周期是什么样的呢？</p>
+<p>一个进程需要处理一些不同任务，或者处理不同的对象。创建进程需要一个 function 和相关参数，参数可以是dict <code>Process(target=func, args=(), kwargs = {})</code>，<code>name</code> 可以用来标识进程。</p>
+<p>控制子进程进入不同阶段的是 <code>start()</code>, <code>join()</code>, <code>is_alive()</code>, <code>terminate()</code>, <code>exitcode</code> 方法。这些方法只能在创建子进程的进程中执行。</p>
+<h2 id="进程同步"><a href="#进程同步" class="headerlink" title="进程同步"></a>进程同步</h2><h3 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h3><p>锁是为了确保数据一致性，比如读写锁，每个进程给一个变量增加 1 ，但是如果在一个进程读取但还没有写入的时候，另外的进程也同时读取了，并写入该值，则最后写入的值是错误的，这时候就需要锁。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(lock)</span>:</span></div><div class="line">    lock.acquire()</div><div class="line">    <span class="comment"># do mysql query select update ...</span></div><div class="line">    lock.release()</div><div class="line">       </div><div class="line">lock = Lock()</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">4</span>):</div><div class="line">    proc = Process(target=func, args=(lock))</div><div class="line">    proc.start()</div></pre></td></tr></table></figure>
+<p>Lock 同时也实现了 ContextManager API, 可以结合 with 语句使用, 关于 ContextManager, 请移步 <a href="http://quqiuzhu.com/2016/python-decorator-and-context">Python 学习实践笔记 装饰器 与 context</a> 查看。</p>
+<h3 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h3><p>Semaphore 和 Lock 稍有不同，Semaphore 相当于 N 把锁，获取其中一把就可以执行了。 信号量的总数 N 在构造时传入，<code>s = Semaphore(N)</code>。 和 Lock 一样，如果信号量为0，则进程堵塞，直到信号大于0。</p>
+<h3 id="Pipes"><a href="#Pipes" class="headerlink" title="Pipes"></a>Pipes</h3><p>Pipe 是在两个进程之间通信的工具，Pipe Constructor 会返回两个端</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">conn1, conn2 = Pipe(<span class="keyword">True</span>)</div></pre></td></tr></table></figure>
+<p>如果是全双工的(构造函数参数为True)，则双端口都可接收发送，否则前面的端口用于接收，后面的端口用于发送。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">proc1</span><span class="params">(pipe)</span>:</span></div><div class="line">   <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">10000</span>):</div><div class="line">       pipe.send(i)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">proc2</span><span class="params">(pipe)</span>:</span></div><div class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">"proc2 rev:"</span>, pipe.recv()</div><div class="line"></div><div class="line">pipe = Pipe()</div><div class="line">Process(target=proc1, args=(pipe[<span class="number">0</span>],)).start()</div><div class="line">Process(target=proc2, args=(pipe[<span class="number">1</span>],)).start()</div></pre></td></tr></table></figure>
+<p>Pipe 的每个端口同时最多一个进程读写，否则数据会出各种问题</p>
+<h3 id="Queues"><a href="#Queues" class="headerlink" title="Queues"></a>Queues</h3><p>multiprocessing.Queue 与 Queue.Queue 非常相似。其 API 列表如下</p>
+<ul>
+<li>qsize()</li>
+<li>empty()</li>
+<li>full()</li>
+<li>put()</li>
+<li>put_nowait()</li>
+<li>get()</li>
+<li>get_nowait()</li>
+<li>close()</li>
+<li>join_thread()</li>
+<li>cancel_join_thread()</li>
+</ul>
+<p>当 Queue 为 Queue.Full 状态时，再 put() 会堵塞，当状态为 Queue.Empty 时，再 get() 也是。当 put() 或 get() 设置了超时参数，而超时的时候，会抛出异常。</p>
+<p>Queue 主要用于多个进程产生和消费，一般使用情况如下</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">producer</span><span class="params">(q)</span>:</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">10</span>):</div><div class="line">        q.put(i)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">consumer</span><span class="params">(q)</span>:</span></div><div class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">"consumer"</span>, q.get()</div><div class="line"></div><div class="line">q = Queue(<span class="number">40</span>)</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">10</span>):</div><div class="line">    Process(target=producer, args=(q,)).start()</div><div class="line">Process(target=consumer, args=(q,)).start()</div></pre></td></tr></table></figure>
+<p>十个生产者进程，一个消费者进程，共用同一个队列进行同步。</p>
+<p>有一个简化版本的 multiprocessing.queues.SimpleQueue, 只支持3个方法 empty(), get(), put()。</p>
+<p>也有一个强化版本的 JoinableQueue, 新增两个方法 task_done() 和 join()。 task_done() 是给消费者使用的，每完成队列中的一个任务，调用一次该方法。当所有的 tasks 都完成之后，交给调用 join() 的进程执行。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">consumer</span><span class="params">(q)</span>:</span></div><div class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">"consumer"</span>, q.get()</div><div class="line">        q.task_done()</div><div class="line"></div><div class="line">jobs = JoinableQueue()</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">10</span>):</div><div class="line">        jobs.put(i)</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">10</span>):</div><div class="line">    p = Process(target=consumer, args=(jobs,))</div><div class="line">    p.daemon = <span class="keyword">True</span></div><div class="line">    p.start()</div><div class="line"></div><div class="line">jobs.join()</div></pre></td></tr></table></figure>
+<p>这个 join 函数等待 JoinableQueue 为空的时候，等待就结束，外面的进程可以继续执行了，但是那10个进程干嘛去了呢，他们还在等待呀，上面是设置了 <code>p.daemon = True</code>, 子进程才随着主进程结束的，如果没有设置，它们还是会一直等待的呢。</p>
+<p>Lock、Pipe、Queue 和 Pipe 需要注意的是：尽量避免使用 Process.terminate 来终止程序，否则将会导致很多问题, 详情请移步<a href="https://docs.python.org/2/library/multiprocessing.html" target="_blank" rel="external">python 官方文档</a>查看。</p>
+<h2 id="进程间数据共享"><a href="#进程间数据共享" class="headerlink" title="进程间数据共享"></a>进程间数据共享</h2><p>前一节中, Pipe、Queue 都有一定数据共享的功能，但是他们会堵塞进程, 这里介绍的两种数据共享方式都不会堵塞进程, 而且都是多进程安全的。</p>
+<h3 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h3><p>共享内存有两个结构，一个是 <code>Value</code>, 一个是 <code>Array</code>，这两个结构内部都实现了锁机制，因此是多进程安全的。 用法如下：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(n, a)</span>:</span></div><div class="line">    n.value = <span class="number">50</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(a)):</div><div class="line">        a[i] += <span class="number">10</span></div><div class="line"></div><div class="line">num = Value(<span class="string">'d'</span>, <span class="number">0.0</span>)</div><div class="line">ints= Array(<span class="string">'i'</span>, range(<span class="number">10</span>))</div><div class="line"></div><div class="line">p = Process(target=func, args=(num, ints))</div><div class="line">p.start()</div><div class="line">p.join()</div></pre></td></tr></table></figure>
+<p>Value 和 Array 都需要设置其中存放值的类型，d 是 double 类型，i 是 int 类型，具体的对应关系在Python 标准库的 sharedctypes 模块中查看。</p>
+<h3 id="服务进程-Manager"><a href="#服务进程-Manager" class="headerlink" title="服务进程 Manager"></a>服务进程 Manager</h3><p>上面的共享内存支持两种结构 Value 和 Array, 这些值在主进程中管理，很分散。 Python 中还有一统天下，无所不能的 Server process，专门用来做数据共享。 其支持的类型非常多，比如list, dict, Namespace, Lock, RLock, Semaphore, BoundedSemaphore, Condition, Event, Queue, Value 和 Array 用法如下：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> multiprocessing <span class="keyword">import</span> Process, Manager</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(dct, lst)</span>:</span></div><div class="line">    dct[<span class="number">88</span>] = <span class="number">88</span></div><div class="line">    lst.reverse()</div><div class="line"></div><div class="line">manager = Manager()</div><div class="line">dct = manager.dict()</div><div class="line">lst = manager.list(range(<span class="number">5</span>,<span class="number">10</span>))</div><div class="line"></div><div class="line">p = Process(target=func, args=(dct, lst))</div><div class="line">p.start()</div><div class="line">p.join()</div><div class="line"><span class="keyword">print</span> dct, <span class="string">'|'</span>, lst</div><div class="line">Out: &#123;<span class="number">88</span>: <span class="number">88</span>&#125; | [<span class="number">9</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">5</span>]</div></pre></td></tr></table></figure>
+<p>一个 Manager 对象是一个服务进程，推荐多进程程序中，数据共享就用一个 manager 管理。</p>
+<h2 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h2><p>如果有50个任务要执行, 但是 CPU 只有4核, 你可以创建50个进程来做这个事情。但是大可不必，徒增管理开销。如果你只想创建4个进程，让他们轮流替你完成任务，不用自己去管理具体的进程的创建销毁，那 Pool 是非常有用的。</p>
+<p>Pool 是进程池，进程池能够管理一定的进程，当有空闲进程时，则利用空闲进程完成任务，直到所有任务完成为止，用法如下</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="keyword">return</span> x*x</div><div class="line"></div><div class="line">pool = Pool(processes=<span class="number">4</span>)</div><div class="line"><span class="keyword">print</span> pool.map(func, range(<span class="number">8</span>))</div></pre></td></tr></table></figure>
+<p>Pool 进程池创建4个进程，不管有没有任务，都一直在进程池中等候，等到有数据的时候就开始执行。<br>Pool 的 API 列表如下：</p>
+<ul>
+<li>apply(func[, args[, kwds]]) </li>
+<li>apply_async(func[, args[, kwds[, callback]]])</li>
+<li>map(func, iterable[, chunksize])</li>
+<li>map_async(func, iterable[, chunksize[, callback]])</li>
+<li>imap(func, iterable[, chunksize])</li>
+<li>imap_unordered(func, iterable[, chunksize])</li>
+<li>close()</li>
+<li>terminate()</li>
+<li>join()</li>
+</ul>
+<h3 id="异步执行"><a href="#异步执行" class="headerlink" title="异步执行"></a>异步执行</h3><p>apply_async 和 map_async 执行之后立即返回，然后异步返回结果。 使用方法如下</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="keyword">return</span> x*x</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">callback</span><span class="params">(x)</span>:</span></div><div class="line">    <span class="keyword">print</span> x, <span class="string">'in callback'</span></div><div class="line">    </div><div class="line">pool = Pool(processes=<span class="number">4</span>)</div><div class="line">result = pool.map_async(func, range(<span class="number">8</span>), <span class="number">8</span>, callback)</div><div class="line"><span class="keyword">print</span> result.get(), <span class="string">'in main'</span></div><div class="line">Out:</div><div class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>] <span class="keyword">in</span> callback</div><div class="line">[<span class="number">0</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>] <span class="keyword">in</span> main</div></pre></td></tr></table></figure>
+<p>有两个值得提到的，一个是 callback，另外一个是 multiprocessing.pool.AsyncResult。 callback 是在结果返回之前，调用的一个函数，这个函数必须只有一个参数，它会首先接收到结果。callback 不能有耗时操作，因为它会阻塞主线程。</p>
+<p>AsyncResult 是获取结果的对象，其 API 如下</p>
+<ul>
+<li>get([timeout])</li>
+<li>wait([timeout])</li>
+<li>ready()</li>
+<li>successful()</li>
+</ul>
+<p>如果设置了 timeout 时间，超时会抛出 multiprocessing.TimeoutError 异常。wait 是等待执行完成。 ready 测试是否已经完成，successful 是在确定已经 ready 的情况下，如果执行中没有抛出异常，则成功，如果没有ready 就调用该函数，会得到一个 AssertionError 异常。</p>
+<h3 id="Pool-管理"><a href="#Pool-管理" class="headerlink" title="Pool 管理"></a>Pool 管理</h3><p>这里不再继续讲 map 的各种变体了，因为从上面的 API 一看便知。</p>
+<p>然后我们来看看 Pool 的执行流程，有三个阶段。第一、一个进程池接收很多任务，然后分开执行任务；第二、不再接收任务了；第三、等所有任务完成了，回家，不干了。</p>
+<p>这就是上面的方法，close 停止接收新的任务，如果还有任务来，就会抛出异常。 join 是等待所有任务完成。 join 必须要在 close 之后调用，否则会抛出异常。terminate 非正常终止，内存不够用时，垃圾回收器调用的就是这个方法。</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag">#python</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/python-collections/" rel="next" title="Python 学习笔记 高性能容器 collections">
+                <i class="fa fa-chevron-left"></i> Python 学习笔记 高性能容器 collections
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/python-decorator-and-context/" rel="prev" title="Python 学习笔记 装饰器 与 context">
+                Python 学习笔记 装饰器 与 context <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="屈秋竹" />
+          <p class="site-author-name" itemprop="name">屈秋竹</p>
+          <p class="site-description motion-element" itemprop="description">看见未来</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/quqiuzhu" target="_blank" rel="external nofollow">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1878473920" target="_blank" rel="external nofollow">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title"></div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://paulgraham.com/" target="_blank" rel="external nofollow">Paul Graham</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/" target="_blank" rel="external nofollow">阮一峰</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Process"><span class="nav-number">1.</span> <span class="nav-text">Process</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程同步"><span class="nav-number">2.</span> <span class="nav-text">进程同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Lock"><span class="nav-number">2.1.</span> <span class="nav-text">Lock</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Semaphore"><span class="nav-number">2.2.</span> <span class="nav-text">Semaphore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipes"><span class="nav-number">2.3.</span> <span class="nav-text">Pipes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Queues"><span class="nav-number">2.4.</span> <span class="nav-text">Queues</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程间数据共享"><span class="nav-number">3.</span> <span class="nav-text">进程间数据共享</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#共享内存"><span class="nav-number">3.1.</span> <span class="nav-text">共享内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务进程-Manager"><span class="nav-number">3.2.</span> <span class="nav-text">服务进程 Manager</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程管理"><span class="nav-number">4.</span> <span class="nav-text">进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异步执行"><span class="nav-number">4.1.</span> <span class="nav-text">异步执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pool-管理"><span class="nav-number">4.2.</span> <span class="nav-text">Pool 管理</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">屈秋竹</span>
+</div>
+
+<div class="powered-by">
+	<a href=http://www.miitbeian.gov.cn/>浙ICP备17015868号</a>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eXu3fwClfzqDDYp3Kzrjxwd3-gzGzoHsz", "xG1eazekJ0swFCTM9D0GRMcR");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

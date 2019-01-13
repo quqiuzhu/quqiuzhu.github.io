@@ -1,0 +1,728 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="屈秋竹" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="迭代器一个迭代器是一个实现了__iter__()方法和 next()方法的对象，但是我发现这两个并不需要一起实现，就像Java中一样，返回迭代子的对象和迭代子是分离的。 __iter__() 只是返回迭代器，真正进行迭代的是实现了 next()方法的，所以可以在 for i in r 的r中实现一个__iter__()方法，然后返回一个实现了next()方法的对象12345678910111213">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 学习笔记 迭代器和生成器">
+<meta property="og:url" content="http://quqiuzhu.com/2016/python-iterator-and-generator/index.html">
+<meta property="og:site_name" content="屈秋竹">
+<meta property="og:description" content="迭代器一个迭代器是一个实现了__iter__()方法和 next()方法的对象，但是我发现这两个并不需要一起实现，就像Java中一样，返回迭代子的对象和迭代子是分离的。 __iter__() 只是返回迭代器，真正进行迭代的是实现了 next()方法的，所以可以在 for i in r 的r中实现一个__iter__()方法，然后返回一个实现了next()方法的对象12345678910111213">
+<meta property="og:updated_time" content="2016-04-24T14:26:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 学习笔记 迭代器和生成器">
+<meta name="twitter:description" content="迭代器一个迭代器是一个实现了__iter__()方法和 next()方法的对象，但是我发现这两个并不需要一起实现，就像Java中一样，返回迭代子的对象和迭代子是分离的。 __iter__() 只是返回迭代器，真正进行迭代的是实现了 next()方法的，所以可以在 for i in r 的r中实现一个__iter__()方法，然后返回一个实现了next()方法的对象12345678910111213">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Python 学习笔记 迭代器和生成器 | 屈秋竹 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b4521611c821e63392c1d1e8ce6ef4ab";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">屈秋竹</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">看见未来</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python 学习笔记 迭代器和生成器
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-06T23:08:59+08:00" content="2016-04-06">
+              2016-04-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/python-iterator-and-generator/" class="leancloud_visitors" data-flag-title="Python 学习笔记 迭代器和生成器">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><p>一个迭代器是一个实现了<code>__iter__()</code>方法和 <code>next()</code>方法的对象，但是我发现这两个并不需要一起实现，就像Java中一样，返回迭代子的对象和迭代子是分离的。 <code>__iter__()</code> 只是返回迭代器，真正进行迭代的是实现了 <code>next()</code>方法的，所以可以在 <code>for i in r</code> 的r中实现一个<code>__iter__()</code>方法，然后返回一个实现了<code>next()</code>方法的对象<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Itrator</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.i = <span class="number">4</span>;</div><div class="line">        </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">next</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">if</span> self.i:</div><div class="line">            self.i -= <span class="number">1</span></div><div class="line">            <span class="keyword">return</span> self.i</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">raise</span> StopIteration</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Iterable</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> Itrator()</div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> Iterable():</div><div class="line">    <span class="keyword">print</span> i</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>当然一般上都可以把这两个方法写在同一个类里面，python里和Java是一样的，一个是Iterable，一个是Itrator。</p>
+<h2 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h2><p>有两种生成器，第一种是产生值的生成器，像下面这样的<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">power</span><span class="params">(values)</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">'xxxx'</span></div><div class="line">    <span class="keyword">for</span> value <span class="keyword">in</span> values:</div><div class="line">        <span class="keyword">yield</span> value</div></pre></td></tr></table></figure></p>
+<p>第二种种是作为表达式的生成器，这种生成器需要接受外面的输入，像下面这样的<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">psychologist</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">print</span> <span class="string">'plaese tell me your problem'</span></div><div class="line">    <span class="keyword">while</span> <span class="keyword">True</span> :</div><div class="line">        answer = (<span class="keyword">yield</span>)</div><div class="line">        <span class="keyword">if</span> answer <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">            <span class="keyword">if</span> answer.endswith(<span class="string">'?'</span>):</div><div class="line">                <span class="keyword">print</span> <span class="string">'what is you question?'</span></div><div class="line">            <span class="keyword">elif</span> <span class="string">'good'</span> <span class="keyword">in</span> ans:</div><div class="line">                <span class="keyword">print</span> <span class="string">'good good'</span></div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">print</span> <span class="string">'hahaha'</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">raise</span> StopIteration</div></pre></td></tr></table></figure></p>
+<h3 id="第一种生成器"><a href="#第一种生成器" class="headerlink" title="第一种生成器"></a>第一种生成器</h3><p>这种生成器是可以迭代的，因为生成器函数会返回一个生成器对象，而生成器实现了<code>next</code> 和 <code>__iter__</code>方法，所以是可以迭代的。</p>
+<p>另外，由于生成器函数默认会返回一个生成器，所以生成器方法中return 语句不能返回任何东西，否则就会出错。</p>
+<p>生成器最重要的一个特性，是可以暂停并保持生成器方法的状态，直到调用下一个生成器方法，这一种特性被用在协同程序中。</p>
+<p>一开始调用生成器函数时，除了返回一个生成器对象之外，不会执行任何代码。因此，在上面的power 方法中，即便是 print ‘xxxx’语句在 关键字yield之前，也不会执行。这些代码是初始代码，将会在第一个next方法调用的时候执行。</p>
+<h3 id="第二种生成器"><a href="#第二种生成器" class="headerlink" title="第二种生成器"></a>第二种生成器</h3><p>这种生成器需要外面给它传值，有四个方法,分别是 <code>next()</code>, <code>send(val)</code>, <code>throw(err)</code>, <code>close()</code>。</p>
+<p><code>send(val)</code> 方法给生成器传值，每一次传值就是一次迭代</p>
+<p><code>next()</code> 方法等价于 <code>send(None)</code>， 因此迭代该生成器，就相当于不断发送None 值，直到遇到 StopIteration 异常。</p>
+<p><code>close()</code> 相当于做了一个停止的标记，之后不能再调用 send 和 next 方法，否则会得到 StopIteration 异常，但是可以调用throw方法。 </p>
+<p><code>throw(err)</code> 方法会向生成器发出异常，而不是向外发出。要理解这一点并不难，因为这样外面调用者就可以随意停止迭代了。</p>
+<h3 id="生成器的几个应用"><a href="#生成器的几个应用" class="headerlink" title="生成器的几个应用"></a>生成器的几个应用</h3><ul>
+<li>协程</li>
+<li>生成器表达式（类似列表推导）</li>
+</ul>
+<h2 id="itertools"><a href="#itertools" class="headerlink" title="itertools"></a>itertools</h2><p>这里面的函数一般都以i开头。</p>
+<p><code>islice()</code> 窗口迭代，第一个参数是iterable对象，后面如果只有一个参数，则是stop位置，如果两个参数则是start 和 stop，第三个参数是步长<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">a = range(<span class="number">10</span>)</div><div class="line">list(itertools.islice(a, <span class="number">4</span>))</div><div class="line">Out: [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div><div class="line">list(itertools.islice(a, <span class="number">4</span>, <span class="keyword">None</span>))</div><div class="line">Out: [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</div><div class="line">list(itertools.islice(a, <span class="number">4</span>, <span class="keyword">None</span>, <span class="number">2</span>))</div><div class="line">Out: [<span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>]</div></pre></td></tr></table></figure></p>
+<p><code>count</code>,<code>cycle</code>,<code>repeat</code> 无限迭代，第一个一段整数不断递增或者递减，第二个传入一个可迭代对象，然后就会得到一个循环迭代。repeat函数会一直重复迭代一个元素。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">list(itertools.islice(itertools.count(<span class="number">20</span>), <span class="number">4</span>))</div><div class="line">Out: [<span class="number">20</span>, <span class="number">21</span>, <span class="number">22</span>, <span class="number">23</span>]</div><div class="line">list(itertools.islice(itertools.count(<span class="number">20</span>,<span class="number">-1</span>), <span class="number">4</span>))</div><div class="line">Out: [<span class="number">20</span>, <span class="number">19</span>, <span class="number">18</span>, <span class="number">17</span>]</div><div class="line">list(itertools.islice(itertools.repeat(<span class="number">-1</span>), <span class="number">4</span>))</div><div class="line">Out: [<span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>, <span class="number">-1</span>]</div><div class="line">list(itertools.islice(itertools.cycle([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]), <span class="number">4</span>))</div><div class="line">Out: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>]</div></pre></td></tr></table></figure></p>
+<p><code>chain</code>, 传入一组可迭代对象，按顺序迭代，有时候知道是列表等明确的数据类型的时候，是不需要这个函数的，一般也可以先转换，再连接，但又太浪费内存资源了。所以写一个共用库的时候，最后记得用这个。</p>
+<p>相似的是<code>tee</code>, 传入一个iterable对象，返回多个iterable对象，默认返回两个<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">l1 = [<span class="number">2</span>,<span class="number">3</span>,<span class="number">9</span>,<span class="number">4</span>,<span class="number">7</span>,<span class="number">1</span>]</div><div class="line">l2 = [<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>]</div><div class="line">list(itertools.chain(l1,l2)))</div><div class="line">Out: [<span class="number">2</span>, <span class="number">3</span>, <span class="number">9</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">3</span>]</div><div class="line">i1,i2 = itertools.tee(l1,<span class="number">2</span>)</div><div class="line">i1.next()</div><div class="line">Out: <span class="number">2</span></div><div class="line">i2.next()</div><div class="line">Out: <span class="number">2</span></div></pre></td></tr></table></figure></p>
+<p><code>compress</code>,<code>ifilter</code>,<code>ifilterfalse</code> 过滤迭代，<code>compress</code>函数传入iterable数据，第二个iterable选择条件，而<code>ifilter</code>,<code>ifilterfalse</code>，第一个参数是筛选函数，第二个参数是数据。下面是选择征兵青年，输出年龄在18-24岁的人名，用这3个函数分别的完成方式<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">candidates = [</div><div class="line">	(<span class="number">8</span>,<span class="string">'zhangsan'</span>), </div><div class="line">	(<span class="number">21</span>, <span class="string">'lisi'</span>), </div><div class="line">	(<span class="number">19</span>, <span class="string">'wangmazi'</span>),</div><div class="line">	(<span class="number">40</span>, <span class="string">'laozi'</span>)</div><div class="line">]</div><div class="line">list(itertools.compress(</div><div class="line">	 	(c[<span class="number">1</span>] <span class="keyword">for</span> c <span class="keyword">in</span> candidates),</div><div class="line">	 	(<span class="number">18</span> &lt;= c[<span class="number">0</span>] &lt;= <span class="number">22</span> <span class="keyword">for</span> c <span class="keyword">in</span> candidates)</div><div class="line">	 )</div><div class="line">)</div><div class="line">Out: [<span class="string">'lisi'</span>, <span class="string">'wangmazi'</span>]</div><div class="line">list(itertools.ifilter(</div><div class="line">		<span class="keyword">lambda</span> x:<span class="number">18</span> &lt;= x[<span class="number">0</span>] &lt;= <span class="number">22</span>,</div><div class="line">	 	(c <span class="keyword">for</span> c <span class="keyword">in</span> candidates)</div><div class="line">	 )</div><div class="line">)</div><div class="line">Out: [(<span class="number">21</span>, <span class="string">'lisi'</span>), (<span class="number">19</span>, <span class="string">'wangmazi'</span>)]</div></pre></td></tr></table></figure></p>
+<p><code>ifilterfalse</code>函数与<code>ifilter</code>只是条件函数不同，就不列举了。这里可以发现一个轻微的不同，我只要输出名字，但是<code>ifilter</code>输出了 candidate 列表。但是如果只传入名字作为参数，又无法判断，只能输入 candidate 列表，因为输入的数据和输出的数据是同源的，返回的就只能是 candidate列表。该例子说明了为什么有了 <code>ifilter</code> 还需要 <code>compress</code> 的原因，当需要返回的数据不足以作为筛选判断条件的时候，<code>compress</code> 就非常有用。</p>
+<p><code>takewhile</code>,<code>dropwhile</code> 第一个参数是筛选函数，第二个参数是数据。<code>takewhile</code> 是一开始就拿，直到条件不满足为止；<code>dropwhile</code> 一开始不要，直到条件不满足，然后拿之后的所有数据。所以<code>takewhile</code>倾向于拿前面的数据，<code>dropwhile</code>倾向于拿后半部分的数据。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">list(itertools.takewhile(<span class="keyword">lambda</span> x: x&lt;<span class="number">5</span>, [<span class="number">1</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">1</span>]))</div><div class="line">Out: [<span class="number">1</span>, <span class="number">4</span>]</div><div class="line">list(itertools.dropwhile(<span class="keyword">lambda</span> x: x&lt;<span class="number">5</span>, [<span class="number">1</span>,<span class="number">4</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">1</span>]))</div><div class="line">Out: [<span class="number">6</span>, <span class="number">4</span>, <span class="number">1</span>]</div></pre></td></tr></table></figure></p>
+<p><code>izip()</code>, <code>izip_longest()</code> 装包函数，把几个课迭代的对象组合起来，返回元组迭代<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">list(itertools.izip(<span class="string">'ABCD'</span>, <span class="string">'xy'</span>))</div><div class="line">Out: [(<span class="string">'A'</span>, <span class="string">'x'</span>), (<span class="string">'B'</span>, <span class="string">'y'</span>)]</div><div class="line">list(itertools.izip_longest(<span class="string">'ABCD'</span>, <span class="string">'xy'</span>))</div><div class="line">Out: [(<span class="string">'A'</span>, <span class="string">'x'</span>), (<span class="string">'B'</span>, <span class="string">'y'</span>), (<span class="string">'C'</span>, <span class="keyword">None</span>), (<span class="string">'D'</span>, <span class="keyword">None</span>)]</div><div class="line">list(itertools.izip_longest(<span class="string">'ABCD'</span>, <span class="string">'xy'</span>, fillvalue = <span class="string">'-'</span>))</div><div class="line">Out: [(<span class="string">'A'</span>, <span class="string">'x'</span>), (<span class="string">'B'</span>, <span class="string">'y'</span>), (<span class="string">'C'</span>, <span class="string">'-'</span>), (<span class="string">'D'</span>, <span class="string">'-'</span>)]</div></pre></td></tr></table></figure></p>
+<p><code>imap()</code>, <code>starmap()</code> 第一个参数是函数，后面的是传入的数据，返回的是函数的返回值序列 <code>imap()</code> 先把后面的一串可迭代对象装包，<code>starmap()</code>是后面参数已经装包好了的<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">list(itertools.imap(operator.add, (<span class="number">2</span>,<span class="number">3</span>,<span class="number">10</span>), (<span class="number">5</span>,<span class="number">2</span>,<span class="number">3</span>)))</div><div class="line">Out: [<span class="number">7</span>, <span class="number">5</span>, <span class="number">13</span>]</div><div class="line">list(itertools.imap(operator.add, (<span class="number">2</span>,<span class="number">3</span>,<span class="number">10</span>), (<span class="number">5</span>,<span class="number">2</span>)))</div><div class="line">Out: [<span class="number">7</span>, <span class="number">5</span>]</div></pre></td></tr></table></figure></p>
+<p><code>groupby()</code> 将迭代对象变为按连续的key分组，返回是一个迭代对象，该对象为(key, subgroup) 形式。这里只是让key不连续重复，并不会保证key不重复<br><figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">lst = <span class="string">'get uuuuuuuuuuuuuuupd'</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">group</span><span class="params">(data)</span>:</span></div><div class="line">    <span class="keyword">for</span> k,g <span class="keyword">in</span> itertools.groupby(data):</div><div class="line">        <span class="keyword">print</span> k,list(g)</div><div class="line">group(lst)</div><div class="line">Out: </div><div class="line">g [<span class="string">'g'</span>]</div><div class="line">e [<span class="string">'e'</span>]</div><div class="line">t [<span class="string">'t'</span>]</div><div class="line">  [<span class="string">' '</span>]</div><div class="line">u [<span class="string">'u'</span>, <span class="string">'u'</span>, <span class="string">'u'</span>, <span class="string">'u'</span>, <span class="string">'u'</span>, <span class="string">'u'</span>, <span class="string">'u'</span>, <span class="string">'u'</span>, <span class="string">'u'</span>, <span class="string">'u'</span>, <span class="string">'u'</span>, <span class="string">'u'</span>, <span class="string">'u'</span>, <span class="string">'u'</span>, <span class="string">'u'</span>]</div><div class="line">p [<span class="string">'p'</span>]</div><div class="line">d [<span class="string">'d'</span>]</div></pre></td></tr></table></figure></p>
+<p><code>product()</code>, <code>permutations()</code>, <code>combinations()</code> 笛卡尔乘法、排列和组合。笛卡尔乘包含自身与自身的组合，排列不包含，而组合不按顺序来。这个不举例子，可以将一些双重循环变成单循环</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag">#python</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/python-decorator-and-context/" rel="next" title="Python 学习笔记 装饰器 与 context">
+                <i class="fa fa-chevron-left"></i> Python 学习笔记 装饰器 与 context
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="屈秋竹" />
+          <p class="site-author-name" itemprop="name">屈秋竹</p>
+          <p class="site-description motion-element" itemprop="description">看见未来</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/quqiuzhu" target="_blank" rel="external nofollow">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1878473920" target="_blank" rel="external nofollow">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title"></div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://paulgraham.com/" target="_blank" rel="external nofollow">Paul Graham</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/" target="_blank" rel="external nofollow">阮一峰</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#迭代器"><span class="nav-number">1.</span> <span class="nav-text">迭代器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成器"><span class="nav-number">2.</span> <span class="nav-text">生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一种生成器"><span class="nav-number">2.1.</span> <span class="nav-text">第一种生成器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二种生成器"><span class="nav-number">2.2.</span> <span class="nav-text">第二种生成器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成器的几个应用"><span class="nav-number">2.3.</span> <span class="nav-text">生成器的几个应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#itertools"><span class="nav-number">3.</span> <span class="nav-text">itertools</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">屈秋竹</span>
+</div>
+
+<div class="powered-by">
+	<a href=http://www.miitbeian.gov.cn/>浙ICP备17015868号</a>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eXu3fwClfzqDDYp3Kzrjxwd3-gzGzoHsz", "xG1eazekJ0swFCTM9D0GRMcR");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,757 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="屈秋竹" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="Python 支持四种内建的集合类型 dict, list, set 和 tuple, 这些类型覆盖了大多数的使用场景。作为补充，collections 提供了几种高性能容器数据类型，Counter, deque, defaultdict 和 OrderedDict，以及 namedtuple() 函数。">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 学习笔记 高性能容器 collections">
+<meta property="og:url" content="http://quqiuzhu.com/2016/python-collections/index.html">
+<meta property="og:site_name" content="屈秋竹">
+<meta property="og:description" content="Python 支持四种内建的集合类型 dict, list, set 和 tuple, 这些类型覆盖了大多数的使用场景。作为补充，collections 提供了几种高性能容器数据类型，Counter, deque, defaultdict 和 OrderedDict，以及 namedtuple() 函数。">
+<meta property="og:image" content="http://quqiuzhu.com/images/python_abc.png">
+<meta property="og:updated_time" content="2016-04-24T01:40:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 学习笔记 高性能容器 collections">
+<meta name="twitter:description" content="Python 支持四种内建的集合类型 dict, list, set 和 tuple, 这些类型覆盖了大多数的使用场景。作为补充，collections 提供了几种高性能容器数据类型，Counter, deque, defaultdict 和 OrderedDict，以及 namedtuple() 函数。">
+<meta name="twitter:image" content="http://quqiuzhu.com/images/python_abc.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Python 学习笔记 高性能容器 collections | 屈秋竹 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?b4521611c821e63392c1d1e8ce6ef4ab";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">屈秋竹</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">看见未来</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Python 学习笔记 高性能容器 collections
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-17T20:54:06+08:00" content="2016-04-17">
+              2016-04-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/python-collections/" class="leancloud_visitors" data-flag-title="Python 学习笔记 高性能容器 collections">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Python 支持四种内建的集合类型 dict, list, set 和 tuple, 这些类型覆盖了大多数的使用场景。作为补充，collections 提供了几种高性能容器数据类型，Counter, deque, defaultdict 和 OrderedDict，以及 namedtuple() 函数。<br><a id="more"></a></p>
+<h2 id="Counter"><a href="#Counter" class="headerlink" title="Counter"></a>Counter</h2><p>先不忙讲 Counter 怎么用，先想想如果你来实现一个计数器，应该怎么实现，有哪些功能。我列一下，至少有 3 个功能。</p>
+<ol>
+<li>接收要统计的数据</li>
+<li>更新统计数据</li>
+<li>获取统计结果</li>
+</ol>
+<p>其中 1 和 3 都涉及和 Python 内建类型之间的转换，2 涉及 Counter 之间的交互。</p>
+<h4 id="接收要统计的数据"><a href="#接收要统计的数据" class="headerlink" title="接收要统计的数据"></a>接收要统计的数据</h4><p>数据一般是从构造函数传入，参数可以为 iterable 对象，也可以是 mapping 或者关键字参数。 </p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">c = Counter(<span class="string">'quqiuzhu'</span>)</div><div class="line">c = Counter(&#123;<span class="string">'qu'</span>: <span class="number">1</span>, <span class="string">'qiu'</span>: <span class="number">2</span>, <span class="string">'zhu'</span>: <span class="number">3</span>&#125;)</div><div class="line">c = Counter(qu=<span class="number">1</span>, qiu=<span class="number">2</span>, zhu=<span class="number">3</span>)</div><div class="line">``` </div><div class="line">上面的例子看起来好像是 Counter 里面的 key 必须是字符串类型，value 必须是 int 类型的，实际上并没有这样的限制。比如可以像这样</div><div class="line"></div><div class="line">```py</div><div class="line">cc = Counter(&#123;<span class="string">'qu'</span>: <span class="number">1</span>, <span class="number">4</span>: <span class="number">2</span>, <span class="string">'zhu'</span>: <span class="string">'str'</span>&#125;)</div></pre></td></tr></table></figure>
+<p>不过在 Counter 之间计算的时候会有一些问题，比如两个 Counter 相加的时候。</p>
+<h4 id="更新统计数据"><a href="#更新统计数据" class="headerlink" title="更新统计数据"></a>更新统计数据</h4><p>单个数据的更新和访问，支持下标访问，如果 Counter 中没有该记录，则返回 0。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">c[<span class="string">'quqiuzhu.com'</span>] <span class="comment"># 0</span></div><div class="line">c[<span class="string">'quqiuzhu.com'</span>] = <span class="number">10</span> <span class="comment"># 10</span></div></pre></td></tr></table></figure>
+<p>批量更新有两个方法，<code>subtract([iterable-or-mapping])</code> 和 <code>update([iterable-or-mapping])</code>，参数可以是 iterable, dict, 关键字参数或者 Counter 对象。 <code>subtract</code> 方法对 key 相同的 value 简单的应用减法运算，如果 value 不支持减法运算的话，就会出错，比如上面提到的，value 为 字符串的情况。</p>
+<p>Counter 之间也可以进行 +, -, |, &amp; 运算，和你想象中的一样，都是相同 key 的 value 值之间的运算。</p>
+<h4 id="获取统计结果"><a href="#获取统计结果" class="headerlink" title="获取统计结果"></a>获取统计结果</h4><p><code>most_common([n])</code> 获取计数最多的 n 个 (key, value)的列表，<code>items()</code> 返回所有的，<code>elements()</code> 获取统计计数大于等于 2 的。</p>
+<p>可以使用 set, list, dict 转为相应类型。 </p>
+<h2 id="deque"><a href="#deque" class="headerlink" title="deque"></a>deque</h2><p>实现了双端队列的 API, 当队列为定长队列时，如果队列 isFull，则丢弃另一端的 items。</p>
+<ul>
+<li>append(x)</li>
+<li>appendleft(x)</li>
+<li>extend(iterable)</li>
+<li>extendleft(iterable) 其中 iterable item 顺序会反过来</li>
+<li>pop()</li>
+<li>popleft()</li>
+<li>clear()</li>
+<li>count(x)</li>
+<li>remove(x)</li>
+<li>reverse() 原地反转, 返回None</li>
+<li>rotate(n)</li>
+</ul>
+<p>支持随机访问，但性能不是很好。有只读属性 maxlen, 支持函数操作 len(d), reversed(d), copy.copy(d), copy.deepcopy(d)</p>
+<h2 id="defaultdict-与-OrderedDict"><a href="#defaultdict-与-OrderedDict" class="headerlink" title="defaultdict 与 OrderedDict"></a>defaultdict 与 OrderedDict</h2><p>该结构扩展自内建类型 dict 。给所有新的 key 一个默认值，该默认值来自于参数 default_factory。<br>用法如下:</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">d = defaultdict(list)</div><div class="line">d[<span class="string">'k'</span>] <span class="comment"># []</span></div></pre></td></tr></table></figure>
+<p>由于当前没有 key ‘k’, 所以 defaultdict 调用 default_factory 函数，创建了一个默认值。 这里的 default_factory 是 list 函数。</p>
+<p>OrderedDict items 是按照顺序存放的，用来做相等性检测是很好的。</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">d = &#123;<span class="string">'banana'</span>: <span class="number">3</span>, <span class="string">'apple'</span>:<span class="number">4</span>, <span class="string">'pear'</span>: <span class="number">1</span>, <span class="string">'orange'</span>: <span class="number">2</span>&#125;</div><div class="line">OrderedDict(sorted(d.items(), key=<span class="keyword">lambda</span> t: t[<span class="number">0</span>]))</div></pre></td></tr></table></figure>
+<p>可以指定排序函数</p>
+<h2 id="namedtuple"><a href="#namedtuple" class="headerlink" title="namedtuple()"></a>namedtuple()</h2><p>这是非常经典，非常有意思的一个函数，其简单用法如下：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Point = namedtuple(<span class="string">'Point'</span>, [<span class="string">'x'</span>, <span class="string">'y'</span>])</div></pre></td></tr></table></figure>
+<p>这个 Point 是一个类，该类增强了内建的 tuple 类型。 使其支持一般的 tuple操作，也同时支持名称访问，上面的代码，其实现为</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span><span class="params">(tuple)</span>:</span></div><div class="line">    <span class="string">'Point(x, y)'</span></div><div class="line"></div><div class="line">    __slots__ = ()</div><div class="line"></div><div class="line">    _fields = (<span class="string">'x'</span>, <span class="string">'y'</span>)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(_cls, x, y)</span>:</span></div><div class="line">        <span class="string">'Create a new instance of Point(x, y)'</span></div><div class="line">        <span class="keyword">return</span> _tuple.__new__(_cls, (x, y))</div><div class="line"></div><div class="line"><span class="meta">    @classmethod</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_make</span><span class="params">(cls, iterable, new=tuple.__new__, len=len)</span>:</span></div><div class="line">        <span class="string">'Make a new Point object from a sequence or iterable'</span></div><div class="line">        result = new(cls, iterable)</div><div class="line">        <span class="keyword">if</span> len(result) != <span class="number">2</span>:</div><div class="line">            <span class="keyword">raise</span> TypeError(<span class="string">'Expected 2 arguments, got %d'</span> % len(result))</div><div class="line">        <span class="keyword">return</span> result</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="string">'Return a nicely formatted representation string'</span></div><div class="line">        <span class="keyword">return</span> <span class="string">'Point(x=%r, y=%r)'</span> % self</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_asdict</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="string">'Return a new OrderedDict which maps field names to their values'</span></div><div class="line">        <span class="keyword">return</span> OrderedDict(zip(self._fields, self))</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_replace</span><span class="params">(_self, **kwds)</span>:</span></div><div class="line">        <span class="string">'Return a new Point object replacing specified fields with new values'</span></div><div class="line">        result = _self._make(map(kwds.pop, (<span class="string">'x'</span>, <span class="string">'y'</span>), _self))</div><div class="line">        <span class="keyword">if</span> kwds:</div><div class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'Got unexpected field names: %r'</span> % kwds.keys())</div><div class="line">        <span class="keyword">return</span> result</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getnewargs__</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="string">'Return self as a plain tuple.   Used by copy and pickle.'</span></div><div class="line">        <span class="keyword">return</span> tuple(self)</div><div class="line"></div><div class="line">    __dict__ = _property(_asdict)</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__getstate__</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="string">'Exclude the OrderedDict from pickling'</span></div><div class="line">        <span class="keyword">pass</span></div><div class="line"></div><div class="line">    x = _property(_itemgetter(<span class="number">0</span>), doc=<span class="string">'Alias for field number 0'</span>)</div><div class="line"></div><div class="line">    y = _property(_itemgetter(<span class="number">1</span>), doc=<span class="string">'Alias for field number 1'</span>)</div></pre></td></tr></table></figure>
+<p>其内部实现为 String 定义模板加上 <code>exec class_definition in namespace</code> 来实现。有兴趣的可以查看其源代码。</p>
+<p>新建一个 namedtuple 条目</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">p = Point(<span class="number">11</span>, <span class="number">22</span>)</div><div class="line">p.x <span class="comment"># 11</span></div></pre></td></tr></table></figure>
+<p>总结以上，其 API 列表为</p>
+<ul>
+<li>somenamedtuple._make(iterable)</li>
+<li>somenamedtuple._asdict()</li>
+<li>somenamedtuple._replace(kwargs)</li>
+</ul>
+<h2 id="ABC-集合抽象基类"><a href="#ABC-集合抽象基类" class="headerlink" title="ABC 集合抽象基类"></a>ABC 集合抽象基类</h2><p>下面的表格摘自 <a href="https://docs.python.org/2/library/collections.html" target="_blank" rel="external">Python 官方文档</a></p>
+<p><img src="http://quqiuzhu.com/images/python_abc.png" alt=""></p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag">#python</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/python-descriptor/" rel="next" title="Python 学习笔记 描述符">
+                <i class="fa fa-chevron-left"></i> Python 学习笔记 描述符
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/python-multiprocessing/" rel="prev" title="Python 学习笔记 多进程 multiprocessing">
+                Python 学习笔记 多进程 multiprocessing <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="屈秋竹" />
+          <p class="site-author-name" itemprop="name">屈秋竹</p>
+          <p class="site-description motion-element" itemprop="description">看见未来</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/quqiuzhu" target="_blank" rel="external nofollow">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1878473920" target="_blank" rel="external nofollow">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank" rel="external nofollow">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title"></div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://paulgraham.com/" target="_blank" rel="external nofollow">Paul Graham</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/" target="_blank" rel="external nofollow">阮一峰</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Counter"><span class="nav-number">1.</span> <span class="nav-text">Counter</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#接收要统计的数据"><span class="nav-number">1.0.1.</span> <span class="nav-text">接收要统计的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新统计数据"><span class="nav-number">1.0.2.</span> <span class="nav-text">更新统计数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取统计结果"><span class="nav-number">1.0.3.</span> <span class="nav-text">获取统计结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deque"><span class="nav-number">2.</span> <span class="nav-text">deque</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#defaultdict-与-OrderedDict"><span class="nav-number">3.</span> <span class="nav-text">defaultdict 与 OrderedDict</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#namedtuple"><span class="nav-number">4.</span> <span class="nav-text">namedtuple()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ABC-集合抽象基类"><span class="nav-number">5.</span> <span class="nav-text">ABC 集合抽象基类</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">屈秋竹</span>
+</div>
+
+<div class="powered-by">
+	<a href=http://www.miitbeian.gov.cn/>浙ICP备17015868号</a>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" rel="external nofollow">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eXu3fwClfzqDDYp3Kzrjxwd3-gzGzoHsz", "xG1eazekJ0swFCTM9D0GRMcR");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
