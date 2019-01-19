@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Android on 看见未来</title>
+    <link>https://quqiuzhu.com/categories/android/</link>
+    <description>Recent content in Android on 看见未来</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 30 Oct 2016 02:09:53 +0000</lastBuildDate>
+    
+	<atom:link href="https://quqiuzhu.com/categories/android/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>React Native</title>
+      <link>https://quqiuzhu.com/2016/react-native/</link>
+      <pubDate>Sun, 30 Oct 2016 02:09:53 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/react-native/</guid>
+      <description>最近公司开发了一款叫「熊猫洋货」的APP，学习了一些 React Native 的知识，在这里进行一下总结
+ 环境搭建 React Native 页面 原生应用集成  环境搭建 因为我是一名使用 Mac 的 Android 开发者，所以 Mac下的 Android 环境、HomeBrew 包管理器都已具备。只需要装 Node 和 React Native 命令行工具即可。 安装 Node 主要是希望使用其包管理工具 npm 。安装命令如下
+brew install node npm install -g react-native-cli 在此提醒一下，请注意 HomeBrew 的提示，如果有命令没有安装成功，按照 HomeBrew 的提示操作。
+React Native 页面 React 推荐使用 JSX 语法来写页面，因为其可读性较强。因为 JSX 是一种类 XML 的语法，对于习惯于使用布局文件的 Android 开发者来说并不陌生。 使用 React Component 来开发我们的应用界面
+class Greeting extends Component { render() { return ( &amp;lt;Text&amp;gt;Hello world!</description>
+    </item>
+    
+    <item>
+      <title>2016 年的 JavaScript</title>
+      <link>https://quqiuzhu.com/2016/js-2016/</link>
+      <pubDate>Wed, 05 Oct 2016 07:34:02 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/js-2016/</guid>
+      <description>今天早上看了一篇文章, 名字叫How it feels to learn JavaScript in 2016 。模拟一个新加入项目, 了解过一点ES5和前端开发, 但对 2016 年 JavaScript 变化一无所知的人与作者的对话, 介绍了 2016 年 JavaScript 与前端开发的最新情况。 观整体趋势, JS 和 React 必将成为移动开发和Web前端开发的主流, 如果通过 NodeJs 等框架来写后端, 单单写 JS 就可以成为全栈工程师。 JS 后劲足, 早在 2014 年, 我就听说有人在嵌入式开发中引入了 JS, 因此 JS 变得越来越重要。以下是我看完之后记下的一些点
+ React &amp;amp; React DOM 使用 JSX 语法来写组件, 不再直接使用 HTML Babel 是将 ES6 或 ES2016+ 语法的 JS 转换为旧版本的 JS, 以便浏览器兼容的库 ES2016+ 在 ES6 的基础上增加了 async, await 等特性 AMD, CommonJS 是 JS 模块化编程的规范, 重点看 这篇文章 npm 是一个共有的模块库(包管理), Browserify 将所有依赖的模块打包在一起使用 Webpack 搞定 JS 模块合并, Babel 等所有事情 HTTP/2 推荐使用多个 HTTP 请求而不是一个, SystemJS 可以将各模块中用到的 JS 分开, 一次请求就会小很多 Typescript 将 JavaScript 用作一种强类型语言, Flow 是一种使用 OCaml 写的检查器 Ramnda 使用 JS 函数式编程, David Chambers, Erik Meijer 等人 Fetch 或者 Fetch polyfill 使用 Promises 做异步编程 需要响应状态变化, 有 Redux, Flux, Flummox 等等  一个简单的总结就是</description>
+    </item>
+    
+    <item>
+      <title>Dagger 2 学习笔记</title>
+      <link>https://quqiuzhu.com/2016/dagger2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/dagger2/</guid>
+      <description>国庆假期学习了 Dagger 2, 在这里进行一些总结。 Dagger 2 是一个由 Google 工程师开发的依赖注入库，该项目 fork 自在 Square 工作的前 Google 工程师开发的 Dagger 1。
+如果你想了解 Dagger 2 的基本概念和使用方式，推荐看 Codepath 的这篇文章 Dependency Injection with Dagger 2。Dagger 2 通过注解 @Module 和 @Provide 标注提供依赖的类和方法, 通过 @Inject 标注请求依赖的实例, 通过 @Component 将两者连接起来, 而且提供了其他的一些 Feature。看完这些之后，你可能会有两个问题
+ 为什么要重新开发 Dagger 2, Dagger 1 哪里不好？ 我现在知道怎么用了, 但是它是怎么实现的？  第一个问题，在 Google 开发者大会上，Dagger 2 的开发者的演讲 DAGGER 2 - A New Type of dependency injection 中，不仅讲了 Dagger 1的优缺点，还讲了依赖注入如何从 Spring -&amp;gt; Guice -&amp;gt; Dagger 1 -&amp;gt; Dagger 2。 Spring 主要的缺点是繁琐, 那段替代复杂的依赖注入的 XML 和原来的 Java 代码一样丑陋；Guice 的缺点是图错误在运行时才能发现，并且开发者难以调试；Dagger 1 的缺点是，生成的代码丑陋，出错难以调试，并且运行时开销不可忽视；Dagger 2在 Dagger 1 的基础上，解决了性能问题，并且生成的代码更加优雅。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="屈秋竹">
+    <meta name="description" content="屈秋竹的个人网站">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python 学习笔记 装饰器 与 context"/>
+<meta name="twitter:description" content="装饰器 Python中函数是一等公民，装饰器的作用就是接收一个函数，返回其增强版本的函数。例如:
+def decorator(function): def _mydecorator(*args, **kw): print &#39;do something before&#39; res = function(*args, **kw) print &#39;do somthing after&#39; return res return _mydecorator @decorator def function(): print &#39;function executing&#39; function() 输出： do something before function executing do somthing after 装饰器是语法糖，因此装饰器可以用其他一般的语句来实现，我们将上面例子中的function定义部分作出下面改动
+def function(): print &#39;function executing&#39; function = decorator(function) 实现同样的功能，所以装饰器一点也不厉害，就是函数调用加上赋值运算的语法糖。
+上面的是无参数的装饰器，如果是有参数的装饰器，则这么来实现
+def otherdecorator(args1, args2): def _otherdecorator(function): def __otherdecorator(*args, **kw): print &#39;do something before with args %s, %s&#39; % (args1, args2) res = function(*args, **kw) print &#39;do something after with args %s, %s&#39; % (args1, args2) return res return __otherdecorator return _otherdecorator @otherdecorator(&#39;name&#39;, &#39;age&#39;) def function(): print &#39;function executing&#39; function() 输出： do something before with args name, age function executing do something after with args name, age 有参数的函数的定义相当于"/>
+
+
+    <base href="https://quqiuzhu.com/2016/python-decorator-and-context/">
+    <title>
+  Python 学习笔记 装饰器 与 context · 看见未来
+</title>
+
+    <link rel="canonical" href="https://quqiuzhu.com/2016/python-decorator-and-context/">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Merriweather:300,700|Source+Code+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha256-oSrCnRYXvHG31SBifqP2PM1uje7SJUyX0nTwO2RJV54=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="https://quqiuzhu.com/css/coder.min.a3307e096757a84995f145daccdad26307f88b657e9946d207d011e314ef1442.css" integrity="sha256-ozB&#43;CWdXqEmV8UXazNrSYwf4i2V&#43;mUbSB9AR4xTvFEI=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+      <link rel="stylesheet" href="https://quqiuzhu.com/css/custom.css">
+    
+
+    <link rel="icon" type="image/png" href="https://quqiuzhu.com/favicon.ico" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://quqiuzhu.com/favicon.ico" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.54-DEV" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://quqiuzhu.com/">
+      看见未来
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="https://quqiuzhu.com/archives/">博客</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="https://quqiuzhu.com/about/">关于</a>
+          </li>
+        
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container page">
+  <article>
+    <header>
+      <h1>Python 学习笔记 装饰器 与 context</h1>
+    </header>
+
+    
+
+<h2 id="装饰器">装饰器</h2>
+
+<p>Python中函数是一等公民，装饰器的作用就是接收一个函数，返回其增强版本的函数。例如:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> decorator(function):
+    <span style="font-weight:bold">def</span> _mydecorator(*args, **kw):
+        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;do something before&#39;</span>
+        res = function(*args, **kw)
+        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;do somthing after&#39;</span>
+        <span style="font-weight:bold">return</span> res
+    <span style="font-weight:bold">return</span> _mydecorator
+
+@decorator
+<span style="font-weight:bold">def</span> function():
+    <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;function executing&#39;</span>
+
+function()
+
+<span style="">输出：</span>
+do something before
+function executing
+do somthing after</code></pre></div>
+<!-- more -->
+
+<p>装饰器是语法糖，因此装饰器可以用其他一般的语句来实现，我们将上面例子中的<code>function</code>定义部分作出下面改动</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> function():
+    <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;function executing&#39;</span>
+    
+function = decorator(function)</code></pre></div>
+<p>实现同样的功能，所以装饰器一点也不厉害，就是函数调用加上赋值运算的语法糖。</p>
+
+<p>上面的是无参数的装饰器，如果是有参数的装饰器，则这么来实现</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> otherdecorator(args1, args2):
+    <span style="font-weight:bold">def</span> _otherdecorator(function):
+        <span style="font-weight:bold">def</span> __otherdecorator(*args, **kw):
+            <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;do something before with args </span><span style="font-weight:bold;font-style:italic">%s</span><span style="font-style:italic">, </span><span style="font-weight:bold;font-style:italic">%s</span><span style="font-style:italic">&#39;</span> % (args1, args2)
+            res = function(*args, **kw)
+            <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;do something after with args </span><span style="font-weight:bold;font-style:italic">%s</span><span style="font-style:italic">, </span><span style="font-weight:bold;font-style:italic">%s</span><span style="font-style:italic">&#39;</span> % (args1, args2)
+            <span style="font-weight:bold">return</span> res
+        <span style="font-weight:bold">return</span> __otherdecorator
+    <span style="font-weight:bold">return</span> _otherdecorator
+
+@otherdecorator(<span style="font-style:italic">&#39;name&#39;</span>, <span style="font-style:italic">&#39;age&#39;</span>)
+<span style="font-weight:bold">def</span> function():
+    <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;function executing&#39;</span>
+    
+function()
+<span style="">输出：</span>
+do something before <span style="font-weight:bold">with</span> args name, age
+function executing
+do something after <span style="font-weight:bold">with</span> args name, age</code></pre></div>
+<p>有参数的函数的定义相当于</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> function():
+    <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;function executing&#39;</span>
+
+function = otherdecorator(<span style="font-style:italic">&#39;name&#39;</span>, <span style="font-style:italic">&#39;age&#39;</span>)(function)</code></pre></div>
+<p>装饰器还有类的实现方式，类实现<code>__call__</code>方法的时候可以被调用，这里不再多讲。</p>
+
+<p>应用</p>
+
+<ul>
+<li>参数检查</li>
+<li>缓存</li>
+<li>代理</li>
+</ul>
+
+<h2 id="context">context</h2>
+
+<h3 id="with-语句的使用">with 语句的使用</h3>
+
+<p>python 上下文跟 with 语句的使用有关。一般的用法如下</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">with</span> open(filename) <span style="font-weight:bold">as</span> f:
+    <span style="font-weight:bold">for</span> line <span style="font-weight:bold">in</span> f:
+        <span style="font-weight:bold">print</span> line
+        <span style="font-weight:bold">raise</span> <span style="font-weight:bold">ValueError</span>()</code></pre></div>
+<p>如果在语句体中发生异常，文件也将正常关闭，主要是因为 with 语句与 context_manager 的交互。 context_manager 是实现了 <code>__enter__()</code> 和 <code>__exit__()</code> 方法的对象。 with 语句保证在语句体重发生异常时，<code>__exit__()</code> 方法 也会被调用，从而使程序正确退出上下文。</p>
+
+<p>上面的代码中，<code>open(filename)</code> 返回的是一个 context_manager， 而  <code>as f</code> 这个 f 被赋值的是 <code>context_manager.__enter__()</code> 的返回结果。</p>
+
+<p>但是有时候又会发现，不用with语句也可以直接使用，比如 <code>f = open(filename)</code> 。这是因为 python 的文件对象实现了 <code>__enter__()</code> 和 <code>__exit__()</code> 方法， 文件对象本身也是 context_manager， 其 <code>__enter__()</code> 返回的是自身。</p>
+
+<h3 id="contextlib">contextlib</h3>
+
+<p>有一个装饰器 <code>contexmanager</code>， 一个 <code>closing()</code> 函数和 <code>nested()</code> 函数。</p>
+
+<p><code>contexmanager</code> 是用来帮助我们自定义 contexmanager 的, 其中 yield 语句前一部分在 <code>__enter__()</code> 中执行，yield 语句 执行 with 语句体, yield 语句后的部分在 <code>__exit__()</code> 中执行。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">@contextmanager
+<span style="font-weight:bold">def</span> cm():
+    <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;do something before&#39;</span>
+    <span style="font-weight:bold">yield</span>
+    <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;do something after&#39;</span></code></pre></div>
+<p>很容易想出来 <code>contextmanager</code> 装饰器的实现方式，这里不再多讲。</p>
+
+<p><code>closing(that)</code> 函数是一个 <code>contextmanager</code>，不是装饰器，它的作用就是最终会调用 that 的 close 方法，如果不想自己实现上下文管理器，但是也要支持上下文管理器的功能的话，就只需要实现 close 方法，然后使用 <code>with closing(that) as f</code> 就好了。</p>
+
+<p><code>nested()</code> 函数用来解决嵌套with语句的问题，可以这样使用</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">with</span> nested(A(), B(), C()) <span style="font-weight:bold">as</span> (X, Y, Z):
+	  <span style="font-weight:bold">pass</span></code></pre></div>
+<p>如果细节了解不清楚，建议看 IBM 的<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/">文章</a></p>
+
+  </article>
+</section>
+
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+      <p>浙ICP备17015868号</p>
+    
+     © 2019
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

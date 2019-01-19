@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Server on 看见未来</title>
+    <link>https://quqiuzhu.com/tags/server/</link>
+    <description>Recent content in Server on 看见未来</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 04 Sep 2016 10:16:10 +0000</lastBuildDate>
+    
+	<atom:link href="https://quqiuzhu.com/tags/server/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Requests 源代码浅析</title>
+      <link>https://quqiuzhu.com/2016/python-requests/</link>
+      <pubDate>Sun, 04 Sep 2016 10:16:10 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-requests/</guid>
+      <description>Requests是目前最流行的Python HTTP库，使用者众多，包括Amazon, Google, Twitter等大公司和美国国家安全局等政府机构。在github上有2w多的star。Requests的接口简单，符合人的直觉而且功能强大。比如持久 Cookie 的会话, Keep-Alive &amp;amp; 连接池,文件分块上传, 流下载, SSL 认证等。其大部分功能由其内置的urllib3库实现。所以Requests最关心的不是如何实现协议，而是如何设计接口，正如作者github自我介绍，「The only thing I really care about is interface design」。 HTTP基础 URL 一个统一资源定位符被分为下面的六段
+http://user:passwd@httpbin.org:80/basic-auth/user/passwd?name=quqiuzhu#1 &amp;lt;scheme&amp;gt;://&amp;lt;netloc&amp;gt;/&amp;lt;path&amp;gt;;&amp;lt;params&amp;gt;?&amp;lt;query&amp;gt;#&amp;lt;fragment&amp;gt; &amp;lt;scheme&amp;gt; http &amp;lt;netloc&amp;gt; user:passwd@httpbin.org:80 &amp;lt;path&amp;gt; basic-auth/user/passwd &amp;lt;query&amp;gt; name=quqiuzhu &amp;lt;fragment&amp;gt; 1 其中&amp;lt;params&amp;gt;叫做matrix parameters，&amp;lt;query&amp;gt;叫query parameters，&amp;lt;params&amp;gt;支持较少，关于这两种参数的讨论，请看stackoverflow。
+&amp;lt;netloc&amp;gt; 可继续细分为&amp;lt;auth&amp;gt;, &amp;lt;host&amp;gt;, &amp;lt;port&amp;gt;, 一般情况下，没有&amp;lt;auth&amp;gt;部分，和&amp;lt;port&amp;gt;部分。因为在url中明文传递用户名密码和不安全，而且对外提供服务的网站一般都采用默认端口(HTTP:80, HTTPS:443)。
+&amp;lt;fragment&amp;gt; 通常用作一个网页的页内分段跳转。
+HTTP bat是一个类似cUrl的API测试工具，执行命令时，其能完整显示整个HTTP协议的传输过程，比如当我对http://httpbin.org/ip做一个GET请求时，其命令为
+➜ ~ bat http://httpbin.org/ip 其构造的请求(Request)如下
+GET /ip HTTP/1.1 Host: httpbin.org Accept: application/json Accept-Encoding: gzip, deflate User-Agent: bat/0.1.0 第一行是请求行，分别是谓词(方法)、路径和协议版本; 其后跟着的是头部信息(Host、Accept、Accept-Encoding 和User-Agent); 如果是POST或者PUT等请求，还可能会有BODY部分。</description>
+    </item>
+    
+  </channel>
+</rss>

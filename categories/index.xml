@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on 看见未来</title>
+    <link>https://quqiuzhu.com/categories/</link>
+    <description>Recent content in Categories on 看见未来</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 30 Oct 2016 02:09:53 +0000</lastBuildDate>
+    
+	<atom:link href="https://quqiuzhu.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Android</title>
+      <link>https://quqiuzhu.com/categories/android/</link>
+      <pubDate>Sun, 30 Oct 2016 02:09:53 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/categories/android/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Life</title>
+      <link>https://quqiuzhu.com/categories/life/</link>
+      <pubDate>Sat, 26 Nov 2016 03:58:25 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/categories/life/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://quqiuzhu.com/categories/python/</link>
+      <pubDate>Wed, 27 Apr 2016 14:24:46 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/categories/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Server</title>
+      <link>https://quqiuzhu.com/categories/server/</link>
+      <pubDate>Sun, 04 Sep 2016 10:16:10 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/categories/server/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

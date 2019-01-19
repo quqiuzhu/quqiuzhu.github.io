@@ -1,0 +1,19 @@
+# hugo robots.txt
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /tags/
+Allow: /about/
+Allow: /categories/
+Allow: /tag/
+Allow: /category/
+
+Disallow: /vendors/
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /vendors/
+Disallow: /fancybox/
+
+Sitemap: http://quqiuzhu.com/sitemap.xml
+Sitemap: http://quqiuzhu.com/baidusitemap.xml

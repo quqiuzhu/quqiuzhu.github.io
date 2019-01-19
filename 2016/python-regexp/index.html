@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="屈秋竹">
+    <meta name="description" content="屈秋竹的个人网站">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Python 学习笔记 正则表达式"/>
+<meta name="twitter:description" content="1.5 版之后，Python 内建支持正则表达式，它提供的正则表达式是 Perl 风格的。
+正则表达式（或 RE）是一种小型的、高度专业化的编程语言，经常使用会感受到它的神奇之处。Python 正则表达式被编译成一系列的字节码，然后由用 C 编写的匹配引擎执行的。
+本文开始给出一个匹配规则的表格，然后谈谈常用的正则表达式。然后讲了 Python 中 re 模块的函数及其相关的使用方式，最后以实例的形式给出了相关函数的用法。 正则匹配表    记号 说明     foo 匹配foo这个字符串   fooIbar 匹配foo 或者 bar   . 匹配任何字符（除了换行符）   ^ 匹配字符串开始   $ 匹配字符串结尾   * 匹配 0 次或更多次   &#43; 匹配 1 次或者更多次   ? 匹配 0 或 1 次   {N} 匹配 N 次   {M,N} 匹配 M 到 N 次   [&hellip;] 匹配 方括号里面的单个字符，可省略中间部分[a-z]   [^&hellip;] 匹配 不在方括号中出现的字符   (*I&#43;I?"/>
+
+
+    <base href="https://quqiuzhu.com/2016/python-regexp/">
+    <title>
+  Python 学习笔记 正则表达式 · 看见未来
+</title>
+
+    <link rel="canonical" href="https://quqiuzhu.com/2016/python-regexp/">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700|Merriweather:300,700|Source+Code+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha256-oSrCnRYXvHG31SBifqP2PM1uje7SJUyX0nTwO2RJV54=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="https://quqiuzhu.com/css/coder.min.a3307e096757a84995f145daccdad26307f88b657e9946d207d011e314ef1442.css" integrity="sha256-ozB&#43;CWdXqEmV8UXazNrSYwf4i2V&#43;mUbSB9AR4xTvFEI=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+      <link rel="stylesheet" href="https://quqiuzhu.com/css/custom.css">
+    
+
+    <link rel="icon" type="image/png" href="https://quqiuzhu.com/favicon.ico" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://quqiuzhu.com/favicon.ico" sizes="16x16">
+
+    
+
+    <meta name="generator" content="Hugo 0.54-DEV" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://quqiuzhu.com/">
+      看见未来
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="https://quqiuzhu.com/archives/">博客</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="https://quqiuzhu.com/about/">关于</a>
+          </li>
+        
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container page">
+  <article>
+    <header>
+      <h1>Python 学习笔记 正则表达式</h1>
+    </header>
+
+    
+
+<p>1.5 版之后，Python 内建支持正则表达式，它提供的正则表达式是 Perl 风格的。</p>
+
+<p>正则表达式（或 RE）是一种小型的、高度专业化的编程语言，经常使用会感受到它的神奇之处。Python 正则表达式被编译成一系列的字节码，然后由用 C 编写的匹配引擎执行的。</p>
+
+<p>本文开始给出一个匹配规则的表格，然后谈谈常用的正则表达式。然后讲了 Python 中 re 模块的函数及其相关的使用方式，最后以实例的形式给出了相关函数的用法。
+<!-- more --></p>
+
+<h2 id="正则匹配表">正则匹配表</h2>
+
+<table>
+<thead>
+<tr>
+<th>记号</th>
+<th>说明</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>foo</td>
+<td>匹配foo这个字符串</td>
+</tr>
+
+<tr>
+<td>foo<font color=red>I</font>bar</td>
+<td>匹配foo 或者 bar</td>
+</tr>
+
+<tr>
+<td>.</td>
+<td>匹配任何字符（除了换行符）</td>
+</tr>
+
+<tr>
+<td>^</td>
+<td>匹配字符串开始</td>
+</tr>
+
+<tr>
+<td>$</td>
+<td>匹配字符串结尾</td>
+</tr>
+
+<tr>
+<td>*</td>
+<td>匹配 0 次或更多次</td>
+</tr>
+
+<tr>
+<td>+</td>
+<td>匹配 1 次或者更多次</td>
+</tr>
+
+<tr>
+<td>?</td>
+<td>匹配 0 或 1 次</td>
+</tr>
+
+<tr>
+<td>{N}</td>
+<td>匹配 N 次</td>
+</tr>
+
+<tr>
+<td>{M,N}</td>
+<td>匹配 M 到 N 次</td>
+</tr>
+
+<tr>
+<td>[&hellip;]</td>
+<td>匹配 方括号里面的单个字符，可省略中间部分[a-z]</td>
+</tr>
+
+<tr>
+<td>[^&hellip;]</td>
+<td>匹配 不在方括号中出现的字符</td>
+</tr>
+
+<tr>
+<td>(*<font color=red>I</font>+<font color=red>I</font>?<font color=red>I</font>{})?</td>
+<td>后面的问号，加在前面任何一个字符上，表示匹配越短越好(非贪婪)</td>
+</tr>
+
+<tr>
+<td>(&hellip;)</td>
+<td>匹配括号中的正则表达式，并保存为子组</td>
+</tr>
+
+<tr>
+<td>\d</td>
+<td>匹配 [0-9] <code>\D</code> 相反</td>
+</tr>
+
+<tr>
+<td>\w</td>
+<td>匹配 [A-Za-z0-9_] <code>\W</code> 相反</td>
+</tr>
+
+<tr>
+<td>\s</td>
+<td>匹配任何空白 <code>\S</code> 相反</td>
+</tr>
+
+<tr>
+<td>\b</td>
+<td>匹配单词边界 <code>\B</code> 相反</td>
+</tr>
+
+<tr>
+<td>\N</td>
+<td>N为一个数字，匹配子组 N</td>
+</tr>
+
+<tr>
+<td>\C</td>
+<td>C为特殊字符，匹配特殊字符 <code>\.</code>,<code>\*</code>等</td>
+</tr>
+
+<tr>
+<td>\A</td>
+<td>同 <code>^</code></td>
+</tr>
+
+<tr>
+<td>\Z</td>
+<td>同 <code>$</code></td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>上面的表格中 <code>|</code> 以 <font color=red>I</font> 代替</p>
+</blockquote>
+
+<h2 id="常用正则表达式">常用正则表达式</h2>
+
+<ul>
+<li>中文字符: <code>[\u4e00-\u9fa5]</code></li>
+<li>HTML标记: <code>&lt;(\S*?)[^&gt;]*&gt;.*?&lt;/\1&gt;|&lt;.*? /&gt;</code></li>
+<li>Email地址: <code>\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*</code></li>
+<li>国内电话号码: <code>\d{3}-\d{8}|\d{4}-\d{7}</code></li>
+<li>HTTP_URL: <code>(https?)://([^/]+)(/?.*)</code></li>
+<li>时间(24h制): <code>((1|0?)[0-9]|2[0-3]):([0-5][0-9])</code></li>
+<li>URL: <code>^http://([\w-]+\.)+[\w-]+(/[\w-./?%&amp;=]*)?$</code></li>
+<li>QQ号: <code>[1-9][0-9]{4,}</code></li>
+</ul>
+
+<h2 id="python-的-re-模块">Python 的 re 模块</h2>
+
+<p>使用正则表达式，我们通常有下面的几种需求</p>
+
+<ul>
+<li>验证是否匹配字符串</li>
+<li>验证字符串中有正则表达式表示的字符</li>
+<li>符合正则表达式的字符串提取</li>
+<li>正则表达式替换</li>
+<li>字符串分割</li>
+</ul>
+
+<p>因此从 re 包中可以到处的函数如下</p>
+
+<ul>
+<li>compile(pattern, flags=0)</li>
+<li>match(pattern, string, flags=0)</li>
+<li>search(pattern, string, flags=0)</li>
+<li>findall(pattern, string, flags=0)</li>
+<li>sub(pattern, repl, string, count=0, flags=0)</li>
+<li>subn(pattern, repl, string, count=0, flags=0)</li>
+<li>split(pattern, string, maxsplit=0, flags=0)</li>
+</ul>
+
+<p>一般的处理流程是编译正则表达式，获取一个 regex 对象，然后使用该对象的方法。每个函数对象里面包含的方法和 re 包中包含的一样(除了 compile 函数)。 实际上是 re 模块里面的函数调用了 regex 对象的相应的方法，下面是 re 包中 match 函数的实现，其他函数也是类似的。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> match(pattern, string, flags=0):
+    <span style="font-weight:bold">return</span> _compile(pattern, flags).match(string)</code></pre></div>
+<p>re 包中的函数是先编译 regex 对象，然后调用其方法的。因为 re 模块有一块缓存区用来保存匹配过的正则表达式，所以速度也不会很慢，但是还是建议使用 regex 对象。</p>
+
+<p>上面的函数都有一个 flags 参数，其实只是用来编译的，因为 re 包中的函数需要先编译再调用其他方法，所以每个函数都有一个 flag 参数。每个 flag 表示的含义如下</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-style:italic"># ignore case</span>
+I = IGNORECASE = sre_compile.SRE_FLAG_IGNORECASE 
+
+<span style="font-style:italic"># assume current 8-bit locale</span>
+L = LOCALE = sre_compile.SRE_FLAG_LOCALE 
+
+<span style="font-style:italic"># assume unicode locale</span>
+U = UNICODE = sre_compile.SRE_FLAG_UNICODE 
+
+<span style="font-style:italic"># make anchors look for newline</span>
+M = MULTILINE = sre_compile.SRE_FLAG_MULTILINE 
+
+<span style="font-style:italic"># make dot match newline</span>
+S = DOTALL = sre_compile.SRE_FLAG_DOTALL 
+
+<span style="font-style:italic"># ignore whitespace and comments</span>
+X = VERBOSE = sre_compile.SRE_FLAG_VERBOSE </code></pre></div>
+<h2 id="例子">例子</h2>
+
+<p><code>match()</code> 和 <code>search()</code> 如果匹配的话，会返回一个匹配对象，否则会返回 None。匹配对象有 <code>group()</code> 与 <code>groups()</code> 方法。 <code>group()</code> 会返回匹配的字符串， 而<code>groups()</code> 返回存在的子组元组的元组，如果不存在匹配的子组，则返回<code>()</code>。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">g = re.match(<span style="font-style:italic">&#39;foo&#39;</span>, <span style="font-style:italic">&#39;foo&#39;</span>) <span style="font-style:italic"># 匹配对象</span>
+g.group() <span style="font-style:italic"># &#39;foo&#39;</span>
+g.groups() <span style="font-style:italic"># ()</span>
+
+g = re.match(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;foo2033d&#39;</span>) 
+g.group() <span style="font-style:italic"># &#39;foo2033&#39;</span>
+g.groups() <span style="font-style:italic"># (&#39;2033&#39;,)</span>
+
+g = re.match(<span style="font-style:italic">&#39;^foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;foo2033d&#39;</span>) <span style="font-style:italic"># 同上</span>
+g = re.match(<span style="font-style:italic">&#39;^foo(\d+)$&#39;</span>, <span style="font-style:italic">&#39;foo2033d&#39;</span>) <span style="font-style:italic"># None</span>
+g = re.match(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;dfoo2033d&#39;</span>) <span style="font-style:italic"># None</span></code></pre></div>
+<p>从上面最后一组的值，可以知道，<code>re.match</code> 默认从头开始匹配，但是并不默认一定要完全匹配到字符串末尾，除非使用结束符 <code>$</code> 。</p>
+
+<p><code>re.search</code> 与 <code>re.match</code>的区别正在于此，<code>re.search</code>并不一定要从头开始，比如说上面四组匹配结果如下</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">g = re.search(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;foo2033d&#39;</span>) <span style="font-style:italic"># 匹配成功</span>
+g = re.search(<span style="font-style:italic">&#39;^foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;foo2033d&#39;</span>) <span style="font-style:italic"># 匹配成功</span>
+g = re.search(<span style="font-style:italic">&#39;^foo(\d+)$&#39;</span>, <span style="font-style:italic">&#39;foo2033d&#39;</span>) <span style="font-style:italic"># None</span>
+g = re.search(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;dfoo2033d&#39;</span>) <span style="font-style:italic"># 匹配成功</span></code></pre></div>
+<p><code>re.findall</code> 跟 <code>re.search</code> 与 <code>re.match</code> 的区别是什么呢？第一，<code>re.search</code> 与 <code>re.match</code> 只匹配一次。 第二，<code>re.findall</code> 总会返回一个列表，不管匹配不匹配。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">g = re.match(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
+g.group() <span style="font-style:italic"># &#39;foo2033&#39;</span>
+g.groups() <span style="font-style:italic"># (&#39;2033&#39;,)</span>
+
+l = re.findall(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
+l <span style="font-style:italic"># [&#39;2033&#39;, &#39;9&#39;]</span>
+l = re.findall(<span style="font-style:italic">&#39;foo\d+&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
+l <span style="font-style:italic"># [&#39;foo2033&#39;, &#39;foo9&#39;]</span></code></pre></div>
+<p><code>re.findall</code> 返回的列表，如果正则表达式有子组，则匹配返回的子组列表，否则返回整个正则表达式的匹配列表。</p>
+
+<p><code>re.sub</code> 与 <code>re.subn</code> 是用来做字符串替换的，它们唯一的区别是前面的返回替换了的字符串，后面返回一个替换之后的字符串和替换次数的元组。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">r = re.sub(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>,<span style="font-style:italic">&#39;*&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
+r <span style="font-style:italic"># &#39;**d&#39;</span>
+
+r = re.subn(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>,<span style="font-style:italic">&#39;*&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
+r <span style="font-style:italic"># (&#39;**d&#39;, 2)</span></code></pre></div>
+<p><code>re.split</code> 使用正则表达式作为分隔符，但有子组和无子组的情况是不一样的，有子组的会分割字符串，但会留下子组的匹配值。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">l = re.split(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
+l <span style="font-style:italic"># [&#39;&#39;, &#39;2033&#39;, &#39;&#39;, &#39;9&#39;, &#39;d&#39;]</span>
+
+l = re.split(<span style="font-style:italic">&#39;foo\d+&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
+l <span style="font-style:italic"># [&#39;&#39;, &#39;&#39;, &#39;d&#39;]</span></code></pre></div>
+<p>&ndash; end &ndash;</p>
+
+  </article>
+</section>
+
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+      <p>浙ICP备17015868号</p>
+    
+     © 2019
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://quqiuzhu.com/2017/build-yunxibox/</loc>
+    <lastmod>2017-06-04T15:26:03+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/2016/goodbye-lukou/</loc>
+    <lastmod>2016-11-26T03:58:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/2016/react-native/</loc>
+    <lastmod>2016-10-30T02:09:53+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/2016/js-2016/</loc>
+    <lastmod>2016-10-05T07:34:02+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/2016/python-requests/</loc>
+    <lastmod>2016-09-04T10:16:10+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/2016/python-regexp/</loc>
+    <lastmod>2016-04-27T14:24:46+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/2016/python-descriptor/</loc>
+    <lastmod>2016-04-24T22:21:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/2016/python-collections/</loc>
+    <lastmod>2016-04-17T20:54:06+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/2016/python-multiprocessing/</loc>
+    <lastmod>2016-04-14T13:13:04+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/2016/python-decorator-and-context/</loc>
+    <lastmod>2016-04-07T12:17:58+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/2016/python-iterator-and-generator/</loc>
+    <lastmod>2016-04-06T23:08:59+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/archives/</loc>
+    <lastmod>2016-04-06T20:26:38+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/about/</loc>
+    <lastmod>2016-04-06T20:26:38+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/2016/</loc>
+    <lastmod>2016-11-26T03:58:25+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/2017/</loc>
+    <lastmod>2017-06-04T15:26:03+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/tags/android/</loc>
+    <lastmod>2016-10-30T02:09:53+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/categories/android/</loc>
+    <lastmod>2016-10-30T02:09:53+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/categories/</loc>
+    <lastmod>2016-10-30T02:09:53+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/2016/dagger2/</loc>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/tags/http/</loc>
+    <lastmod>2016-09-04T10:16:10+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/tags/js/</loc>
+    <lastmod>2016-10-05T07:34:02+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/categories/life/</loc>
+    <lastmod>2016-11-26T03:58:25+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/tags/magic/</loc>
+    <lastmod>2016-04-27T14:24:46+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/tags/python/</loc>
+    <lastmod>2016-09-04T10:16:10+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/categories/python/</loc>
+    <lastmod>2016-04-27T14:24:46+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/tags/server/</loc>
+    <lastmod>2016-09-04T10:16:10+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/categories/server/</loc>
+    <lastmod>2016-09-04T10:16:10+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/tags/</loc>
+    <lastmod>2016-10-30T02:09:53+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/</loc>
+    <lastmod>2017-06-04T15:26:03+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

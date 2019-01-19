@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Magic on 看见未来</title>
+    <link>https://quqiuzhu.com/tags/magic/</link>
+    <description>Recent content in Magic on 看见未来</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 27 Apr 2016 14:24:46 +0000</lastBuildDate>
+    
+	<atom:link href="https://quqiuzhu.com/tags/magic/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Python 学习笔记 正则表达式</title>
+      <link>https://quqiuzhu.com/2016/python-regexp/</link>
+      <pubDate>Wed, 27 Apr 2016 14:24:46 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-regexp/</guid>
+      <description>1.5 版之后，Python 内建支持正则表达式，它提供的正则表达式是 Perl 风格的。
+正则表达式（或 RE）是一种小型的、高度专业化的编程语言，经常使用会感受到它的神奇之处。Python 正则表达式被编译成一系列的字节码，然后由用 C 编写的匹配引擎执行的。
+本文开始给出一个匹配规则的表格，然后谈谈常用的正则表达式。然后讲了 Python 中 re 模块的函数及其相关的使用方式，最后以实例的形式给出了相关函数的用法。 正则匹配表    记号 说明     foo 匹配foo这个字符串   fooIbar 匹配foo 或者 bar   . 匹配任何字符（除了换行符）   ^ 匹配字符串开始   $ 匹配字符串结尾   * 匹配 0 次或更多次   + 匹配 1 次或者更多次   ? 匹配 0 或 1 次   {N} 匹配 N 次   {M,N} 匹配 M 到 N 次   [&amp;hellip;] 匹配 方括号里面的单个字符，可省略中间部分[a-z]   [^&amp;hellip;] 匹配 不在方括号中出现的字符   (*I+I?</description>
+    </item>
+    
+  </channel>
+</rss>

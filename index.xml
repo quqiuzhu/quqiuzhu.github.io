@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>看见未来</title>
+    <link>https://quqiuzhu.com/</link>
+    <description>Recent content on 看见未来</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 04 Jun 2017 15:26:03 +0000</lastBuildDate>
+    
+	<atom:link href="https://quqiuzhu.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>打造一款直播硬件</title>
+      <link>https://quqiuzhu.com/2017/build-yunxibox/</link>
+      <pubDate>Sun, 04 Jun 2017 15:26:03 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2017/build-yunxibox/</guid>
+      <description>离上次写博客已经过去6个月了， 这段时间我一直在做一款直播硬件「云犀BOX」，现在产品已经日臻完善，开始对外销售了。在我们公司云犀直播的官网上可以看到它的一些介绍。
+与一般的手机直播不一样，我们追求的是专业级的高质量的直播。 手机摄像头因为诸多限制，应用在稍微大一些的场景的话效果会差很多。 专业直播的应用场景一开始是一些电视媒体，体育赛事直播等。在我们发布「云犀BOX」之前，专业直播是比较困难，花费人力和财力的事情。 一般专业直播的流程是这样的:
+ A公司要准备一场发布会直播，它先去找企业直播服务公司B建立一个直播活动(直播间)，设置好直播间的封面，和其他一些公司宣传的内容。 之后B公司派员工C到直播现场执行直播，员工C带上摄像机、upmost(视频采集卡)和笔记本电脑，摄像机连接视频采集卡，视频采集卡连接到电脑，配置电脑上的OBS(专业直播软件)，设置好RTMP推流地址，然后开始直播。
+ 对于需求方和提供直播服务的公司来说，人都是一个瓶颈。近两年来，直播作为一种内容形式被广泛接受，一些公司已经用直播作为其日常与用户沟通的渠道，比如「得到」的周会直播。这些公司和团体并没有专业的知识，搭建一个公司的直播频道的有可能只是初入职场的一个运营实习生，所以直播应该更加简单，让普通人第一次上手就会用。
+所以我们做了这款「云犀BOX」，只需要一个摄像机，一根HDMI线，一个比手机稍大的「云犀BOX」连上之后点击开始直播就好了。摄像机和「云犀BOX」可以通过热靴云台连在一起，如果扛摄像机直播的话也会非常方便。
+「云犀BOX」是由完全自主研发的一款产品，能自己做的都自己做了，包括直播推流SDK、板卡设计、外观设计等，当然也包含了里面的软件，我们就此申请了3款专利。
+其中软件部分最核心的是推流SDK，我们花了很长时间优化，前三个月一直在搞推流SDK，后面也一直有优化。其实各个视频云平台都有推流SDK，比如七牛、阿里云。为了能够针对我们的硬件进行优化，我们选择重新实现，现在推流的流畅性与稳定性比平均水平高很多的。
+硬件部分，从包装到电源板卡芯片，任何可能出错的地方都出错过，不可能出错的地方也出错过，因此推出时间比我们预想的要迟一个半月左右。即便这样，这款硬件能在半年内做出来并上市，让我感受到了中国硬件产业链的成熟。
+人工智能时代，科技公司不应该只玩软件了，还需要会玩硬件和算法的。</description>
+    </item>
+    
+    <item>
+      <title>再见路口</title>
+      <link>https://quqiuzhu.com/2016/goodbye-lukou/</link>
+      <pubDate>Sat, 26 Nov 2016 03:58:25 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/goodbye-lukou/</guid>
+      <description>今天办完离职手续，退出路口的微信群和QQ群，我正式离开了我的第一家公司。
+14年12月，刚创立4个月的路口团队去浙大校招，那时候去听宣讲会的人只有11人，其中3人来了路口。子扬和小萌都相继离开了，这次我离职之后，我们那一批校招进来的人，都走了。
+我是当天面试完就签了三方协议，但因为学校有考试，春节之后的3月9日才正式入职。入职之后一个月，我和带我的老大君涵开发了路口 android 1.1 版。那时的我，虽然是一个实习生，但我觉得我干了一个正式员工的活。那时候，我的自行车还没有被偷，我常常和子扬在晚上10:30之后一起骑车回学校。那时候Uber刚开始在杭州宣传，我3月15日注册了Uber。11月14号Uber发信息给我，说我已经注册610天了，今天25号，我正式离职，所以推算下来，我在路口的时间是627天。
+此后，我请两个月假回学校写毕业论文。在此期间，公司也发生了一些事情，导致君涵，子扬，刀哥相继离开。后来我回到公司继续实习，但浙大的毕业程序非常烦，我得经常从学校跑，再加上我需要准备一些考试，很累。直到7月初拿到毕业证，我从实习生转正，正式入职路口。
+公司地址也从城市心境的住宅搬到了数字娱乐产业园。那时网络总是掉线，大家都一直抱怨，东哥叫我来负责这件事情，我压力很大，后来我找到了思科的专业设备，解决了网络掉线的问题。在数字娱乐产业园的时间非常短，就从6月到9月，在那里开发了路口 android 2.0版，增加了专辑功能。我记得清楚，是因为那是15年的中秋，公司正要从数字娱乐产业园搬出来，我们去高技街的beta咖啡开发了2.0版。因为嫌他们太吵，我们还刻意躲着运营团队的人。
+之后公司搬到了文二西路，我个人做了一个比较失败的项目，hadoop项目。然后做了路口的 android 3.0版，这一版相当难产，前前后后拖了一个半月，上线之后效果也不好，留存率一直往下掉。此后，路口暂停产品更新。
+年终时，公司组织了去日本旅游，去买了好多东西。我和博士去镰仓看了拍摄「灌篮高手」的中学，去海滩边坐了坐，然后在附近找吃的。还去了江之岛，我们到那时，正是日落时分，海边吹来温暖的风。
+16年春节之后，由于hadoop项目不成功，我们决定不搭建自己的云平台，转而采用阿里的大数据计算服务。我做了ODPS项目，把路口的离线数据分析转移到了云端。之后我开始做后端，后端有好多事情，除了写API之外，还有后台管理，反垃圾，抓取，性能优化等事情。
+10月之后，公司决定做一款新产品「熊猫海淘」，我又回来做android了，开发了1.0版，用了很多之前没用的技术。
+11月开发完之后我决定辞职，对我来说这是职业上的选择，但却很舍不得路口的人。好多人都一起吃过饭，没吃饭的也大多有过沟通。都说继续保持联系，但离职实实在在的就是一场告别。我问过之前离职的同事，他们都慢慢地减少了和路口的联系；从我个人经验上来说，每次毕业之后，最好的朋友也联系得非常少了。是的，路口最好的朋友也会慢慢走远。
+今天去办理离职手续，跟主管和高层有非常友好的沟通，中午跟路口的好朋友一起喝咖啡，听了技术部的分享，晚上跟路口的朋友一起吃饭、看电影。这个让我发恼骚想离开的公司，在离别之际竟然给我如此多的感动。
+再见路口！
+&amp;ndash; end &amp;ndash;</description>
+    </item>
+    
+    <item>
+      <title>React Native</title>
+      <link>https://quqiuzhu.com/2016/react-native/</link>
+      <pubDate>Sun, 30 Oct 2016 02:09:53 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/react-native/</guid>
+      <description>最近公司开发了一款叫「熊猫洋货」的APP，学习了一些 React Native 的知识，在这里进行一下总结
+ 环境搭建 React Native 页面 原生应用集成  环境搭建 因为我是一名使用 Mac 的 Android 开发者，所以 Mac下的 Android 环境、HomeBrew 包管理器都已具备。只需要装 Node 和 React Native 命令行工具即可。 安装 Node 主要是希望使用其包管理工具 npm 。安装命令如下
+brew install node npm install -g react-native-cli 在此提醒一下，请注意 HomeBrew 的提示，如果有命令没有安装成功，按照 HomeBrew 的提示操作。
+React Native 页面 React 推荐使用 JSX 语法来写页面，因为其可读性较强。因为 JSX 是一种类 XML 的语法，对于习惯于使用布局文件的 Android 开发者来说并不陌生。 使用 React Component 来开发我们的应用界面
+class Greeting extends Component { render() { return ( &amp;lt;Text&amp;gt;Hello world!</description>
+    </item>
+    
+    <item>
+      <title>2016 年的 JavaScript</title>
+      <link>https://quqiuzhu.com/2016/js-2016/</link>
+      <pubDate>Wed, 05 Oct 2016 07:34:02 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/js-2016/</guid>
+      <description>今天早上看了一篇文章, 名字叫How it feels to learn JavaScript in 2016 。模拟一个新加入项目, 了解过一点ES5和前端开发, 但对 2016 年 JavaScript 变化一无所知的人与作者的对话, 介绍了 2016 年 JavaScript 与前端开发的最新情况。 观整体趋势, JS 和 React 必将成为移动开发和Web前端开发的主流, 如果通过 NodeJs 等框架来写后端, 单单写 JS 就可以成为全栈工程师。 JS 后劲足, 早在 2014 年, 我就听说有人在嵌入式开发中引入了 JS, 因此 JS 变得越来越重要。以下是我看完之后记下的一些点
+ React &amp;amp; React DOM 使用 JSX 语法来写组件, 不再直接使用 HTML Babel 是将 ES6 或 ES2016+ 语法的 JS 转换为旧版本的 JS, 以便浏览器兼容的库 ES2016+ 在 ES6 的基础上增加了 async, await 等特性 AMD, CommonJS 是 JS 模块化编程的规范, 重点看 这篇文章 npm 是一个共有的模块库(包管理), Browserify 将所有依赖的模块打包在一起使用 Webpack 搞定 JS 模块合并, Babel 等所有事情 HTTP/2 推荐使用多个 HTTP 请求而不是一个, SystemJS 可以将各模块中用到的 JS 分开, 一次请求就会小很多 Typescript 将 JavaScript 用作一种强类型语言, Flow 是一种使用 OCaml 写的检查器 Ramnda 使用 JS 函数式编程, David Chambers, Erik Meijer 等人 Fetch 或者 Fetch polyfill 使用 Promises 做异步编程 需要响应状态变化, 有 Redux, Flux, Flummox 等等  一个简单的总结就是</description>
+    </item>
+    
+    <item>
+      <title>Requests 源代码浅析</title>
+      <link>https://quqiuzhu.com/2016/python-requests/</link>
+      <pubDate>Sun, 04 Sep 2016 10:16:10 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-requests/</guid>
+      <description>Requests是目前最流行的Python HTTP库，使用者众多，包括Amazon, Google, Twitter等大公司和美国国家安全局等政府机构。在github上有2w多的star。Requests的接口简单，符合人的直觉而且功能强大。比如持久 Cookie 的会话, Keep-Alive &amp;amp; 连接池,文件分块上传, 流下载, SSL 认证等。其大部分功能由其内置的urllib3库实现。所以Requests最关心的不是如何实现协议，而是如何设计接口，正如作者github自我介绍，「The only thing I really care about is interface design」。 HTTP基础 URL 一个统一资源定位符被分为下面的六段
+http://user:passwd@httpbin.org:80/basic-auth/user/passwd?name=quqiuzhu#1 &amp;lt;scheme&amp;gt;://&amp;lt;netloc&amp;gt;/&amp;lt;path&amp;gt;;&amp;lt;params&amp;gt;?&amp;lt;query&amp;gt;#&amp;lt;fragment&amp;gt; &amp;lt;scheme&amp;gt; http &amp;lt;netloc&amp;gt; user:passwd@httpbin.org:80 &amp;lt;path&amp;gt; basic-auth/user/passwd &amp;lt;query&amp;gt; name=quqiuzhu &amp;lt;fragment&amp;gt; 1 其中&amp;lt;params&amp;gt;叫做matrix parameters，&amp;lt;query&amp;gt;叫query parameters，&amp;lt;params&amp;gt;支持较少，关于这两种参数的讨论，请看stackoverflow。
+&amp;lt;netloc&amp;gt; 可继续细分为&amp;lt;auth&amp;gt;, &amp;lt;host&amp;gt;, &amp;lt;port&amp;gt;, 一般情况下，没有&amp;lt;auth&amp;gt;部分，和&amp;lt;port&amp;gt;部分。因为在url中明文传递用户名密码和不安全，而且对外提供服务的网站一般都采用默认端口(HTTP:80, HTTPS:443)。
+&amp;lt;fragment&amp;gt; 通常用作一个网页的页内分段跳转。
+HTTP bat是一个类似cUrl的API测试工具，执行命令时，其能完整显示整个HTTP协议的传输过程，比如当我对http://httpbin.org/ip做一个GET请求时，其命令为
+➜ ~ bat http://httpbin.org/ip 其构造的请求(Request)如下
+GET /ip HTTP/1.1 Host: httpbin.org Accept: application/json Accept-Encoding: gzip, deflate User-Agent: bat/0.1.0 第一行是请求行，分别是谓词(方法)、路径和协议版本; 其后跟着的是头部信息(Host、Accept、Accept-Encoding 和User-Agent); 如果是POST或者PUT等请求，还可能会有BODY部分。</description>
+    </item>
+    
+    <item>
+      <title>Python 学习笔记 正则表达式</title>
+      <link>https://quqiuzhu.com/2016/python-regexp/</link>
+      <pubDate>Wed, 27 Apr 2016 14:24:46 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-regexp/</guid>
+      <description>1.5 版之后，Python 内建支持正则表达式，它提供的正则表达式是 Perl 风格的。
+正则表达式（或 RE）是一种小型的、高度专业化的编程语言，经常使用会感受到它的神奇之处。Python 正则表达式被编译成一系列的字节码，然后由用 C 编写的匹配引擎执行的。
+本文开始给出一个匹配规则的表格，然后谈谈常用的正则表达式。然后讲了 Python 中 re 模块的函数及其相关的使用方式，最后以实例的形式给出了相关函数的用法。 正则匹配表    记号 说明     foo 匹配foo这个字符串   fooIbar 匹配foo 或者 bar   . 匹配任何字符（除了换行符）   ^ 匹配字符串开始   $ 匹配字符串结尾   * 匹配 0 次或更多次   + 匹配 1 次或者更多次   ? 匹配 0 或 1 次   {N} 匹配 N 次   {M,N} 匹配 M 到 N 次   [&amp;hellip;] 匹配 方括号里面的单个字符，可省略中间部分[a-z]   [^&amp;hellip;] 匹配 不在方括号中出现的字符   (*I+I?</description>
+    </item>
+    
+    <item>
+      <title>Python 学习笔记 描述符</title>
+      <link>https://quqiuzhu.com/2016/python-descriptor/</link>
+      <pubDate>Sun, 24 Apr 2016 22:21:25 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-descriptor/</guid>
+      <description>许多做 C++ 和 Java 的朋友在看 Python 的时候，或许会问，Python 中没有 private, protected, public 等关键字，是怎么控制变量访问的呢？Python 中有没有静态变量，实例变量呢？
+Python 没有静态变量和实例变量的区别，只有属性。类的属性还是对象的属性没有任何不同，因为类也是一种对象。Python 中类的属性还包含了类中的方法，而控制属性访问的正是描述符。
+本文将详细叙述描述符协议、描述符的实现方式、属性及属性访问顺序等主题。 描述符协议 一个实例 instance 有一个属性 x，对属性 x 有三种操作。 访问 y = instance.x， 赋值 instance.x = 20 和 删除 del instance.x，描述符正是对这三种操作进行控制。
+描述符协议有 3 个方法，只要实现 __get__ 或者 __set__ 方法就可以算是一个描述器。实现了 __set__ 方法的描述器是数据描述器，实现了 __get__ 方法，但是没有实现 __set__ 方法的是非数据描述符。两种描述符在属性访问时的优先级不同，后面会讲。
+descr.__get__(self, inst, type=None) --&amp;gt; value descr.__set__(self, inst, value) --&amp;gt; None descr.__delete__(self, inst) --&amp;gt; None 描述符协议调用者是属性，所以参数 self 是指属性，inst 指的是实例。
+描述符实现方式 有三种典型的方式来实现描述符，类、property() 和 property 装饰器</description>
+    </item>
+    
+    <item>
+      <title>Python 学习笔记 高性能容器 collections</title>
+      <link>https://quqiuzhu.com/2016/python-collections/</link>
+      <pubDate>Sun, 17 Apr 2016 20:54:06 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-collections/</guid>
+      <description>Python 支持四种内建的集合类型 dict, list, set 和 tuple, 这些类型覆盖了大多数的使用场景。作为补充，collections 提供了几种高性能容器数据类型，Counter, deque, defaultdict 和 OrderedDict，以及 namedtuple() 函数。 Counter 先不忙讲 Counter 怎么用，先想想如果你来实现一个计数器，应该怎么实现，有哪些功能。我列一下，至少有 3 个功能。
+ 接收要统计的数据 更新统计数据 获取统计结果  其中 1 和 3 都涉及和 Python 内建类型之间的转换，2 涉及 Counter 之间的交互。
+接收要统计的数据 数据一般是从构造函数传入，参数可以为 iterable 对象，也可以是 mapping 或者关键字参数。
+c = Counter(&amp;#39;quqiuzhu&amp;#39;) c = Counter({&amp;#39;qu&amp;#39;: 1, &amp;#39;qiu&amp;#39;: 2, &amp;#39;zhu&amp;#39;: 3}) c = Counter(qu=1, qiu=2, zhu=3) 上面的例子看起来好像是 Counter 里面的 key 必须是字符串类型，value 必须是 int 类型的，实际上并没有这样的限制。比如可以像这样
+cc = Counter({&amp;#39;qu&amp;#39;: 1, 4: 2, &amp;#39;zhu&amp;#39;: &amp;#39;str&amp;#39;}) 不过在 Counter 之间计算的时候会有一些问题，比如两个 Counter 相加的时候。</description>
+    </item>
+    
+    <item>
+      <title>Python 学习笔记 多进程 multiprocessing</title>
+      <link>https://quqiuzhu.com/2016/python-multiprocessing/</link>
+      <pubDate>Thu, 14 Apr 2016 13:13:04 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-multiprocessing/</guid>
+      <description>Python 解释器有一个全局解释器锁(PIL)，导致每个 Python 进程中最多同时运行一个线程，因此 Python 多线程程序并不能改善程序性能，不能发挥多核系统的优势，可以通过这篇文章了解。
+但是多进程程序不受此影响， Python 2.6 引入了 multiprocessing 来解决这个问题。这里介绍 multiprocessing 模块下的进程，进程同步，进程间通信和进程管理四个方面的内容。 这里主要讲解多进程的典型使用，multiprocessing 的 API 几乎是完复制了 threading 的API， 因此只需花少量的时间就可以熟悉 threading 编程了。 Process 先来看一段代码
+from multiprocessing import Process, current_process def func(): time.sleep(1) proc = current_process() proc.name, proc.pid sub_proc = Process(target=func, args=()) sub_proc.start() sub_proc.join() proc = current_process() proc.name, proc.pid 这是在主进程中创建子进程，然后启动(start) 子进程，等待(join) 子进程执行完，再继续执行主进程的整个的执行流程。
+那么，一个进程应该是用来做什么的，它应该保存一些什么状态，它的生命周期是什么样的呢？
+一个进程需要处理一些不同任务，或者处理不同的对象。创建进程需要一个 function 和相关参数，参数可以是dict Process(target=func, args=(), kwargs = {})，name 可以用来标识进程。
+控制子进程进入不同阶段的是 start(), join(), is_alive(), terminate(), exitcode 方法。这些方法只能在创建子进程的进程中执行。</description>
+    </item>
+    
+    <item>
+      <title>Python 学习笔记 装饰器 与 context</title>
+      <link>https://quqiuzhu.com/2016/python-decorator-and-context/</link>
+      <pubDate>Thu, 07 Apr 2016 12:17:58 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-decorator-and-context/</guid>
+      <description>装饰器 Python中函数是一等公民，装饰器的作用就是接收一个函数，返回其增强版本的函数。例如:
+def decorator(function): def _mydecorator(*args, **kw): print &amp;#39;do something before&amp;#39; res = function(*args, **kw) print &amp;#39;do somthing after&amp;#39; return res return _mydecorator @decorator def function(): print &amp;#39;function executing&amp;#39; function() 输出： do something before function executing do somthing after 装饰器是语法糖，因此装饰器可以用其他一般的语句来实现，我们将上面例子中的function定义部分作出下面改动
+def function(): print &amp;#39;function executing&amp;#39; function = decorator(function) 实现同样的功能，所以装饰器一点也不厉害，就是函数调用加上赋值运算的语法糖。
+上面的是无参数的装饰器，如果是有参数的装饰器，则这么来实现
+def otherdecorator(args1, args2): def _otherdecorator(function): def __otherdecorator(*args, **kw): print &amp;#39;do something before with args %s, %s&amp;#39; % (args1, args2) res = function(*args, **kw) print &amp;#39;do something after with args %s, %s&amp;#39; % (args1, args2) return res return __otherdecorator return _otherdecorator @otherdecorator(&amp;#39;name&amp;#39;, &amp;#39;age&amp;#39;) def function(): print &amp;#39;function executing&amp;#39; function() 输出： do something before with args name, age function executing do something after with args name, age 有参数的函数的定义相当于</description>
+    </item>
+    
+    <item>
+      <title>Python 学习笔记 迭代器和生成器</title>
+      <link>https://quqiuzhu.com/2016/python-iterator-and-generator/</link>
+      <pubDate>Wed, 06 Apr 2016 23:08:59 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-iterator-and-generator/</guid>
+      <description>迭代器 一个迭代器是一个实现了__iter__()方法和 next()方法的对象，但是我发现这两个并不需要一起实现，就像Java中一样，返回迭代子的对象和迭代子是分离的。 __iter__() 只是返回迭代器，真正进行迭代的是实现了 next()方法的，所以可以在 for i in r 的r中实现一个__iter__()方法，然后返回一个实现了next()方法的对象
+class Itrator(object): def __init__(self): self.i = 4; def next(self): if self.i: self.i -= 1 return self.i else: raise StopIteration class Iterable(object): def __iter__(self): return Itrator() for i in Iterable(): print i 当然一般上都可以把这两个方法写在同一个类里面，python里和Java是一样的，一个是Iterable，一个是Itrator。
+生成器 有两种生成器，第一种是产生值的生成器，像下面这样的
+def power(values): print &amp;#39;xxxx&amp;#39; for value in values: yield value 第二种种是作为表达式的生成器，这种生成器需要接受外面的输入，像下面这样的
+def psychologist(): print &amp;#39;plaese tell me your problem&amp;#39; while True : answer = (yield) if answer is not None: if answer.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://quqiuzhu.com/archives/</link>
+      <pubDate>Wed, 06 Apr 2016 20:26:38 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/archives/</guid>
+      <description>最近 打造一款直播硬件
+再见路口
+React Native
+Dagger 2 学习笔记
+2016 年的 JavaScript
+Python Requests 源代码浅析
+Python 学习笔记 正则表达式
+Python 学习笔记 描述符
+Python 学习笔记 高性能容器
+Python 学习笔记 多进程 multiprocessing
+Python 学习笔记 装饰器 与 context
+Python 学习笔记 迭代器和生成器</description>
+    </item>
+    
+    <item>
+      <title>关于我</title>
+      <link>https://quqiuzhu.com/about/</link>
+      <pubDate>Wed, 06 Apr 2016 20:26:38 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/about/</guid>
+      <description>我是屈秋竹，这是我的个人站点，15年从浙大计算机学院毕业。
+我喜欢民谣，喜欢许巍和李健。
+我的职业经历
+ 路口网，担任Android开发工程师，同时熟悉Python后端开发，[16年11月离职] 云犀直播，担任Android开发工程师 [17年04月离职] 虎牙直播，担任音视频工程师，在职  我比较熟悉的语言和技术有下面这些（主力使用）
+ Android, Java Tornado、Flask, Python C/C++ 音视频SDK相关项目  联系 me@mail.quqiuzhu.com</description>
+    </item>
+    
+    <item>
+      <title>Dagger 2 学习笔记</title>
+      <link>https://quqiuzhu.com/2016/dagger2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/dagger2/</guid>
+      <description>国庆假期学习了 Dagger 2, 在这里进行一些总结。 Dagger 2 是一个由 Google 工程师开发的依赖注入库，该项目 fork 自在 Square 工作的前 Google 工程师开发的 Dagger 1。
+如果你想了解 Dagger 2 的基本概念和使用方式，推荐看 Codepath 的这篇文章 Dependency Injection with Dagger 2。Dagger 2 通过注解 @Module 和 @Provide 标注提供依赖的类和方法, 通过 @Inject 标注请求依赖的实例, 通过 @Component 将两者连接起来, 而且提供了其他的一些 Feature。看完这些之后，你可能会有两个问题
+ 为什么要重新开发 Dagger 2, Dagger 1 哪里不好？ 我现在知道怎么用了, 但是它是怎么实现的？  第一个问题，在 Google 开发者大会上，Dagger 2 的开发者的演讲 DAGGER 2 - A New Type of dependency injection 中，不仅讲了 Dagger 1的优缺点，还讲了依赖注入如何从 Spring -&amp;gt; Guice -&amp;gt; Dagger 1 -&amp;gt; Dagger 2。 Spring 主要的缺点是繁琐, 那段替代复杂的依赖注入的 XML 和原来的 Java 代码一样丑陋；Guice 的缺点是图错误在运行时才能发现，并且开发者难以调试；Dagger 1 的缺点是，生成的代码丑陋，出错难以调试，并且运行时开销不可忽视；Dagger 2在 Dagger 1 的基础上，解决了性能问题，并且生成的代码更加优雅。</description>
+    </item>
+    
+  </channel>
+</rss>

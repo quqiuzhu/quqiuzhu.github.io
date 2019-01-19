@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on 看见未来</title>
+    <link>https://quqiuzhu.com/categories/python/</link>
+    <description>Recent content in Python on 看见未来</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 27 Apr 2016 14:24:46 +0000</lastBuildDate>
+    
+	<atom:link href="https://quqiuzhu.com/categories/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Python 学习笔记 正则表达式</title>
+      <link>https://quqiuzhu.com/2016/python-regexp/</link>
+      <pubDate>Wed, 27 Apr 2016 14:24:46 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-regexp/</guid>
+      <description>1.5 版之后，Python 内建支持正则表达式，它提供的正则表达式是 Perl 风格的。
+正则表达式（或 RE）是一种小型的、高度专业化的编程语言，经常使用会感受到它的神奇之处。Python 正则表达式被编译成一系列的字节码，然后由用 C 编写的匹配引擎执行的。
+本文开始给出一个匹配规则的表格，然后谈谈常用的正则表达式。然后讲了 Python 中 re 模块的函数及其相关的使用方式，最后以实例的形式给出了相关函数的用法。 正则匹配表    记号 说明     foo 匹配foo这个字符串   fooIbar 匹配foo 或者 bar   . 匹配任何字符（除了换行符）   ^ 匹配字符串开始   $ 匹配字符串结尾   * 匹配 0 次或更多次   + 匹配 1 次或者更多次   ? 匹配 0 或 1 次   {N} 匹配 N 次   {M,N} 匹配 M 到 N 次   [&amp;hellip;] 匹配 方括号里面的单个字符，可省略中间部分[a-z]   [^&amp;hellip;] 匹配 不在方括号中出现的字符   (*I+I?</description>
+    </item>
+    
+    <item>
+      <title>Python 学习笔记 描述符</title>
+      <link>https://quqiuzhu.com/2016/python-descriptor/</link>
+      <pubDate>Sun, 24 Apr 2016 22:21:25 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-descriptor/</guid>
+      <description>许多做 C++ 和 Java 的朋友在看 Python 的时候，或许会问，Python 中没有 private, protected, public 等关键字，是怎么控制变量访问的呢？Python 中有没有静态变量，实例变量呢？
+Python 没有静态变量和实例变量的区别，只有属性。类的属性还是对象的属性没有任何不同，因为类也是一种对象。Python 中类的属性还包含了类中的方法，而控制属性访问的正是描述符。
+本文将详细叙述描述符协议、描述符的实现方式、属性及属性访问顺序等主题。 描述符协议 一个实例 instance 有一个属性 x，对属性 x 有三种操作。 访问 y = instance.x， 赋值 instance.x = 20 和 删除 del instance.x，描述符正是对这三种操作进行控制。
+描述符协议有 3 个方法，只要实现 __get__ 或者 __set__ 方法就可以算是一个描述器。实现了 __set__ 方法的描述器是数据描述器，实现了 __get__ 方法，但是没有实现 __set__ 方法的是非数据描述符。两种描述符在属性访问时的优先级不同，后面会讲。
+descr.__get__(self, inst, type=None) --&amp;gt; value descr.__set__(self, inst, value) --&amp;gt; None descr.__delete__(self, inst) --&amp;gt; None 描述符协议调用者是属性，所以参数 self 是指属性，inst 指的是实例。
+描述符实现方式 有三种典型的方式来实现描述符，类、property() 和 property 装饰器</description>
+    </item>
+    
+    <item>
+      <title>Python 学习笔记 高性能容器 collections</title>
+      <link>https://quqiuzhu.com/2016/python-collections/</link>
+      <pubDate>Sun, 17 Apr 2016 20:54:06 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-collections/</guid>
+      <description>Python 支持四种内建的集合类型 dict, list, set 和 tuple, 这些类型覆盖了大多数的使用场景。作为补充，collections 提供了几种高性能容器数据类型，Counter, deque, defaultdict 和 OrderedDict，以及 namedtuple() 函数。 Counter 先不忙讲 Counter 怎么用，先想想如果你来实现一个计数器，应该怎么实现，有哪些功能。我列一下，至少有 3 个功能。
+ 接收要统计的数据 更新统计数据 获取统计结果  其中 1 和 3 都涉及和 Python 内建类型之间的转换，2 涉及 Counter 之间的交互。
+接收要统计的数据 数据一般是从构造函数传入，参数可以为 iterable 对象，也可以是 mapping 或者关键字参数。
+c = Counter(&amp;#39;quqiuzhu&amp;#39;) c = Counter({&amp;#39;qu&amp;#39;: 1, &amp;#39;qiu&amp;#39;: 2, &amp;#39;zhu&amp;#39;: 3}) c = Counter(qu=1, qiu=2, zhu=3) 上面的例子看起来好像是 Counter 里面的 key 必须是字符串类型，value 必须是 int 类型的，实际上并没有这样的限制。比如可以像这样
+cc = Counter({&amp;#39;qu&amp;#39;: 1, 4: 2, &amp;#39;zhu&amp;#39;: &amp;#39;str&amp;#39;}) 不过在 Counter 之间计算的时候会有一些问题，比如两个 Counter 相加的时候。</description>
+    </item>
+    
+    <item>
+      <title>Python 学习笔记 多进程 multiprocessing</title>
+      <link>https://quqiuzhu.com/2016/python-multiprocessing/</link>
+      <pubDate>Thu, 14 Apr 2016 13:13:04 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-multiprocessing/</guid>
+      <description>Python 解释器有一个全局解释器锁(PIL)，导致每个 Python 进程中最多同时运行一个线程，因此 Python 多线程程序并不能改善程序性能，不能发挥多核系统的优势，可以通过这篇文章了解。
+但是多进程程序不受此影响， Python 2.6 引入了 multiprocessing 来解决这个问题。这里介绍 multiprocessing 模块下的进程，进程同步，进程间通信和进程管理四个方面的内容。 这里主要讲解多进程的典型使用，multiprocessing 的 API 几乎是完复制了 threading 的API， 因此只需花少量的时间就可以熟悉 threading 编程了。 Process 先来看一段代码
+from multiprocessing import Process, current_process def func(): time.sleep(1) proc = current_process() proc.name, proc.pid sub_proc = Process(target=func, args=()) sub_proc.start() sub_proc.join() proc = current_process() proc.name, proc.pid 这是在主进程中创建子进程，然后启动(start) 子进程，等待(join) 子进程执行完，再继续执行主进程的整个的执行流程。
+那么，一个进程应该是用来做什么的，它应该保存一些什么状态，它的生命周期是什么样的呢？
+一个进程需要处理一些不同任务，或者处理不同的对象。创建进程需要一个 function 和相关参数，参数可以是dict Process(target=func, args=(), kwargs = {})，name 可以用来标识进程。
+控制子进程进入不同阶段的是 start(), join(), is_alive(), terminate(), exitcode 方法。这些方法只能在创建子进程的进程中执行。</description>
+    </item>
+    
+    <item>
+      <title>Python 学习笔记 装饰器 与 context</title>
+      <link>https://quqiuzhu.com/2016/python-decorator-and-context/</link>
+      <pubDate>Thu, 07 Apr 2016 12:17:58 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-decorator-and-context/</guid>
+      <description>装饰器 Python中函数是一等公民，装饰器的作用就是接收一个函数，返回其增强版本的函数。例如:
+def decorator(function): def _mydecorator(*args, **kw): print &amp;#39;do something before&amp;#39; res = function(*args, **kw) print &amp;#39;do somthing after&amp;#39; return res return _mydecorator @decorator def function(): print &amp;#39;function executing&amp;#39; function() 输出： do something before function executing do somthing after 装饰器是语法糖，因此装饰器可以用其他一般的语句来实现，我们将上面例子中的function定义部分作出下面改动
+def function(): print &amp;#39;function executing&amp;#39; function = decorator(function) 实现同样的功能，所以装饰器一点也不厉害，就是函数调用加上赋值运算的语法糖。
+上面的是无参数的装饰器，如果是有参数的装饰器，则这么来实现
+def otherdecorator(args1, args2): def _otherdecorator(function): def __otherdecorator(*args, **kw): print &amp;#39;do something before with args %s, %s&amp;#39; % (args1, args2) res = function(*args, **kw) print &amp;#39;do something after with args %s, %s&amp;#39; % (args1, args2) return res return __otherdecorator return _otherdecorator @otherdecorator(&amp;#39;name&amp;#39;, &amp;#39;age&amp;#39;) def function(): print &amp;#39;function executing&amp;#39; function() 输出： do something before with args name, age function executing do something after with args name, age 有参数的函数的定义相当于</description>
+    </item>
+    
+    <item>
+      <title>Python 学习笔记 迭代器和生成器</title>
+      <link>https://quqiuzhu.com/2016/python-iterator-and-generator/</link>
+      <pubDate>Wed, 06 Apr 2016 23:08:59 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/python-iterator-and-generator/</guid>
+      <description>迭代器 一个迭代器是一个实现了__iter__()方法和 next()方法的对象，但是我发现这两个并不需要一起实现，就像Java中一样，返回迭代子的对象和迭代子是分离的。 __iter__() 只是返回迭代器，真正进行迭代的是实现了 next()方法的，所以可以在 for i in r 的r中实现一个__iter__()方法，然后返回一个实现了next()方法的对象
+class Itrator(object): def __init__(self): self.i = 4; def next(self): if self.i: self.i -= 1 return self.i else: raise StopIteration class Iterable(object): def __iter__(self): return Itrator() for i in Iterable(): print i 当然一般上都可以把这两个方法写在同一个类里面，python里和Java是一样的，一个是Iterable，一个是Itrator。
+生成器 有两种生成器，第一种是产生值的生成器，像下面这样的
+def power(values): print &amp;#39;xxxx&amp;#39; for value in values: yield value 第二种种是作为表达式的生成器，这种生成器需要接受外面的输入，像下面这样的
+def psychologist(): print &amp;#39;plaese tell me your problem&amp;#39; while True : answer = (yield) if answer is not None: if answer.</description>
+    </item>
+    
+  </channel>
+</rss>
