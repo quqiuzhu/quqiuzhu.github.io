@@ -14,11 +14,12 @@ googleAnalytics = "UA-140819128-1"
 [permalinks]
   posts = "/:year/:filename/"
 
+
 [params]
     author = "屈秋竹"
     info = "视频工程师"
     description = "屈秋竹的个人网站"
-    keywords = "blog,developer,personal"
+    keywords = "屈秋竹,秋竹,程序员,站长,工程师,商汤,虎牙"
     avatarurl = "avatar.png"
 
     favicon_32 = "favicon.ico"
@@ -32,13 +33,14 @@ googleAnalytics = "UA-140819128-1"
     rtl = false
 
     math = true
-    custom_css = ["css/custom.css"]
+
 
 # Comment by utterances
 [params.utter]
     repo = "quqiuzhu/quqiuzhu.github.io"
     issueTerm = "title" #设置每篇文章对应的 issue 的名字，可选 pathname title url，
     theme = "github-light"
+
 
 # Social links
 [[params.social]]
@@ -64,6 +66,7 @@ googleAnalytics = "UA-140819128-1"
     icon = "fas fa-rss"
     weight = 4
     url = "/index.xml"
+
 
 # Menu links
 [[menu.main]]

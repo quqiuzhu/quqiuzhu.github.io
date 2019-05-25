@@ -1,0 +1,11 @@
+{{ $prism := resources.Get "js/prism.js" }}
+{{ $secureJS := slice $prism | resources.Concat "bundle.js" | resources.Minify | resources.Fingerprint "sha512" }}
+<script type="text/javascript" src="{{ $secureJS.RelPermalink }}" integrity="{{ $secureJS.Data.Integrity }}"></script>
+
+{{ template "_internal/google_analytics.html" . }}
+
+{{ range $val := $.Site.Params.customjs }}
+    {{ if gt (len $val) 0 }}
+    <script src="{{ $val }}"></script>
+    {{ end }}
+{{ end }}
