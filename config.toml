@@ -1,0 +1,60 @@
+baseURL = "https://quqiuzhu.com/"
+languageCode = "zh-CN"
+title = "看见未来"
+theme = "custom-from-hugo-coder"
+
+paginate = 20
+canonifyurls = true
+
+pygmentsstyle = "bw"
+pygmentscodefences = true
+pygmentscodefencesguesssyntax = true
+
+disqusShortname = "quqiuzhu"
+
+[params]
+    author = "屈秋竹"
+    info = "视频工程师"
+    description = "屈秋竹的个人网站"
+    keywords = "blog,developer,personal"
+    avatarurl = "avatar.png"
+
+    favicon_32 = "favicon.ico"
+    favicon_16 = "favicon.ico"
+
+    footercontent = "浙ICP备17015868号"
+
+    hidecredits = true
+    hidecopyright = false
+
+    rtl = false
+
+    math = true
+    custom_css = ["css/custom.css"]
+
+# Social links
+[[params.social]]
+    name = "Github"
+    icon = "fab fa-github fa-2x"
+    weight = 1
+    url = "https://github.com/quqiuzhu/"
+[[params.social]]
+    name = "Twitter"
+    icon = "fab fa-twitter fa-2x"
+    weight = 2
+    url = "https://twitter.com/quqiuzhu/"
+[[params.social]]
+    name = "LinkedIn"
+    icon = "fab fa-linkedin"
+    weight = 3
+    url = "https://www.linkedin.com/in/quqiuzhu/"
+
+# Menu links
+[[menu.main]]
+    name = "博客"
+    weight = 1
+    url  = "/archives/"
+[[menu.main]]
+    name = "关于"
+    weight = 2
+    url = "/about/"

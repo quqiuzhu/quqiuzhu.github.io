@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  <url>
+    <loc>http://quqiuzhu.com/2017/build-yunxibox/</loc>
+    <lastmod>2017-06-04T07:30:38.000Z</lastmod>
+    <data>
+        <display>
+        <title>打造一款直播硬件</title>
+        <pubTime>2017-06-04T07:26:03.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://quqiuzhu.com/2016/goodbye-lukou/</loc>
+    <lastmod>2016-11-29T07:10:26.000Z</lastmod>
+    <data>
+        <display>
+        <title>再见路口</title>
+        <pubTime>2016-11-25T19:58:25.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="life" url="http://quqiuzhu.com/categories/life/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://quqiuzhu.com/2016/react-native/</loc>
+    <lastmod>2016-11-03T09:32:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>React Native</title>
+        <pubTime>2016-10-29T18:09:53.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+         
+           
+             
+              <breadCrumb title="android" url="http://quqiuzhu.com/categories/android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://quqiuzhu.com/2016/dagger2/</loc>
+    <lastmod>2016-10-29T18:26:29.000Z</lastmod>
+    <data>
+        <display>
+        <title>Dagger 2 学习笔记</title>
+        <pubTime>2016-10-09T00:31:11.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+         
+           
+             
+              <breadCrumb title="android" url="http://quqiuzhu.com/categories/android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://quqiuzhu.com/2016/js-2016/</loc>
+    <lastmod>2016-10-29T18:18:11.000Z</lastmod>
+    <data>
+        <display>
+        <title>2016 年的 JavaScript</title>
+        <pubTime>2016-10-04T23:34:02.000Z</pubTime>
+        
+        <tag>android</tag>
+         
+        <tag>js</tag>
+         
+         
+           
+             
+              <breadCrumb title="android" url="http://quqiuzhu.com/categories/android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
+    <loc>http://quqiuzhu.com/2016/python-requests/</loc>
+    <lastmod>2016-09-06T00:44:42.000Z</lastmod>
+    <data>
+        <display>
+        <title>Requests 源代码浅析</title>
+        <pubTime>2016-09-04T02:16:10.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+        <tag>server</tag>
+         
+        <tag>http</tag>
+         
+         
+           
+             
+              <breadCrumb title="server" url="http://quqiuzhu.com/categories/server/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://quqiuzhu.com/2016/python-regexp/</loc>
+    <lastmod>2016-04-27T07:06:56.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python 学习笔记 正则表达式</title>
+        <pubTime>2016-04-27T06:24:46.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+        <tag>magic</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="http://quqiuzhu.com/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://quqiuzhu.com/2016/python-descriptor/</loc>
+    <lastmod>2016-04-24T15:28:27.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python 学习笔记 描述符</title>
+        <pubTime>2016-04-24T14:21:25.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="http://quqiuzhu.com/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://quqiuzhu.com/2016/python-iterator-and-generator/</loc>
+    <lastmod>2016-04-24T14:26:08.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python 学习笔记 迭代器和生成器</title>
+        <pubTime>2016-04-06T15:08:59.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="http://quqiuzhu.com/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://quqiuzhu.com/2016/python-decorator-and-context/</loc>
+    <lastmod>2016-04-24T14:25:34.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python 学习笔记 装饰器 与 context</title>
+        <pubTime>2016-04-07T04:17:58.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="http://quqiuzhu.com/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://quqiuzhu.com/2016/python-multiprocessing/</loc>
+    <lastmod>2016-04-24T01:41:14.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python 学习笔记 多进程 multiprocessing</title>
+        <pubTime>2016-04-14T05:13:04.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="http://quqiuzhu.com/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://quqiuzhu.com/2016/python-collections/</loc>
+    <lastmod>2016-04-24T01:40:57.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python 学习笔记 高性能容器 collections</title>
+        <pubTime>2016-04-17T12:54:06.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="http://quqiuzhu.com/categories/python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+</urlset>
