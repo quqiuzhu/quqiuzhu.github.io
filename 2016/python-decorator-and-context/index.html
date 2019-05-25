@@ -9,15 +9,6 @@
     <meta name="description" content="屈秋竹的个人网站">
     <meta name="keywords" content="blog,developer,personal">
 
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Python 学习笔记 装饰器 与 context"/>
-<meta name="twitter:description" content="装饰器 Python中函数是一等公民，装饰器的作用就是接收一个函数，返回其增强版本的函数。例如:
-def decorator(function): def _mydecorator(*args, **kw): print &#39;do something before&#39; res = function(*args, **kw) print &#39;do somthing after&#39; return res return _mydecorator @decorator def function(): print &#39;function executing&#39; function() 输出： do something before function executing do somthing after 装饰器是语法糖，因此装饰器可以用其他一般的语句来实现，我们将上面例子中的function定义部分作出下面改动
-def function(): print &#39;function executing&#39; function = decorator(function) 实现同样的功能，所以装饰器一点也不厉害，就是函数调用加上赋值运算的语法糖。
-上面的是无参数的装饰器，如果是有参数的装饰器，则这么来实现
-def otherdecorator(args1, args2): def _otherdecorator(function): def __otherdecorator(*args, **kw): print &#39;do something before with args %s, %s&#39; % (args1, args2) res = function(*args, **kw) print &#39;do something after with args %s, %s&#39; % (args1, args2) return res return __otherdecorator return _otherdecorator @otherdecorator(&#39;name&#39;, &#39;age&#39;) def function(): print &#39;function executing&#39; function() 输出： do something before with args name, age function executing do something after with args name, age 有参数的函数的定义相当于"/>
-
-
     <base href="https://quqiuzhu.com/2016/python-decorator-and-context/">
     <title>
   Python 学习笔记 装饰器 与 context · 看见未来
@@ -30,14 +21,9 @@ def otherdecorator(args1, args2): def _otherdecorator(function): def __otherdeco
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha256-oSrCnRYXvHG31SBifqP2PM1uje7SJUyX0nTwO2RJV54=" crossorigin="anonymous" />
 
     
-      
-      
-      <link rel="stylesheet" href="https://quqiuzhu.com/css/coder.min.ac37073bc2826cd28ef57364a9fe339de7ebcb26dafc22fd832cb35cf5b1d048.css" integrity="sha256-rDcHO8KCbNKO9XNkqf4znefryyba/CL9gyyzXPWx0Eg=" crossorigin="anonymous" media="screen" />
     
-
-    
-
-    
+    <link rel="stylesheet" href="https://quqiuzhu.com/css/coder.min.ac37073bc2826cd28ef57364a9fe339de7ebcb26dafc22fd832cb35cf5b1d048.css" integrity="sha256-rDcHO8KCbNKO9XNkqf4znefryyba/CL9gyyzXPWx0Eg="
+      crossorigin="anonymous" media="screen" />
 
     
       <link rel="stylesheet" href="https://quqiuzhu.com/css/custom.css">
@@ -64,7 +50,7 @@ def otherdecorator(args1, args2): def _otherdecorator(function): def __otherdeco
       
         
           <li class="navigation-item">
-            <a class="navigation-link" href="https://quqiuzhu.com/archives/">博客</a>
+            <a class="navigation-link" href="https://quqiuzhu.com/posts/">博客</a>
           </li>
         
           <li class="navigation-item">
@@ -80,13 +66,31 @@ def otherdecorator(args1, args2): def _otherdecorator(function): def __otherdeco
 
       <div class="content">
         
-  <section class="container page">
-  <article>
-    <header>
-      <h1>Python 学习笔记 装饰器 与 context</h1>
-    </header>
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Python 学习笔记 装饰器 与 context</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2016-04-07T12:17:58Z'>
+                2016-04-07
+              </time>
+              &nbsp
+              <span class="tags">
+  <i class="fas fa-tag"></i>
+    <a href="https://quqiuzhu.com/tags/python/">python</a></span>
 
-    
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <div class="post-content">
+        
 
 <h2 id="装饰器">装饰器</h2>
 
@@ -187,31 +191,28 @@ function = otherdecorator(<span style="font-style:italic">&#39;name&#39;</span>,
 	  <span style="font-weight:bold">pass</span></code></pre></div>
 <p>如果细节了解不清楚，建议看 IBM 的<a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-pythonwith/">文章</a></p>
 
-  </article>
-</section>
+      </div>
 
+      <footer>
+        <div id="utter-container"></div>
+<script src="https://utteranc.es/client.js" repo='quqiuzhu/quqiuzhu.github.io'
+    issue-term="title" theme='github-light' crossorigin="anonymous"
+    async>
+</script>
+      </footer>
+    </article>
+
+    
+  </section>
 
       </div>
 
       <footer class="footer">
   <section class="container">
-    <p>
-       © 2019
-    &nbsp
-      
-        浙ICP备17015868号
-      
-    &nbsp
-      <span> <a href="https://quqiuzhu.com/index.xml"
-        target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"
-          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="feather feather-rss">
-          <path d="M4 11a9 9 0 0 1 9 9"></path>
-          <path d="M4 4a16 16 0 0 1 16 16"></path>
-          <circle cx="5" cy="19" r="1"></circle>
-        </svg></a>
-      </span>
-    </p>
+    
+      <p>浙ICP备17015868号</p>
+        
+     © 2019
     
     
   </section>
@@ -220,6 +221,19 @@ function = otherdecorator(<span style="font-style:italic">&#39;name&#39;</span>,
     </main>
 
     
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140819128-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
 
   </body>
 

@@ -9,13 +9,6 @@
     <meta name="description" content="屈秋竹的个人网站">
     <meta name="keywords" content="blog,developer,personal">
 
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Dagger 2 学习笔记"/>
-<meta name="twitter:description" content="国庆假期学习了 Dagger 2, 在这里进行一些总结。 Dagger 2 是一个由 Google 工程师开发的依赖注入库，该项目 fork 自在 Square 工作的前 Google 工程师开发的 Dagger 1。
-如果你想了解 Dagger 2 的基本概念和使用方式，推荐看 Codepath 的这篇文章 Dependency Injection with Dagger 2。Dagger 2 通过注解 @Module 和 @Provide 标注提供依赖的类和方法, 通过 @Inject 标注请求依赖的实例, 通过 @Component 将两者连接起来, 而且提供了其他的一些 Feature。看完这些之后，你可能会有两个问题
- 为什么要重新开发 Dagger 2, Dagger 1 哪里不好？ 我现在知道怎么用了, 但是它是怎么实现的？  第一个问题，在 Google 开发者大会上，Dagger 2 的开发者的演讲 DAGGER 2 - A New Type of dependency injection 中，不仅讲了 Dagger 1的优缺点，还讲了依赖注入如何从 Spring -&gt; Guice -&gt; Dagger 1 -&gt; Dagger 2。 Spring 主要的缺点是繁琐, 那段替代复杂的依赖注入的 XML 和原来的 Java 代码一样丑陋；Guice 的缺点是图错误在运行时才能发现，并且开发者难以调试；Dagger 1 的缺点是，生成的代码丑陋，出错难以调试，并且运行时开销不可忽视；Dagger 2在 Dagger 1 的基础上，解决了性能问题，并且生成的代码更加优雅。"/>
-
-
     <base href="https://quqiuzhu.com/2016/dagger2/">
     <title>
   Dagger 2 学习笔记 · 看见未来
@@ -28,14 +21,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha256-oSrCnRYXvHG31SBifqP2PM1uje7SJUyX0nTwO2RJV54=" crossorigin="anonymous" />
 
     
-      
-      
-      <link rel="stylesheet" href="https://quqiuzhu.com/css/coder.min.ac37073bc2826cd28ef57364a9fe339de7ebcb26dafc22fd832cb35cf5b1d048.css" integrity="sha256-rDcHO8KCbNKO9XNkqf4znefryyba/CL9gyyzXPWx0Eg=" crossorigin="anonymous" media="screen" />
     
-
-    
-
-    
+    <link rel="stylesheet" href="https://quqiuzhu.com/css/coder.min.ac37073bc2826cd28ef57364a9fe339de7ebcb26dafc22fd832cb35cf5b1d048.css" integrity="sha256-rDcHO8KCbNKO9XNkqf4znefryyba/CL9gyyzXPWx0Eg="
+      crossorigin="anonymous" media="screen" />
 
     
       <link rel="stylesheet" href="https://quqiuzhu.com/css/custom.css">
@@ -62,7 +50,7 @@
       
         
           <li class="navigation-item">
-            <a class="navigation-link" href="https://quqiuzhu.com/archives/">博客</a>
+            <a class="navigation-link" href="https://quqiuzhu.com/posts/">博客</a>
           </li>
         
           <li class="navigation-item">
@@ -78,13 +66,31 @@
 
       <div class="content">
         
-  <section class="container page">
-  <article>
-    <header>
-      <h1>Dagger 2 学习笔记</h1>
-    </header>
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Dagger 2 学习笔记</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2016-10-09T08:31:11Z'>
+                2016-10-09
+              </time>
+              &nbsp
+              <span class="tags">
+  <i class="fas fa-tag"></i>
+    <a href="https://quqiuzhu.com/tags/android/">android</a></span>
 
-    
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <div class="post-content">
+        
 
 <p>国庆假期学习了 <a href="https://github.com/google/dagger">Dagger 2</a>, 在这里进行一些总结。 Dagger 2 是一个由 Google 工程师开发的依赖注入库，该项目 fork 自在 Square 工作的前 Google 工程师开发的 <a href="https://github.com/square/dagger">Dagger 1</a>。</p>
 
@@ -577,33 +583,28 @@ ErrorHtmlTemplate errorTemplate) {
 <li>BasicAnnotationProcessor 中, 注解处理器会多次调用 process 方法吗？ 如果未处理完成, 应该如何表征, 这是个问题, 后面慢慢弄明白</li>
 </ul>
 
-<p>&ndash; end &ndash;</p>
+      </div>
 
-  </article>
-</section>
+      <footer>
+        <div id="utter-container"></div>
+<script src="https://utteranc.es/client.js" repo='quqiuzhu/quqiuzhu.github.io'
+    issue-term="title" theme='github-light' crossorigin="anonymous"
+    async>
+</script>
+      </footer>
+    </article>
 
+    
+  </section>
 
       </div>
 
       <footer class="footer">
   <section class="container">
-    <p>
-       © 2019
-    &nbsp
-      
-        浙ICP备17015868号
-      
-    &nbsp
-      <span> <a href="https://quqiuzhu.com/index.xml"
-        target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"
-          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="feather feather-rss">
-          <path d="M4 11a9 9 0 0 1 9 9"></path>
-          <path d="M4 4a16 16 0 0 1 16 16"></path>
-          <circle cx="5" cy="19" r="1"></circle>
-        </svg></a>
-      </span>
-    </p>
+    
+      <p>浙ICP备17015868号</p>
+        
+     © 2019
     
     
   </section>
@@ -612,6 +613,19 @@ ErrorHtmlTemplate errorTemplate) {
     </main>
 
     
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140819128-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
 
   </body>
 

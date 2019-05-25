@@ -9,19 +9,6 @@
     <meta name="description" content="屈秋竹的个人网站">
     <meta name="keywords" content="blog,developer,personal">
 
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="打造一款直播硬件"/>
-<meta name="twitter:description" content="离上次写博客已经过去6个月了， 这段时间我一直在做一款直播硬件「云犀BOX」，现在产品已经日臻完善，开始对外销售了。在我们公司云犀直播的官网上可以看到它的一些介绍。
-与一般的手机直播不一样，我们追求的是专业级的高质量的直播。 手机摄像头因为诸多限制，应用在稍微大一些的场景的话效果会差很多。 专业直播的应用场景一开始是一些电视媒体，体育赛事直播等。在我们发布「云犀BOX」之前，专业直播是比较困难，花费人力和财力的事情。 一般专业直播的流程是这样的:
- A公司要准备一场发布会直播，它先去找企业直播服务公司B建立一个直播活动(直播间)，设置好直播间的封面，和其他一些公司宣传的内容。 之后B公司派员工C到直播现场执行直播，员工C带上摄像机、upmost(视频采集卡)和笔记本电脑，摄像机连接视频采集卡，视频采集卡连接到电脑，配置电脑上的OBS(专业直播软件)，设置好RTMP推流地址，然后开始直播。
- 对于需求方和提供直播服务的公司来说，人都是一个瓶颈。近两年来，直播作为一种内容形式被广泛接受，一些公司已经用直播作为其日常与用户沟通的渠道，比如「得到」的周会直播。这些公司和团体并没有专业的知识，搭建一个公司的直播频道的有可能只是初入职场的一个运营实习生，所以直播应该更加简单，让普通人第一次上手就会用。
-所以我们做了这款「云犀BOX」，只需要一个摄像机，一根HDMI线，一个比手机稍大的「云犀BOX」连上之后点击开始直播就好了。摄像机和「云犀BOX」可以通过热靴云台连在一起，如果扛摄像机直播的话也会非常方便。
-「云犀BOX」是由完全自主研发的一款产品，能自己做的都自己做了，包括直播推流SDK、板卡设计、外观设计等，当然也包含了里面的软件，我们就此申请了3款专利。
-其中软件部分最核心的是推流SDK，我们花了很长时间优化，前三个月一直在搞推流SDK，后面也一直有优化。其实各个视频云平台都有推流SDK，比如七牛、阿里云。为了能够针对我们的硬件进行优化，我们选择重新实现，现在推流的流畅性与稳定性比平均水平高很多的。
-硬件部分，从包装到电源板卡芯片，任何可能出错的地方都出错过，不可能出错的地方也出错过，因此推出时间比我们预想的要迟一个半月左右。即便这样，这款硬件能在半年内做出来并上市，让我感受到了中国硬件产业链的成熟。
-人工智能时代，科技公司不应该只玩软件了，还需要会玩硬件和算法的。"/>
-
-
     <base href="https://quqiuzhu.com/2017/build-yunxibox/">
     <title>
   打造一款直播硬件 · 看见未来
@@ -34,14 +21,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha256-oSrCnRYXvHG31SBifqP2PM1uje7SJUyX0nTwO2RJV54=" crossorigin="anonymous" />
 
     
-      
-      
-      <link rel="stylesheet" href="https://quqiuzhu.com/css/coder.min.ac37073bc2826cd28ef57364a9fe339de7ebcb26dafc22fd832cb35cf5b1d048.css" integrity="sha256-rDcHO8KCbNKO9XNkqf4znefryyba/CL9gyyzXPWx0Eg=" crossorigin="anonymous" media="screen" />
     
-
-    
-
-    
+    <link rel="stylesheet" href="https://quqiuzhu.com/css/coder.min.ac37073bc2826cd28ef57364a9fe339de7ebcb26dafc22fd832cb35cf5b1d048.css" integrity="sha256-rDcHO8KCbNKO9XNkqf4znefryyba/CL9gyyzXPWx0Eg="
+      crossorigin="anonymous" media="screen" />
 
     
       <link rel="stylesheet" href="https://quqiuzhu.com/css/custom.css">
@@ -68,7 +50,7 @@
       
         
           <li class="navigation-item">
-            <a class="navigation-link" href="https://quqiuzhu.com/archives/">博客</a>
+            <a class="navigation-link" href="https://quqiuzhu.com/posts/">博客</a>
           </li>
         
           <li class="navigation-item">
@@ -84,13 +66,28 @@
 
       <div class="content">
         
-  <section class="container page">
-  <article>
-    <header>
-      <h1>打造一款直播硬件</h1>
-    </header>
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">打造一款直播硬件</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2017-06-04T15:26:03Z'>
+                2017-06-04
+              </time>
+              &nbsp
+              
+            </span>
+          </div>
+        </div>
+      </header>
 
-    <p>离上次写博客已经过去6个月了， 这段时间我一直在做一款直播硬件「云犀BOX」，现在产品已经日臻完善，开始对外销售了。在我们公司<a href="http://yunxi.tv/site/box">云犀直播</a>的官网上可以看到它的一些介绍。</p>
+      <div class="post-content">
+        <p>离上次写博客已经过去6个月了， 这段时间我一直在做一款直播硬件「云犀BOX」，现在产品已经日臻完善，开始对外销售了。在我们公司<a href="http://yunxi.tv/site/box">云犀直播</a>的官网上可以看到它的一些介绍。</p>
 
 <!-- more -->
 
@@ -112,31 +109,28 @@
 
 <p>人工智能时代，科技公司不应该只玩软件了，还需要会玩硬件和算法的。</p>
 
-  </article>
-</section>
+      </div>
 
+      <footer>
+        <div id="utter-container"></div>
+<script src="https://utteranc.es/client.js" repo='quqiuzhu/quqiuzhu.github.io'
+    issue-term="title" theme='github-light' crossorigin="anonymous"
+    async>
+</script>
+      </footer>
+    </article>
+
+    
+  </section>
 
       </div>
 
       <footer class="footer">
   <section class="container">
-    <p>
-       © 2019
-    &nbsp
-      
-        浙ICP备17015868号
-      
-    &nbsp
-      <span> <a href="https://quqiuzhu.com/index.xml"
-        target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"
-          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="feather feather-rss">
-          <path d="M4 11a9 9 0 0 1 9 9"></path>
-          <path d="M4 4a16 16 0 0 1 16 16"></path>
-          <circle cx="5" cy="19" r="1"></circle>
-        </svg></a>
-      </span>
-    </p>
+    
+      <p>浙ICP备17015868号</p>
+        
+     © 2019
     
     
   </section>
@@ -145,6 +139,19 @@
     </main>
 
     
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140819128-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
 
   </body>
 

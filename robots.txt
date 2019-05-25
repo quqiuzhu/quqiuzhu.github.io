@@ -16,4 +16,3 @@ Disallow: /vendors/
 Disallow: /fancybox/
 
 Sitemap: https://quqiuzhu.com/sitemap.xml
-Sitemap: https://quqiuzhu.com/baidusitemap.xml

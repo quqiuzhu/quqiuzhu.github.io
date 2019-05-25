@@ -9,16 +9,6 @@
     <meta name="description" content="屈秋竹的个人网站">
     <meta name="keywords" content="blog,developer,personal">
 
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Python 学习笔记 多进程 multiprocessing"/>
-<meta name="twitter:description" content="Python 解释器有一个全局解释器锁(PIL)，导致每个 Python 进程中最多同时运行一个线程，因此 Python 多线程程序并不能改善程序性能，不能发挥多核系统的优势，可以通过这篇文章了解。
-但是多进程程序不受此影响， Python 2.6 引入了 multiprocessing 来解决这个问题。这里介绍 multiprocessing 模块下的进程，进程同步，进程间通信和进程管理四个方面的内容。 这里主要讲解多进程的典型使用，multiprocessing 的 API 几乎是完复制了 threading 的API， 因此只需花少量的时间就可以熟悉 threading 编程了。 Process 先来看一段代码
-from multiprocessing import Process, current_process def func(): time.sleep(1) proc = current_process() proc.name, proc.pid sub_proc = Process(target=func, args=()) sub_proc.start() sub_proc.join() proc = current_process() proc.name, proc.pid 这是在主进程中创建子进程，然后启动(start) 子进程，等待(join) 子进程执行完，再继续执行主进程的整个的执行流程。
-那么，一个进程应该是用来做什么的，它应该保存一些什么状态，它的生命周期是什么样的呢？
-一个进程需要处理一些不同任务，或者处理不同的对象。创建进程需要一个 function 和相关参数，参数可以是dict Process(target=func, args=(), kwargs = {})，name 可以用来标识进程。
-控制子进程进入不同阶段的是 start(), join(), is_alive(), terminate(), exitcode 方法。这些方法只能在创建子进程的进程中执行。"/>
-
-
     <base href="https://quqiuzhu.com/2016/python-multiprocessing/">
     <title>
   Python 学习笔记 多进程 multiprocessing · 看见未来
@@ -31,14 +21,9 @@ from multiprocessing import Process, current_process def func(): time.sleep(1) p
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha256-oSrCnRYXvHG31SBifqP2PM1uje7SJUyX0nTwO2RJV54=" crossorigin="anonymous" />
 
     
-      
-      
-      <link rel="stylesheet" href="https://quqiuzhu.com/css/coder.min.ac37073bc2826cd28ef57364a9fe339de7ebcb26dafc22fd832cb35cf5b1d048.css" integrity="sha256-rDcHO8KCbNKO9XNkqf4znefryyba/CL9gyyzXPWx0Eg=" crossorigin="anonymous" media="screen" />
     
-
-    
-
-    
+    <link rel="stylesheet" href="https://quqiuzhu.com/css/coder.min.ac37073bc2826cd28ef57364a9fe339de7ebcb26dafc22fd832cb35cf5b1d048.css" integrity="sha256-rDcHO8KCbNKO9XNkqf4znefryyba/CL9gyyzXPWx0Eg="
+      crossorigin="anonymous" media="screen" />
 
     
       <link rel="stylesheet" href="https://quqiuzhu.com/css/custom.css">
@@ -65,7 +50,7 @@ from multiprocessing import Process, current_process def func(): time.sleep(1) p
       
         
           <li class="navigation-item">
-            <a class="navigation-link" href="https://quqiuzhu.com/archives/">博客</a>
+            <a class="navigation-link" href="https://quqiuzhu.com/posts/">博客</a>
           </li>
         
           <li class="navigation-item">
@@ -81,13 +66,31 @@ from multiprocessing import Process, current_process def func(): time.sleep(1) p
 
       <div class="content">
         
-  <section class="container page">
-  <article>
-    <header>
-      <h1>Python 学习笔记 多进程 multiprocessing</h1>
-    </header>
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Python 学习笔记 多进程 multiprocessing</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2016-04-14T13:13:04Z'>
+                2016-04-14
+              </time>
+              &nbsp
+              <span class="tags">
+  <i class="fas fa-tag"></i>
+    <a href="https://quqiuzhu.com/tags/python/">python</a></span>
 
-    
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <div class="post-content">
+        
 
 <p>Python 解释器有一个全局解释器锁(PIL)，导致每个 Python 进程中最多同时运行一个线程，因此 Python 多线程程序并不能改善程序性能，不能发挥多核系统的优势，可以通过<a href="http://www.oschina.net/translate/pythons-hardest-problem">这篇文章</a>了解。</p>
 
@@ -311,31 +314,28 @@ Out:
 
 <p>这就是上面的方法，close 停止接收新的任务，如果还有任务来，就会抛出异常。 join 是等待所有任务完成。 join 必须要在 close 之后调用，否则会抛出异常。terminate 非正常终止，内存不够用时，垃圾回收器调用的就是这个方法。</p>
 
-  </article>
-</section>
+      </div>
 
+      <footer>
+        <div id="utter-container"></div>
+<script src="https://utteranc.es/client.js" repo='quqiuzhu/quqiuzhu.github.io'
+    issue-term="title" theme='github-light' crossorigin="anonymous"
+    async>
+</script>
+      </footer>
+    </article>
+
+    
+  </section>
 
       </div>
 
       <footer class="footer">
   <section class="container">
-    <p>
-       © 2019
-    &nbsp
-      
-        浙ICP备17015868号
-      
-    &nbsp
-      <span> <a href="https://quqiuzhu.com/index.xml"
-        target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"
-          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="feather feather-rss">
-          <path d="M4 11a9 9 0 0 1 9 9"></path>
-          <path d="M4 4a16 16 0 0 1 16 16"></path>
-          <circle cx="5" cy="19" r="1"></circle>
-        </svg></a>
-      </span>
-    </p>
+    
+      <p>浙ICP备17015868号</p>
+        
+     © 2019
     
     
   </section>
@@ -344,6 +344,19 @@ Out:
     </main>
 
     
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140819128-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
 
   </body>
 

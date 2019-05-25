@@ -9,16 +9,6 @@
     <meta name="description" content="屈秋竹的个人网站">
     <meta name="keywords" content="blog,developer,personal">
 
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Python 学习笔记 描述符"/>
-<meta name="twitter:description" content="许多做 C&#43;&#43; 和 Java 的朋友在看 Python 的时候，或许会问，Python 中没有 private, protected, public 等关键字，是怎么控制变量访问的呢？Python 中有没有静态变量，实例变量呢？
-Python 没有静态变量和实例变量的区别，只有属性。类的属性还是对象的属性没有任何不同，因为类也是一种对象。Python 中类的属性还包含了类中的方法，而控制属性访问的正是描述符。
-本文将详细叙述描述符协议、描述符的实现方式、属性及属性访问顺序等主题。 描述符协议 一个实例 instance 有一个属性 x，对属性 x 有三种操作。 访问 y = instance.x， 赋值 instance.x = 20 和 删除 del instance.x，描述符正是对这三种操作进行控制。
-描述符协议有 3 个方法，只要实现 __get__ 或者 __set__ 方法就可以算是一个描述器。实现了 __set__ 方法的描述器是数据描述器，实现了 __get__ 方法，但是没有实现 __set__ 方法的是非数据描述符。两种描述符在属性访问时的优先级不同，后面会讲。
-descr.__get__(self, inst, type=None) --&gt; value descr.__set__(self, inst, value) --&gt; None descr.__delete__(self, inst) --&gt; None 描述符协议调用者是属性，所以参数 self 是指属性，inst 指的是实例。
-描述符实现方式 有三种典型的方式来实现描述符，类、property() 和 property 装饰器"/>
-
-
     <base href="https://quqiuzhu.com/2016/python-descriptor/">
     <title>
   Python 学习笔记 描述符 · 看见未来
@@ -31,14 +21,9 @@ descr.__get__(self, inst, type=None) --&gt; value descr.__set__(self, inst, valu
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" integrity="sha256-oSrCnRYXvHG31SBifqP2PM1uje7SJUyX0nTwO2RJV54=" crossorigin="anonymous" />
 
     
-      
-      
-      <link rel="stylesheet" href="https://quqiuzhu.com/css/coder.min.ac37073bc2826cd28ef57364a9fe339de7ebcb26dafc22fd832cb35cf5b1d048.css" integrity="sha256-rDcHO8KCbNKO9XNkqf4znefryyba/CL9gyyzXPWx0Eg=" crossorigin="anonymous" media="screen" />
     
-
-    
-
-    
+    <link rel="stylesheet" href="https://quqiuzhu.com/css/coder.min.ac37073bc2826cd28ef57364a9fe339de7ebcb26dafc22fd832cb35cf5b1d048.css" integrity="sha256-rDcHO8KCbNKO9XNkqf4znefryyba/CL9gyyzXPWx0Eg="
+      crossorigin="anonymous" media="screen" />
 
     
       <link rel="stylesheet" href="https://quqiuzhu.com/css/custom.css">
@@ -65,7 +50,7 @@ descr.__get__(self, inst, type=None) --&gt; value descr.__set__(self, inst, valu
       
         
           <li class="navigation-item">
-            <a class="navigation-link" href="https://quqiuzhu.com/archives/">博客</a>
+            <a class="navigation-link" href="https://quqiuzhu.com/posts/">博客</a>
           </li>
         
           <li class="navigation-item">
@@ -81,13 +66,31 @@ descr.__get__(self, inst, type=None) --&gt; value descr.__set__(self, inst, valu
 
       <div class="content">
         
-  <section class="container page">
-  <article>
-    <header>
-      <h1>Python 学习笔记 描述符</h1>
-    </header>
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Python 学习笔记 描述符</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2016-04-24T22:21:25Z'>
+                2016-04-24
+              </time>
+              &nbsp
+              <span class="tags">
+  <i class="fas fa-tag"></i>
+    <a href="https://quqiuzhu.com/tags/python/">python</a></span>
 
-    
+            </span>
+          </div>
+        </div>
+      </header>
+
+      <div class="post-content">
+        
 
 <p>许多做 C++ 和 Java 的朋友在看 Python 的时候，或许会问，Python 中没有 <code>private</code>, <code>protected</code>, <code>public</code> 等关键字，是怎么控制变量访问的呢？Python 中有没有静态变量，实例变量呢？</p>
 
@@ -197,35 +200,34 @@ out: __get__</code></pre></div>
 
 <h3 id="参考">参考</h3>
 
-<p>[1]  <a href="https://www.ibm.com/developerworks/cn/opensource/os-pythondescriptors/">Python 描述符简介</a>
-[2]  <a href="http://pyzh.readthedocs.org/en/latest/Descriptor-HOW-TO-Guide.html">Python 描述器引导(翻译)</a>
-[3]  <a href="http://wlwang41.github.io/content/python/python%E4%B8%AD%E7%9A%84attributes.html">Python 中的attributes</a></p>
+<ol>
+<li><a href="https://www.ibm.com/developerworks/cn/opensource/os-pythondescriptors/">Python 描述符简介</a></li>
+<li><a href="http://pyzh.readthedocs.org/en/latest/Descriptor-HOW-TO-Guide.html">Python 描述器引导(翻译)</a></li>
+<li><a href="http://wlwang41.github.io/content/python/python%E4%B8%AD%E7%9A%84attributes.html">Python 中的attributes</a></li>
+</ol>
 
-  </article>
-</section>
+      </div>
 
+      <footer>
+        <div id="utter-container"></div>
+<script src="https://utteranc.es/client.js" repo='quqiuzhu/quqiuzhu.github.io'
+    issue-term="title" theme='github-light' crossorigin="anonymous"
+    async>
+</script>
+      </footer>
+    </article>
+
+    
+  </section>
 
       </div>
 
       <footer class="footer">
   <section class="container">
-    <p>
-       © 2019
-    &nbsp
-      
-        浙ICP备17015868号
-      
-    &nbsp
-      <span> <a href="https://quqiuzhu.com/index.xml"
-        target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20"
-          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="feather feather-rss">
-          <path d="M4 11a9 9 0 0 1 9 9"></path>
-          <path d="M4 4a16 16 0 0 1 16 16"></path>
-          <circle cx="5" cy="19" r="1"></circle>
-        </svg></a>
-      </span>
-    </p>
+    
+      <p>浙ICP备17015868号</p>
+        
+     © 2019
     
     
   </section>
@@ -234,6 +236,19 @@ out: __get__</code></pre></div>
     </main>
 
     
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-140819128-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
 
   </body>
 

@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>2016s on 看见未来</title>
-    <link>https://quqiuzhu.com/2016/</link>
-    <description>Recent content in 2016s on 看见未来</description>
+    <title>博客 on 看见未来</title>
+    <link>https://quqiuzhu.com/posts/</link>
+    <description>Recent content in 博客 on 看见未来</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 26 Nov 2016 03:58:25 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 04 Jun 2017 15:26:03 +0000</lastBuildDate>
     
-	<atom:link href="https://quqiuzhu.com/2016/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://quqiuzhu.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>打造一款直播硬件</title>
+      <link>https://quqiuzhu.com/2017/build-yunxibox/</link>
+      <pubDate>Sun, 04 Jun 2017 15:26:03 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2017/build-yunxibox/</guid>
+      <description>离上次写博客已经过去6个月了， 这段时间我一直在做一款直播硬件「云犀BOX」，现在产品已经日臻完善，开始对外销售了。在我们公司云犀直播的官网上可以看到它的一些介绍。
+与一般的手机直播不一样，我们追求的是专业级的高质量的直播。 手机摄像头因为诸多限制，应用在稍微大一些的场景的话效果会差很多。 专业直播的应用场景一开始是一些电视媒体，体育赛事直播等。在我们发布「云犀BOX」之前，专业直播是比较困难，花费人力和财力的事情。 一般专业直播的流程是这样的:
+ A公司要准备一场发布会直播，它先去找企业直播服务公司B建立一个直播活动(直播间)，设置好直播间的封面，和其他一些公司宣传的内容。 之后B公司派员工C到直播现场执行直播，员工C带上摄像机、upmost(视频采集卡)和笔记本电脑，摄像机连接视频采集卡，视频采集卡连接到电脑，配置电脑上的OBS(专业直播软件)，设置好RTMP推流地址，然后开始直播。
+ 对于需求方和提供直播服务的公司来说，人都是一个瓶颈。近两年来，直播作为一种内容形式被广泛接受，一些公司已经用直播作为其日常与用户沟通的渠道，比如「得到」的周会直播。这些公司和团体并没有专业的知识，搭建一个公司的直播频道的有可能只是初入职场的一个运营实习生，所以直播应该更加简单，让普通人第一次上手就会用。
+所以我们做了这款「云犀BOX」，只需要一个摄像机，一根HDMI线，一个比手机稍大的「云犀BOX」连上之后点击开始直播就好了。摄像机和「云犀BOX」可以通过热靴云台连在一起，如果扛摄像机直播的话也会非常方便。
+「云犀BOX」是由完全自主研发的一款产品，能自己做的都自己做了，包括直播推流SDK、板卡设计、外观设计等，当然也包含了里面的软件，我们就此申请了3款专利。
+其中软件部分最核心的是推流SDK，我们花了很长时间优化，前三个月一直在搞推流SDK，后面也一直有优化。其实各个视频云平台都有推流SDK，比如七牛、阿里云。为了能够针对我们的硬件进行优化，我们选择重新实现，现在推流的流畅性与稳定性比平均水平高很多的。
+硬件部分，从包装到电源板卡芯片，任何可能出错的地方都出错过，不可能出错的地方也出错过，因此推出时间比我们预想的要迟一个半月左右。即便这样，这款硬件能在半年内做出来并上市，让我感受到了中国硬件产业链的成熟。
+人工智能时代，科技公司不应该只玩软件了，还需要会玩硬件和算法的。</description>
+    </item>
     
     <item>
       <title>再见路口</title>
@@ -28,8 +45,7 @@
 10月之后，公司决定做一款新产品「熊猫海淘」，我又回来做android了，开发了1.0版，用了很多之前没用的技术。
 11月开发完之后我决定辞职，对我来说这是职业上的选择，但却很舍不得路口的人。好多人都一起吃过饭，没吃饭的也大多有过沟通。都说继续保持联系，但离职实实在在的就是一场告别。我问过之前离职的同事，他们都慢慢地减少了和路口的联系；从我个人经验上来说，每次毕业之后，最好的朋友也联系得非常少了。是的，路口最好的朋友也会慢慢走远。
 今天去办理离职手续，跟主管和高层有非常友好的沟通，中午跟路口的好朋友一起喝咖啡，听了技术部的分享，晚上跟路口的朋友一起吃饭、看电影。这个让我发恼骚想离开的公司，在离别之际竟然给我如此多的感动。
-再见路口！
-&amp;ndash; end &amp;ndash;</description>
+再见路口！</description>
     </item>
     
     <item>
@@ -43,6 +59,17 @@
 brew install node npm install -g react-native-cli 在此提醒一下，请注意 HomeBrew 的提示，如果有命令没有安装成功，按照 HomeBrew 的提示操作。
 React Native 页面 React 推荐使用 JSX 语法来写页面，因为其可读性较强。因为 JSX 是一种类 XML 的语法，对于习惯于使用布局文件的 Android 开发者来说并不陌生。 使用 React Component 来开发我们的应用界面
 class Greeting extends Component { render() { return ( &amp;lt;Text&amp;gt;Hello world!</description>
+    </item>
+    
+    <item>
+      <title>Dagger 2 学习笔记</title>
+      <link>https://quqiuzhu.com/2016/dagger2/</link>
+      <pubDate>Sun, 09 Oct 2016 08:31:11 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/2016/dagger2/</guid>
+      <description>国庆假期学习了 Dagger 2, 在这里进行一些总结。 Dagger 2 是一个由 Google 工程师开发的依赖注入库，该项目 fork 自在 Square 工作的前 Google 工程师开发的 Dagger 1。
+如果你想了解 Dagger 2 的基本概念和使用方式，推荐看 Codepath 的这篇文章 Dependency Injection with Dagger 2。Dagger 2 通过注解 @Module 和 @Provide 标注提供依赖的类和方法, 通过 @Inject 标注请求依赖的实例, 通过 @Component 将两者连接起来, 而且提供了其他的一些 Feature。看完这些之后，你可能会有两个问题
+ 为什么要重新开发 Dagger 2, Dagger 1 哪里不好？ 我现在知道怎么用了, 但是它是怎么实现的？  第一个问题，在 Google 开发者大会上，Dagger 2 的开发者的演讲 DAGGER 2 - A New Type of dependency injection 中，不仅讲了 Dagger 1的优缺点，还讲了依赖注入如何从 Spring -&amp;gt; Guice -&amp;gt; Dagger 1 -&amp;gt; Dagger 2。 Spring 主要的缺点是繁琐, 那段替代复杂的依赖注入的 XML 和原来的 Java 代码一样丑陋；Guice 的缺点是图错误在运行时才能发现，并且开发者难以调试；Dagger 1 的缺点是，生成的代码丑陋，出错难以调试，并且运行时开销不可忽视；Dagger 2在 Dagger 1 的基础上，解决了性能问题，并且生成的代码更加优雅。</description>
     </item>
     
     <item>
@@ -146,17 +173,6 @@ class Itrator(object): def __init__(self): self.i = 4; def next(self): if self.i
 生成器 有两种生成器，第一种是产生值的生成器，像下面这样的
 def power(values): print &amp;#39;xxxx&amp;#39; for value in values: yield value 第二种种是作为表达式的生成器，这种生成器需要接受外面的输入，像下面这样的
 def psychologist(): print &amp;#39;plaese tell me your problem&amp;#39; while True : answer = (yield) if answer is not None: if answer.</description>
-    </item>
-    
-    <item>
-      <title>Dagger 2 学习笔记</title>
-      <link>https://quqiuzhu.com/2016/dagger2/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://quqiuzhu.com/2016/dagger2/</guid>
-      <description>国庆假期学习了 Dagger 2, 在这里进行一些总结。 Dagger 2 是一个由 Google 工程师开发的依赖注入库，该项目 fork 自在 Square 工作的前 Google 工程师开发的 Dagger 1。
-如果你想了解 Dagger 2 的基本概念和使用方式，推荐看 Codepath 的这篇文章 Dependency Injection with Dagger 2。Dagger 2 通过注解 @Module 和 @Provide 标注提供依赖的类和方法, 通过 @Inject 标注请求依赖的实例, 通过 @Component 将两者连接起来, 而且提供了其他的一些 Feature。看完这些之后，你可能会有两个问题
- 为什么要重新开发 Dagger 2, Dagger 1 哪里不好？ 我现在知道怎么用了, 但是它是怎么实现的？  第一个问题，在 Google 开发者大会上，Dagger 2 的开发者的演讲 DAGGER 2 - A New Type of dependency injection 中，不仅讲了 Dagger 1的优缺点，还讲了依赖注入如何从 Spring -&amp;gt; Guice -&amp;gt; Dagger 1 -&amp;gt; Dagger 2。 Spring 主要的缺点是繁琐, 那段替代复杂的依赖注入的 XML 和原来的 Java 代码一样丑陋；Guice 的缺点是图错误在运行时才能发现，并且开发者难以调试；Dagger 1 的缺点是，生成的代码丑陋，出错难以调试，并且运行时开销不可忽视；Dagger 2在 Dagger 1 的基础上，解决了性能问题，并且生成的代码更加优雅。</description>
     </item>
     
   </channel>

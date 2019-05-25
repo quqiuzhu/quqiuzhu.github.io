@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>life on 看见未来</title>
-    <link>https://quqiuzhu.com/categories/life/</link>
+    <link>https://quqiuzhu.com/tags/life/</link>
     <description>Recent content in life on 看见未来</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 26 Nov 2016 03:58:25 +0000</lastBuildDate>
     
-	<atom:link href="https://quqiuzhu.com/categories/life/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://quqiuzhu.com/tags/life/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -28,8 +28,7 @@
 10月之后，公司决定做一款新产品「熊猫海淘」，我又回来做android了，开发了1.0版，用了很多之前没用的技术。
 11月开发完之后我决定辞职，对我来说这是职业上的选择，但却很舍不得路口的人。好多人都一起吃过饭，没吃饭的也大多有过沟通。都说继续保持联系，但离职实实在在的就是一场告别。我问过之前离职的同事，他们都慢慢地减少了和路口的联系；从我个人经验上来说，每次毕业之后，最好的朋友也联系得非常少了。是的，路口最好的朋友也会慢慢走远。
 今天去办理离职手续，跟主管和高层有非常友好的沟通，中午跟路口的好朋友一起喝咖啡，听了技术部的分享，晚上跟路口的朋友一起吃饭、看电影。这个让我发恼骚想离开的公司，在离别之际竟然给我如此多的感动。
-再见路口！
-&amp;ndash; end &amp;ndash;</description>
+再见路口！</description>
     </item>
     
   </channel>
