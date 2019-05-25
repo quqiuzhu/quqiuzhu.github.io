@@ -10,7 +10,8 @@ pygmentsstyle = "bw"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
 
-disqusShortname = "quqiuzhu"
+[permalinks]
+  posts = "/:year/:filename/"
 
 [params]
     author = "屈秋竹"
@@ -32,28 +33,43 @@ disqusShortname = "quqiuzhu"
     math = true
     custom_css = ["css/custom.css"]
 
+# Comment by utterances
+[params.utter]
+    repo = "quqiuzhu/quqiuzhu.github.io"
+    issueTerm = "title" #设置每篇文章对应的 issue 的名字，可选 pathname title url，
+    theme = "github-light"
+
 # Social links
 [[params.social]]
     name = "Github"
     icon = "fab fa-github fa-2x"
     weight = 1
     url = "https://github.com/quqiuzhu/"
-[[params.social]]
-    name = "Twitter"
-    icon = "fab fa-twitter fa-2x"
-    weight = 2
-    url = "https://twitter.com/quqiuzhu/"
+
 [[params.social]]
     name = "LinkedIn"
     icon = "fab fa-linkedin"
-    weight = 3
+    weight = 2
     url = "https://www.linkedin.com/in/quqiuzhu/"
+
+[[params.social]]
+    name = "Email"
+    icon = "far fa-envelope"
+    weight = 3
+    url = "http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=WSgsKDAsIzEsGSgodzo2NA"
+
+[[params.social]]
+    name = "RSS"
+    icon = "fas fa-rss"
+    weight = 4
+    url = "/index.xml"
 
 # Menu links
 [[menu.main]]
     name = "博客"
     weight = 1
-    url  = "/archives/"
+    url  = "/posts/"
+
 [[menu.main]]
     name = "关于"
     weight = 2

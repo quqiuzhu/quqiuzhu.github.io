@@ -1,7 +1,6 @@
 ---
 title: Python 学习笔记 迭代器和生成器
 date: 2016-04-06 23:08:59
-categories: python
 tags:
 - python
 ---

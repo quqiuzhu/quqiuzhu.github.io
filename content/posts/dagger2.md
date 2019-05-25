@@ -1,7 +1,6 @@
 ---
 title: Dagger 2 学习笔记
-date: 2016-10-9 08:31:11
-categories: android
+date: 2016-10-09 08:31:11
 tags:
 - android
 ---
@@ -575,7 +574,5 @@ private static final class ElementName {
 * validElements 做了什么呢?
 * 下载了代码之后, 看完了头部的注释, 解释了如何处理一个 ProcessingStep, 然后哪些 element 需要延迟处理, 整个逻辑就清晰了。
 * BasicAnnotationProcessor 中, 注解处理器会多次调用 process 方法吗？ 如果未处理完成, 应该如何表征, 这是个问题, 后面慢慢弄明白
-
--- end --
 
 

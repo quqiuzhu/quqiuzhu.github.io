@@ -1,7 +1,6 @@
 ---
 title: Requests 源代码浅析
 date: 2016-09-04 10:16:10
-categories: server
 tags:
 - python
 - server
@@ -191,32 +190,6 @@ Retry不仅能实现redirects的计数，而且还有Read和Connect的重试。
 自动跳转的逻辑实现在 PoolManager 的 urlopen中，值得注意的是，跳转之后，method为变为GET。
 
 当HTTP Response的Content-Type为gzip/deflate时，对该数据进行编码，使用的库为zlib，这部分的逻辑实现在 response模块的 HTTPResponse中。
-
-
-#### HTTP 与 SOCKS代理
-ProxyManager
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 [d0386d03]: https://github.com/kennethreitz/requests "Requests: HTTP for Humans"
 [856b1aaa]: https://github.com/shazow/urllib3 "urllib3"

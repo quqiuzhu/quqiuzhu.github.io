@@ -13,16 +13,12 @@
             <span class="posted-on">
               <i class="fas fa-calendar"></i>
               <time datetime='{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}'>
-                {{ .Date.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}
+                {{ .Date.Format (.Site.Params.dateFormat | default "2006-01-02" ) }}
               </time>
-            </span>
-            <span class="reading-time">
-              <i class="fas fa-clock"></i>
-              {{ i18n "readingTime" .ReadingTime }}
+              &nbsp
+              {{ with .Page.Params.Tags }}{{ partial "taxonomy/tags" . }}{{ end }}
             </span>
           </div>
-          {{ with .Page.Params.Categories }}{{ partial "taxonomy/categories" . }}{{ end }}
-          {{ with .Page.Params.Tags }}{{ partial "taxonomy/tags" . }}{{ end }}
         </div>
       </header>
 
@@ -31,7 +27,7 @@
       </div>
 
       <footer>
-        {{ partial "posts/disqus" . }}
+        {{ partial "posts/comment" . }}
       </footer>
     </article>
 

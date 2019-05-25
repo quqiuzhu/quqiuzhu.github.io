@@ -1,7 +1,6 @@
 ---
 title: Python 学习笔记 装饰器 与 context
 date: 2016-04-07 12:17:58
-categories: python
 tags:
 - python
 ---

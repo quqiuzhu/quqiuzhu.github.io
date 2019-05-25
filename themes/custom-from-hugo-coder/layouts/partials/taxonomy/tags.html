@@ -1,4 +1,4 @@
-<div class="tags">
+<span class="tags">
   <i class="fas fa-tag"></i>
   {{- range $index, $el := . -}}
     {{- if gt $index 0 }}
@@ -6,4 +6,4 @@
     {{- end }}
     <a href="{{ ( printf "tags/%s/" ( . | urlize ) ) | relLangURL }}">{{ . }}</a>
   {{- end -}}
-</div>
+</span>

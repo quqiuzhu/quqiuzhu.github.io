@@ -1,7 +1,6 @@
 ---
 title: Python 学习笔记 多进程 multiprocessing
 date: 2016-04-14 13:13:04
-categories: python
 tags:
 - python
 ---

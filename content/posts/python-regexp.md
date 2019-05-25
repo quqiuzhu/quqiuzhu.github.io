@@ -1,7 +1,6 @@
 ---
 title: Python 学习笔记 正则表达式
 date: 2016-04-27 14:24:46
-categories: python
 tags:
 - python
 - magic
@@ -164,4 +163,3 @@ l = re.split('foo\d+', 'foo2033foo9d')
 l # ['', '', 'd']
 ```
 
--- end --

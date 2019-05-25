@@ -1,7 +1,6 @@
 ---
 title: React Native
 date: 2016-10-30 02:09:53
-categories: android
 tags: 
 - android
 ---
@@ -205,6 +204,3 @@ DeviceEventEmitter.addListener(eventName, (params) => {
 	// Do Something
 })
 ```
-
-
--- end --

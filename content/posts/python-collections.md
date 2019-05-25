@@ -1,7 +1,6 @@
 ---
 title: Python 学习笔记 高性能容器 collections
 date: 2016-04-17 20:54:06
-categories: python
 tags:
 - python
 ---

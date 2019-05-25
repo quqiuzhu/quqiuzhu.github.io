@@ -1,7 +1,6 @@
 ---
 title: Python 学习笔记 描述符
 date: 2016-04-24 22:21:25
-categories: python
 tags:
 - python
 ---
@@ -129,9 +128,9 @@ Python 中 `.` 是 `getattr()` 函数的语法糖。所以方法调用 `object.f
 上面只是罗列一些点，但并没有展开，强烈推荐三篇参考的文章，比 Python Expert Programming 写得清晰很多。
 
 ### 参考
-[1]  [Python 描述符简介][ibm]
-[2]  [Python 描述器引导(翻译)][intro]
-[3]  [Python 中的attributes][attribute]
+1. [Python 描述符简介][ibm]
+2. [Python 描述器引导(翻译)][intro]
+3.  [Python 中的attributes][attribute]
 
 [ibm]: https://www.ibm.com/developerworks/cn/opensource/os-pythondescriptors/
 [intro]: http://pyzh.readthedocs.org/en/latest/Descriptor-HOW-TO-Guide.html
