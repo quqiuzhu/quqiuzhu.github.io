@@ -15,5 +15,5 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: http://quqiuzhu.com/sitemap.xml
-Sitemap: http://quqiuzhu.com/baidusitemap.xml
+Sitemap: https://quqiuzhu.com/sitemap.xml
+Sitemap: https://quqiuzhu.com/baidusitemap.xml

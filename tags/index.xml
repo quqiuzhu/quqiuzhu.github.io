@@ -12,7 +12,7 @@
     
     
     <item>
-      <title>Android</title>
+      <title>android</title>
       <link>https://quqiuzhu.com/tags/android/</link>
       <pubDate>Sun, 30 Oct 2016 02:09:53 +0000</pubDate>
       
@@ -21,16 +21,7 @@
     </item>
     
     <item>
-      <title>Http</title>
-      <link>https://quqiuzhu.com/tags/http/</link>
-      <pubDate>Sun, 04 Sep 2016 10:16:10 +0000</pubDate>
-      
-      <guid>https://quqiuzhu.com/tags/http/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Js</title>
+      <title>js</title>
       <link>https://quqiuzhu.com/tags/js/</link>
       <pubDate>Wed, 05 Oct 2016 07:34:02 +0000</pubDate>
       
@@ -39,16 +30,16 @@
     </item>
     
     <item>
-      <title>Magic</title>
-      <link>https://quqiuzhu.com/tags/magic/</link>
-      <pubDate>Wed, 27 Apr 2016 14:24:46 +0000</pubDate>
+      <title>http</title>
+      <link>https://quqiuzhu.com/tags/http/</link>
+      <pubDate>Sun, 04 Sep 2016 10:16:10 +0000</pubDate>
       
-      <guid>https://quqiuzhu.com/tags/magic/</guid>
+      <guid>https://quqiuzhu.com/tags/http/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>Python</title>
+      <title>python</title>
       <link>https://quqiuzhu.com/tags/python/</link>
       <pubDate>Sun, 04 Sep 2016 10:16:10 +0000</pubDate>
       
@@ -57,11 +48,20 @@
     </item>
     
     <item>
-      <title>Server</title>
+      <title>server</title>
       <link>https://quqiuzhu.com/tags/server/</link>
       <pubDate>Sun, 04 Sep 2016 10:16:10 +0000</pubDate>
       
       <guid>https://quqiuzhu.com/tags/server/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>magic</title>
+      <link>https://quqiuzhu.com/tags/magic/</link>
+      <pubDate>Wed, 27 Apr 2016 14:24:46 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/tags/magic/</guid>
       <description></description>
     </item>
     
