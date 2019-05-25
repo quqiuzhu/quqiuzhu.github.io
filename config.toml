@@ -9,6 +9,7 @@ canonifyurls = true
 pygmentsstyle = "bw"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
+googleAnalytics = "UA-140819128-1"
 
 [permalinks]
   posts = "/:year/:filename/"
