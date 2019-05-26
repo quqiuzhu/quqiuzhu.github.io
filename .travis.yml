@@ -3,18 +3,35 @@
 # https://docs.travis-ci.com/user/customizing-the-build/
 
 language: go
+go:
+  - "1.11"
+
+env:
+    - HUGO_BUILD_TAGS="extended"
+    - HUGO_VERSION="v0.53"
 
 # before_install
+
 # install - install any dependencies required
 install:
-    - go get github.com/gohugoio/hugo
+    - mkdir $HOME/src
+    - cd $HOME/src
+    - git clone https://github.com/gohugoio/hugo.git
+    - cd hugo
+    - git checkout $HUGO_VERSION
+    - go get github.com/magefile/mage
+    - go mod download
+    - mage -v hugo
+    - ./hugo version
+    - pwd
 
 before_script:
     - rm -rf public 2> /dev/null
 
 # script - run the build script
 script:
-    - hugo
+    - cd $TRAVIS_BUILD_DIR
+    - $HOME/src/hugo/hugo
 
 deploy:
   provider: pages
