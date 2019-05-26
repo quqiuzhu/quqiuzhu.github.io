@@ -158,8 +158,17 @@ table tr th:last-child {
   border-right: 0;
 }
 
-img {
-  max-width: 100%;
+img[src$='#center'] {
+	display: block;
+	margin: 0.7rem auto;
+}
+img[src$='#left'] {
+	float: left;
+	margin: 0.7rem;
+}
+img[src$='#right'] {
+	float: right;
+	margin: 0.7rem;
 }
 
 .wrapper {
