@@ -14,9 +14,8 @@
 
     <link rel="canonical" href="{{ .Permalink }}">
 
-    <!-- <link rel="stylesheet" href="fontawesome/css/all.min.css"/> -->
-    <link rel="stylesheet" href="css/normalize.min.css"/>
-    <link rel="stylesheet" href="css/iconfont.css" />
+    <link rel="stylesheet" href="/css/normalize.min.css"/>
+    <link rel="stylesheet" href="/css/iconfont.css" />
 
     {{ $cssOpts := (dict "targetPath" "css/coder.css" ) }}
     {{ $styles := resources.Get "scss/coder.scss" | resources.ExecuteAsTemplate "style.coder.css" . | toCSS $cssOpts | minify | fingerprint }}

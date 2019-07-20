@@ -19,11 +19,11 @@ googleAnalytics = "UA-140819128-1"
     author = "屈秋竹"
     info = "视频工程师"
     description = "屈秋竹的个人网站"
-    keywords = "屈秋竹,秋竹,程序员,站长,工程师,商汤,虎牙"
+    keywords = "屈秋竹,秋竹,程序员,站长,工程师,商汤,虎牙,音视频,看见未来"
     avatarurl = "avatar.png"
 
-    favicon_32 = "favicon.ico"
-    favicon_16 = "favicon.ico"
+    favicon_32 = "favicon.png"
+    favicon_16 = "favicon.png"
 
     footercontent = "浙ICP备17015868号"
 
@@ -35,10 +35,10 @@ googleAnalytics = "UA-140819128-1"
     math = true
 
 
-# Comment by utterances
+# Utterances
 [params.utter]
     repo = "quqiuzhu/quqiuzhu.github.io"
-    issueTerm = "title" #设置每篇文章对应的 issue 的名字，可选 pathname title url，
+    issueTerm = "title" # pathname title url
     theme = "github-light"
 
 
