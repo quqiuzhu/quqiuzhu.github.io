@@ -6,7 +6,7 @@ tags:
 - tool
 ---
 
-{{< figure src="/img/2019-05-30-wechat-desktop.png" >}}
+{{< figure src="https://quqiuzhu-com.oss-cn-beijing.aliyuncs.com/img/2019-05-30-wechat-desktop.png?Expires=1563682493&OSSAccessKeyId=TMP.hY1Rks4nFtEbn2ikYCcCUBXRArhLj38dbXFR1fQhzeTSxf6e49HTUE6K5oc7Qpf2V5wcNuCQ5YqqNiRUFkKFmfCdvTD7z98qY7YwNcghNb6E22XjC4dbM64Pccyv6B.tmp&Signature=N9z1as%2FBqVm%2BTfPGNpbhBeKeBZc%3D" >}}
 
 一直以来，Linux不太适合日常工作，其中一个原因就是微信没有Linux版本。有很多不靠谱的第三方客户端，有这样那样的问题，这里就不推荐了。这里推荐微信的网页版，可以直接浏览器输入网址 [wx.qq.com][wechat]，这样的话微信只是浏览器中的一个 Tab，由于和其他网页混在一起， 不方便找，提供两个解决方案。
 
@@ -34,7 +34,7 @@ nativefier --name "wechat" --icon "/tmp/wechat.png" "https://wx.qq.com"
 
 这样就在当前路径下生成了微信的本地应用， 目录为 `wechat-linux-x64`，执行`./wechat`打开微信应用，打开之后，以后就可以在 Launcher 打开了， 不需要每次都执行命令。
 
-{{< figure src="/img/2019-05-30-wechat-files.png" >}}
+{{< figure src="https://quqiuzhu-com.oss-cn-beijing.aliyuncs.com/img/2019-05-30-wechat-files.png?Expires=1563682577&OSSAccessKeyId=TMP.hY1Rks4nFtEbn2ikYCcCUBXRArhLj38dbXFR1fQhzeTSxf6e49HTUE6K5oc7Qpf2V5wcNuCQ5YqqNiRUFkKFmfCdvTD7z98qY7YwNcghNb6E22XjC4dbM64Pccyv6B.tmp&Signature=y37%2BPDPUD3g62t1%2BRoKqtFYaYmg%3D" >}}
 
 
 制作脚本，请将 icon 换成你自己的路径

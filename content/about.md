@@ -4,7 +4,7 @@ date: 2016-04-06 20:26:38
 comments: false
 ---
 
-{{< figure src="/quqiuzhu.png#right" width="280">}}
+{{< figure src="https://quqiuzhu-com.oss-cn-beijing.aliyuncs.com/img/quqiuzhu.png?Expires=1563682839&OSSAccessKeyId=TMP.hY1Rks4nFtEbn2ikYCcCUBXRArhLj38dbXFR1fQhzeTSxf6e49HTUE6K5oc7Qpf2V5wcNuCQ5YqqNiRUFkKFmfCdvTD7z98qY7YwNcghNb6E22XjC4dbM64Pccyv6B.tmp&Signature=6Yz6U8YxOavr%2B4QHZtV55tWO02Q%3D#right" width="280">}}
 
 我叫屈秋竹，[浙大][zju]CS2015本科毕业，现居深圳，在[商汤科技][sensetime]担任视频工程师，主要开发语言是`Golang`，偏向于服务端。在此之前，我在[虎牙直播][huya]担任音视频工程师，主要用`C/C++`在移动端上做直播SDK开发。毕业后在[路口网][lukou]和[云犀直播][yunxi]做了三年`Android`相关工作，积累了直播推流端的经验。 同时在个人和公司项目中有使用`Python`作为服务端和数据分析语言。
 
