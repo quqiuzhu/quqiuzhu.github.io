@@ -14,8 +14,10 @@
 
     <link rel="canonical" href="{{ .Permalink }}">
 
-    <link rel="stylesheet" href="/css/normalize.min.css"/>
-    <link rel="stylesheet" href="/css/iconfont.css" />
+    <!-- cdn.bytedance.com -->
+    <link rel="stylesheet" href="https://s3.pstatp.com/cdn/expire-1-M/normalize/8.0.1/normalize.min.css"/>
+    <!-- iconfont.cn -->
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_1306475_6bvggoehvvm.css" />
 
     {{ $cssOpts := (dict "targetPath" "css/coder.css" ) }}
     {{ $styles := resources.Get "scss/coder.scss" | resources.ExecuteAsTemplate "style.coder.css" . | toCSS $cssOpts | minify | fingerprint }}
