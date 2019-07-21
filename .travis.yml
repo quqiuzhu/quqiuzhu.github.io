@@ -2,12 +2,28 @@
 # https://docs.travis-ci.com/user/languages/go/
 # https://docs.travis-ci.com/user/customizing-the-build/
 
+dist: trusty
 language: go
+go:
+  - "1.11"
+
+env:
+  global:
+  - HUGO_BUILD_TAGS="extended"
 
 # before_install
 # install - install any dependencies required
 install:
-    - go get github.com/gohugoio/hugo
+    - mkdir $HOME/src
+    - cd $HOME/src
+    - git clone https://github.com/gohugoio/hugo.git
+    - cd hugo
+    - git checkout 9433cf5 # checkout release v0.52
+    - go get github.com/magefile/mage
+    - go mod download
+    - mage -v hugo
+    - ./hugo version
+    - pwd
 
 before_script:
     - rm -rf public 2> /dev/null
