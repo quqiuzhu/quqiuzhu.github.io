@@ -5,7 +5,7 @@
 dist: trusty
 language: go
 go:
-  - "1.11"
+  - "1.12"
 
 env:
   global:
@@ -18,7 +18,6 @@ install:
     - cd $HOME/src
     - git clone https://github.com/gohugoio/hugo.git
     - cd hugo
-    - git checkout 9433cf5 # checkout release v0.52
     - go get github.com/magefile/mage
     - go mod download
     - mage -v hugo
