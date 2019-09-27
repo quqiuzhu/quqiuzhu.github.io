@@ -1,9 +1,34 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://quqiuzhu.com/tags/</loc>
+    <lastmod>2019-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/tags/tool/</loc>
+    <lastmod>2019-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://quqiuzhu.com/2019/ubuntu-wechat/</loc>
+    <lastmod>2019-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/tags/wechat/</loc>
+    <lastmod>2019-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/posts/</loc>
+    <lastmod>2019-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/</loc>
     <lastmod>2019-05-30T00:00:00+00:00</lastmod>
   </url>
   
@@ -13,8 +38,18 @@
   </url>
   
   <url>
+    <loc>https://quqiuzhu.com/tags/life/</loc>
+    <lastmod>2016-11-26T03:58:25+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://quqiuzhu.com/2016/goodbye-lukou/</loc>
     <lastmod>2016-11-26T03:58:25+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/tags/android/</loc>
+    <lastmod>2016-10-30T02:09:53+00:00</lastmod>
   </url>
   
   <url>
@@ -33,8 +68,33 @@
   </url>
   
   <url>
+    <loc>https://quqiuzhu.com/tags/js/</loc>
+    <lastmod>2016-10-05T07:34:02+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/tags/http/</loc>
+    <lastmod>2016-09-04T10:16:10+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/tags/python/</loc>
+    <lastmod>2016-09-04T10:16:10+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://quqiuzhu.com/2016/python-requests/</loc>
     <lastmod>2016-09-04T10:16:10+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/tags/server/</loc>
+    <lastmod>2016-09-04T10:16:10+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://quqiuzhu.com/tags/magic/</loc>
+    <lastmod>2016-04-27T14:24:46+00:00</lastmod>
   </url>
   
   <url>
@@ -73,79 +133,7 @@
   </url>
   
   <url>
-    <loc>https://quqiuzhu.com/tags/android/</loc>
-    <lastmod>2016-10-30T02:09:53+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://quqiuzhu.com/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quqiuzhu.com/tags/http/</loc>
-    <lastmod>2016-09-04T10:16:10+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quqiuzhu.com/tags/js/</loc>
-    <lastmod>2016-10-05T07:34:02+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quqiuzhu.com/tags/life/</loc>
-    <lastmod>2016-11-26T03:58:25+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quqiuzhu.com/tags/magic/</loc>
-    <lastmod>2016-04-27T14:24:46+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quqiuzhu.com/tags/python/</loc>
-    <lastmod>2016-09-04T10:16:10+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quqiuzhu.com/tags/server/</loc>
-    <lastmod>2016-09-04T10:16:10+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quqiuzhu.com/tags/</loc>
-    <lastmod>2016-10-30T02:09:53+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quqiuzhu.com/tags/tool/</loc>
-    <lastmod>2019-05-30T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quqiuzhu.com/tags/wechat/</loc>
-    <lastmod>2019-05-30T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://quqiuzhu.com/posts/</loc>
-    <lastmod>2019-05-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://quqiuzhu.com/</loc>
-    <lastmod>2019-05-30T00:00:00+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>

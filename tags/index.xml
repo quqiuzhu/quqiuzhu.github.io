@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on 看见未来</title>
@@ -6,76 +6,13 @@
     <description>Recent content in Tags on 看见未来</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 30 Oct 2016 02:09:53 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 30 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://quqiuzhu.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Android</title>
-      <link>https://quqiuzhu.com/tags/android/</link>
-      <pubDate>Sun, 30 Oct 2016 02:09:53 +0000</pubDate>
-      
-      <guid>https://quqiuzhu.com/tags/android/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Http</title>
-      <link>https://quqiuzhu.com/tags/http/</link>
-      <pubDate>Sun, 04 Sep 2016 10:16:10 +0000</pubDate>
-      
-      <guid>https://quqiuzhu.com/tags/http/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Js</title>
-      <link>https://quqiuzhu.com/tags/js/</link>
-      <pubDate>Wed, 05 Oct 2016 07:34:02 +0000</pubDate>
-      
-      <guid>https://quqiuzhu.com/tags/js/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Life</title>
-      <link>https://quqiuzhu.com/tags/life/</link>
-      <pubDate>Sat, 26 Nov 2016 03:58:25 +0000</pubDate>
-      
-      <guid>https://quqiuzhu.com/tags/life/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Magic</title>
-      <link>https://quqiuzhu.com/tags/magic/</link>
-      <pubDate>Wed, 27 Apr 2016 14:24:46 +0000</pubDate>
-      
-      <guid>https://quqiuzhu.com/tags/magic/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link>https://quqiuzhu.com/tags/python/</link>
-      <pubDate>Sun, 04 Sep 2016 10:16:10 +0000</pubDate>
-      
-      <guid>https://quqiuzhu.com/tags/python/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Server</title>
-      <link>https://quqiuzhu.com/tags/server/</link>
-      <pubDate>Sun, 04 Sep 2016 10:16:10 +0000</pubDate>
-      
-      <guid>https://quqiuzhu.com/tags/server/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tool</title>
+      <title>tool</title>
       <link>https://quqiuzhu.com/tags/tool/</link>
       <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
       
@@ -84,11 +21,74 @@
     </item>
     
     <item>
-      <title>Wechat</title>
+      <title>wechat</title>
       <link>https://quqiuzhu.com/tags/wechat/</link>
       <pubDate>Thu, 30 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://quqiuzhu.com/tags/wechat/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>life</title>
+      <link>https://quqiuzhu.com/tags/life/</link>
+      <pubDate>Sat, 26 Nov 2016 03:58:25 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/tags/life/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>android</title>
+      <link>https://quqiuzhu.com/tags/android/</link>
+      <pubDate>Sun, 30 Oct 2016 02:09:53 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/tags/android/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>js</title>
+      <link>https://quqiuzhu.com/tags/js/</link>
+      <pubDate>Wed, 05 Oct 2016 07:34:02 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/tags/js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>http</title>
+      <link>https://quqiuzhu.com/tags/http/</link>
+      <pubDate>Sun, 04 Sep 2016 10:16:10 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/tags/http/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://quqiuzhu.com/tags/python/</link>
+      <pubDate>Sun, 04 Sep 2016 10:16:10 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>server</title>
+      <link>https://quqiuzhu.com/tags/server/</link>
+      <pubDate>Sun, 04 Sep 2016 10:16:10 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/tags/server/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>magic</title>
+      <link>https://quqiuzhu.com/tags/magic/</link>
+      <pubDate>Wed, 27 Apr 2016 14:24:46 +0000</pubDate>
+      
+      <guid>https://quqiuzhu.com/tags/magic/</guid>
       <description></description>
     </item>
     
