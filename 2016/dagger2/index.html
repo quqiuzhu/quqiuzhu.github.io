@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.59.0-DEV" />
+    <meta name="generator" content="Hugo 0.60.0-DEV" />
   </head>
 
   <body class=" ">
@@ -133,16 +133,16 @@
 <li><p>在需要注入的类中, 使用已经实例化的 Component, 调用其 inject() 方法</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Singleton
 @Component(modules={AppModule.class, NetModule.class})
-<span style="font-weight:bold">public</span> interface NetComponent {
-<span style="">void</span> inject(MainActivity activity);
+<span style="">public interface </span>NetComponent {
+<span style="">void inject</span>(<span style="">MainActivity activity</span>);
 <span style="font-style:italic">// void inject(MyFragment fragment);
 </span><span style="font-style:italic">// void inject(MyService service);
-</span><span style="font-style:italic"></span>}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">public</span> class MyApp extends Application {
+</span><span style="font-style:italic"></span>}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="">public class MyApp extends </span>Application {
 
-<span style="font-weight:bold">private</span> NetComponent mNetComponent;
+<span style="">private NetComponent </span>mNetComponent;
 
 @Override
-<span style="font-weight:bold">public</span> void onCreate() {
+<span style="">public void </span>onCreate() {
     <span style="font-weight:bold">super</span>.onCreate();
 
     <span style="font-style:italic">// Dagger%COMPONENT_NAME%
@@ -157,14 +157,14 @@
 </span><span style="font-style:italic"></span>    <span style="font-style:italic">//  mNetComponent = com.codepath.dagger.components.DaggerNetComponent.create();
 </span><span style="font-style:italic"></span>}
 
-<span style="font-weight:bold">public</span> NetComponent getNetComponent() {
+<span style="">public NetComponent </span>getNetComponent() {
    <span style="font-weight:bold">return</span> mNetComponent;
 }
-}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">public</span> class MyActivity extends Activity {
-@Inject OkHttpClient mOkHttpClient;
-@Inject SharedPreferences sharedPreferences;
+}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="">public class MyActivity extends </span>Activity {
+@Inject <span style="">OkHttpClient mOkHttpClient</span>;
+@Inject <span style="">SharedPreferences sharedPreferences</span>;
 
-<span style="font-weight:bold">public</span> void onCreate(Bundle savedInstance) {
+<span style="">public void </span>onCreate(<span style="">Bundle savedInstance</span>) {
     <span style="font-style:italic">// assign singleton instances to fields
 </span><span style="font-style:italic"></span>    <span style="font-style:italic">// We need to cast to `MyApp` in order to get the right method
 </span><span style="font-style:italic"></span>    ((MyApp) getApplication()).getNetComponent().inject(<span style="font-weight:bold">this</span>);
@@ -180,20 +180,20 @@
 <li><p>通过 Dagger 提供的 @Qualifier 注解可以定义限定符, 就像定义 annotation 一样</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Provides @Named(<span style="font-style:italic">&#34;cached&#34;</span>)
 @Singleton
-OkHttpClient provideOkHttpClient(Cache cache) {
-OkHttpClient client = <span style="font-weight:bold">new</span> OkHttpClient();
+<span style="">OkHttpClient provideOkHttpClient</span>(<span style="">Cache cache</span>) {
+<span style="">OkHttpClient client </span>= <span style="font-weight:bold">new</span> OkHttpClient();
 client.setCache(cache);
 <span style="font-weight:bold">return</span> client;
 }
 
 @Provides @Named(<span style="font-style:italic">&#34;non_cached&#34;</span>) @Singleton
-OkHttpClient provideOkHttpClient() {
-OkHttpClient client = <span style="font-weight:bold">new</span> OkHttpClient();
+<span style="">OkHttpClient provideOkHttpClient</span>() {
+<span style="">OkHttpClient client </span>= <span style="font-weight:bold">new</span> OkHttpClient();
 <span style="font-weight:bold">return</span> client;
 }
 
-@Inject @Named(<span style="font-style:italic">&#34;cached&#34;</span>) OkHttpClient client;
-@Inject @Named(<span style="font-style:italic">&#34;non_cached&#34;</span>) OkHttpClient client2;
+@Inject @Named(<span style="font-style:italic">&#34;cached&#34;</span>) <span style="">OkHttpClient client</span>;
+@Inject @Named(<span style="font-style:italic">&#34;non_cached&#34;</span>) <span style="">OkHttpClient client2</span>;
 
 @Qualifier
 @Documented
@@ -233,34 +233,34 @@ OkHttpClient client = <span style="font-weight:bold">new</span> OkHttpClient();
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// parent component
 </span><span style="font-style:italic"></span>@Singleton
 @Component(modules={AppModule.class, NetModule.class})
-<span style="font-weight:bold">public</span> interface NetComponent {
+<span style="">public interface </span>NetComponent {
 <span style="font-style:italic">// remove injection methods if downstream modules will perform injection
 </span><span style="font-style:italic"></span>
 <span style="font-style:italic">// downstream components need these exposed
 </span><span style="font-style:italic">// the method name does not matter, only the return type
-</span><span style="font-style:italic"></span>Retrofit retrofit();
-OkHttpClient okHttpClient();
-SharedPreferences sharedPreferences();
-}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Provides MyThing provideMyThing(
-		SharedPreferences sp,
-		Context context) {
+</span><span style="font-style:italic"></span><span style="">Retrofit retrofit</span>();
+<span style="">OkHttpClient okHttpClient</span>();
+<span style="">SharedPreferences sharedPreferences</span>();
+}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Provides <span style="">MyThing provideMyThing</span>(
+		<span style="">SharedPreferences sp</span>,
+		<span style="">Context context</span>) {
 
 	<span style="font-weight:bold">return</span> <span style="font-weight:bold">new</span> MyThing(sp, context);
 }
 
 @PerApp
-<span style="font-weight:bold">class</span> MyThing {
+<span style="">class MyThing </span>{
 
-	<span style="font-weight:bold">private</span> final SharedPRefs<span style="">…</span>
-	<span style="font-weight:bold">private</span> final Context ...
+	<span style="">private final </span>SharedPRefs<span style="">…</span>
+	<span style="">private final </span>Context ...
 
-	@Inject <span style="font-weight:bold">public</span> MyThing(
-SharedPreferences sp,
-		Context context) {
+	@Inject <span style="">public MyThing</span>(
+<span style="">SharedPreferences sp</span>,
+		<span style="">Context context</span>) {
 
 	}
-}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Inject Lazy&lt;SharedPreferences&gt; mLazySharedPrefs;
-<span style="">void</span> onSaveBtnClicked() {
+}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Inject <span style="">Lazy&lt;SharedPreferences&gt; mLazySharedPrefs</span>;
+<span style="">void onSaveBtnClicked</span>() {
 mLazySharedPrefs.get()
             .edit().putString(<span style="font-style:italic">&#34;status&#34;</span>, <span style="font-style:italic">&#34;lazy...&#34;</span>)
             .apply();
@@ -293,104 +293,104 @@ mLazySharedPrefs.get()
 </ol></li>
 
 <li><p>Service Locator 与 Dependency Injection 比较，两者都是为了去耦合，依赖注入难以理解和调试</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">class</span> MovieLister...
-<span style="font-weight:bold">public</span> MovieLister(MovieFinder finder) {
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="">class MovieLister</span>...
+<span style="">public MovieLister</span>(<span style="">MovieFinder finder</span>) {
   <span style="font-weight:bold">this</span>.finder = finder;       
 }
 
-<span style="font-weight:bold">class</span> ColonMovieFinder...
-<span style="font-weight:bold">public</span> ColonMovieFinder(String filename) {
+<span style="">class ColonMovieFinder</span>...
+<span style="">public ColonMovieFinder</span>(<span style="">String filename</span>) {
   <span style="font-weight:bold">this</span>.filename = filename;
 }
 
-<span style="font-weight:bold">private</span> MutablePicoContainer configureContainer() {
-MutablePicoContainer pico = <span style="font-weight:bold">new</span> DefaultPicoContainer();
-Parameter[] finderParams =  {<span style="font-weight:bold">new</span> ConstantParameter(<span style="font-style:italic">&#34;movies1.txt&#34;</span>)};
+<span style="">private MutablePicoContainer </span>configureContainer() {
+<span style="">MutablePicoContainer pico </span>= <span style="font-weight:bold">new</span> DefaultPicoContainer();
+<span style="">Parameter[] finderParams </span>=  {<span style="font-weight:bold">new</span> ConstantParameter(<span style="font-style:italic">&#34;movies1.txt&#34;</span>)};
 pico.registerComponentImplementation(MovieFinder.class, ColonMovieFinder.class, finderParams);
 pico.registerComponentImplementation(MovieLister.class);
 <span style="font-weight:bold">return</span> pico;
 }
 
-<span style="font-weight:bold">public</span> void testWithPico() {
-MutablePicoContainer pico = configureContainer();
-MovieLister lister = (MovieLister) pico.getComponentInstance(MovieLister.class);
-Movie[] movies = lister.moviesDirectedBy(<span style="font-style:italic">&#34;Sergio Leone&#34;</span>);
+<span style="">public void </span>testWithPico() {
+<span style="">MutablePicoContainer pico </span>= configureContainer();
+<span style="">MovieLister lister </span>= (MovieLister) pico.getComponentInstance(MovieLister.class);
+<span style="">Movie[] movies </span>= lister.moviesDirectedBy(<span style="font-style:italic">&#34;Sergio Leone&#34;</span>);
 assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#34;</span>, movies[0].getTitle());
-}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">class</span> MovieLister...
-<span style="font-weight:bold">private</span> MovieFinder finder;
-<span style="font-weight:bold">public</span> void setFinder(MovieFinder finder) {
+}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="">class MovieLister</span>...
+<span style="">private MovieFinder </span>finder;
+<span style="">public void </span>setFinder(<span style="">MovieFinder finder</span>) {
 <span style="font-weight:bold">this</span>.finder = finder;
 }
 
-<span style="font-weight:bold">class</span> ColonMovieFinder...
-<span style="font-weight:bold">public</span> void setFilename(String filename) {
+<span style="">class ColonMovieFinder</span>...
+<span style="">public void </span>setFilename(<span style="">String filename</span>) {
   <span style="font-weight:bold">this</span>.filename = filename;
 }
 
 &lt;beans&gt;
-&lt;bean id=<span style="font-style:italic">&#34;MovieLister&#34;</span> class=<span style="font-style:italic">&#34;spring.MovieLister&#34;</span>&gt;
-    &lt;property name=<span style="font-style:italic">&#34;finder&#34;</span>&gt;
-        &lt;ref local=<span style="font-style:italic">&#34;MovieFinder&#34;</span>/&gt;
+&lt;<span style="">bean id</span>=<span style="font-style:italic">&#34;MovieLister&#34;</span> class=<span style="font-style:italic">&#34;spring.MovieLister&#34;</span>&gt;
+    &lt;<span style="">property name</span>=<span style="font-style:italic">&#34;finder&#34;</span>&gt;
+        &lt;<span style="">ref local</span>=<span style="font-style:italic">&#34;MovieFinder&#34;</span>/&gt;
     &lt;/property&gt;
 &lt;/bean&gt;
-&lt;bean id=<span style="font-style:italic">&#34;MovieFinder&#34;</span> class=<span style="font-style:italic">&#34;spring.ColonMovieFinder&#34;</span>&gt;
-    &lt;property name=<span style="font-style:italic">&#34;filename&#34;</span>&gt;
+&lt;<span style="">bean id</span>=<span style="font-style:italic">&#34;MovieFinder&#34;</span> class=<span style="font-style:italic">&#34;spring.ColonMovieFinder&#34;</span>&gt;
+    &lt;<span style="">property name</span>=<span style="font-style:italic">&#34;filename&#34;</span>&gt;
         &lt;value&gt;movies1.txt&lt;/value&gt;
     &lt;/property&gt;
 &lt;/bean&gt;
-&lt;/beans&gt;
-
-public <span style="">void</span> testWithSpring() <span style="font-weight:bold">throws</span> Exception {
-ApplicationContext ctx = <span style="font-weight:bold">new</span> FileSystemXmlApplicationContext(<span style="font-style:italic">&#34;spring.xml&#34;</span>);
-MovieLister lister = (MovieLister) ctx.getBean(<span style="font-style:italic">&#34;MovieLister&#34;</span>);
-Movie[] movies = lister.moviesDirectedBy(<span style="font-style:italic">&#34;Sergio Leone&#34;</span>);
+&lt;/<span style="">beans&gt;
+</span><span style="">
+</span><span style="">public void testWithSpring</span>() <span style="">throws Exception </span>{
+<span style="">ApplicationContext ctx </span>= <span style="font-weight:bold">new</span> FileSystemXmlApplicationContext(<span style="font-style:italic">&#34;spring.xml&#34;</span>);
+<span style="">MovieLister lister </span>= (MovieLister) ctx.getBean(<span style="font-style:italic">&#34;MovieLister&#34;</span>);
+<span style="">Movie[] movies </span>= lister.moviesDirectedBy(<span style="font-style:italic">&#34;Sergio Leone&#34;</span>);
 assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#34;</span>, movies[0].getTitle());
-}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">public</span> interface InjectFinder {
-<span style="">void</span> injectFinder(MovieFinder finder);
+}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="">public interface </span>InjectFinder {
+<span style="">void injectFinder</span>(<span style="">MovieFinder finder</span>);
 }
 
-<span style="font-weight:bold">class</span> MovieLister <span style="font-weight:bold">implements</span> InjectFinder {
-<span style="font-weight:bold">public</span> void injectFinder(MovieFinder finder) {
+<span style="">class MovieLister implements InjectFinder </span>{
+<span style="">public void </span>injectFinder(<span style="">MovieFinder finder</span>) {
   <span style="font-weight:bold">this</span>.finder = finder;
 }
 }
 
-<span style="font-weight:bold">public</span> interface Injector {
-<span style="font-weight:bold">public</span> void inject(Object target);
+<span style="">public interface </span>Injector {
+<span style="">public void </span>inject(<span style="">Object target</span>);
 }
 
-<span style="font-weight:bold">class</span> ColonMovieFinder <span style="font-weight:bold">implements</span> MovieFinder, Injector {
-<span style="font-weight:bold">public</span> void injectFilename(String filename) {
+<span style="">class ColonMovieFinder implements MovieFinder</span>, Injector {
+<span style="">public void </span>injectFilename(<span style="">String filename</span>) {
   <span style="font-weight:bold">this</span>.filename = filename;
 }
-<span style="font-weight:bold">public</span> void inject(Object target) {
+<span style="">public void </span>inject(<span style="">Object target</span>) {
 ((InjectFinder) target).injectFinder(<span style="font-weight:bold">this</span>);        
 }
 }
 
-<span style="font-weight:bold">class</span> Tester {
-<span style="font-weight:bold">private</span> Container container;
+<span style="">class Tester </span>{
+<span style="">private Container </span>container;
 
-<span style="font-weight:bold">private</span> void configureContainer() {
+<span style="">private void </span>configureContainer() {
 container = <span style="font-weight:bold">new</span> Container();
 registerComponents();
 registerInjectors();
 container.start();
 }
 
-<span style="font-weight:bold">private</span> void registerComponents() {
+<span style="">private void </span>registerComponents() {
 container.registerComponent(<span style="font-style:italic">&#34;MovieLister&#34;</span>, MovieLister.class);
 container.registerComponent(<span style="font-style:italic">&#34;MovieFinder&#34;</span>, ColonMovieFinder.class);
 }
 
-<span style="font-weight:bold">private</span> void registerInjectors() {
+<span style="">private void </span>registerInjectors() {
 container.registerInjector(InjectFinder.class, container.lookup(<span style="font-style:italic">&#34;MovieFinder&#34;</span>));
 }
 
-<span style="font-weight:bold">public</span> void testIface() {
+<span style="">public void </span>testIface() {
 configureContainer();
-MovieLister lister = (MovieLister)container.lookup(<span style="font-style:italic">&#34;MovieLister&#34;</span>);
-Movie[] movies = lister.moviesDirectedBy(<span style="font-style:italic">&#34;Sergio Leone&#34;</span>);
+<span style="">MovieLister lister </span>= (MovieLister)container.lookup(<span style="font-style:italic">&#34;MovieLister&#34;</span>);
+<span style="">Movie[] movies </span>= lister.moviesDirectedBy(<span style="font-style:italic">&#34;Sergio Leone&#34;</span>);
 assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#34;</span>, movies[0].getTitle());
 }
 }</code></pre></div></li>
@@ -466,7 +466,7 @@ assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.ANNOTATION_TYPE)
 <span style="font-weight:bold">public</span> @interface Target {
-ElementType[] value() <span style="font-weight:bold">default</span> {ElementType.ANNOTATION_TYPE};
+<span style="">ElementType[] value</span>() <span style="font-weight:bold">default</span> {ElementType.ANNOTATION_TYPE};
 }</code></pre></div></li>
 </ul>
 
@@ -488,34 +488,34 @@ ElementType[] value() <span style="font-weight:bold">default</span> {ElementType
 
 <li><p>返回 Scope 和相应的 Component 一致  @ProductionScope</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@ProducerModule(includes = UserModule.class)
-<span style="font-weight:bold">final</span> class UserResponseModule {
+<span style="">final class </span>UserResponseModule {
 @Produces
-<span style="font-weight:bold">static</span> ListenableFuture&lt;UserData&gt; lookUpUserData(
-  User user, UserDataStub stub) {
+<span style="">static ListenableFuture</span>&lt;<span style="">UserData&gt; lookUpUserData</span>(
+  <span style="">User user</span>, <span style="">UserDataStub stub</span>) {
 <span style="font-weight:bold">return</span> stub.lookUpData(user);
 }
 
 @Produces
-<span style="font-weight:bold">static</span> Html renderHtml(UserData data, UserHtmlTemplate template) {
+<span style="">static Html </span>renderHtml(<span style="">UserData data</span>, <span style="">UserHtmlTemplate template</span>) {
 <span style="font-weight:bold">return</span> template.render(data);
 }
 }
 
 @Module
-<span style="font-weight:bold">final</span> class ExecutorModule {
+<span style="">final class </span>ExecutorModule {
 @Provides
 @Production
-<span style="font-weight:bold">static</span> Executor executor() {
+<span style="">static Executor </span>executor() {
 <span style="font-weight:bold">return</span> Executors.newCachedThreadPool();
 }
 }</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Produces
-<span style="font-weight:bold">static</span> Html renderHtml(
-Produced&lt;UserData&gt; data,
-UserHtmlTemplate template,
-ErrorHtmlTemplate errorTemplate) {
+<span style="">static Html </span>renderHtml(
+<span style="">Produced&lt;UserData&gt; data</span>,
+<span style="">UserHtmlTemplate template</span>,
+<span style="">ErrorHtmlTemplate errorTemplate</span>) {
 <span style="font-weight:bold">try</span> {
 <span style="font-weight:bold">return</span> template.render(data.get());
-} <span style="font-weight:bold">catch</span> (ExecutionException e) {
+} <span style="font-weight:bold">catch</span> (<span style="">ExecutionException e</span>) {
 <span style="font-weight:bold">return</span> errorTemplate.render(<span style="font-style:italic">&#34;user data failed&#34;</span>, e.getCause());
 }
 }</code></pre></div></li>
@@ -532,21 +532,21 @@ ErrorHtmlTemplate errorTemplate) {
 
 <h4 id="basicannotationprocessor-processingstep">BasicAnnotationProcessor.ProcessingStep</h4>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// 处理阶段, 每个处理阶段可以处理一些注解的逻辑
-</span><span style="font-style:italic"></span><span style="font-weight:bold">public</span> interface ProcessingStep {
+</span><span style="font-style:italic"></span><span style="">public interface </span>ProcessingStep {
     <span style="font-style:italic">// 返回该阶段需要处理的注解类型
-</span><span style="font-style:italic"></span>    Set&lt;? <span style="font-weight:bold">extends</span> Class&lt;? <span style="font-weight:bold">extends</span> Annotation&gt;&gt; annotations();
+</span><span style="font-style:italic"></span>    Set&lt;? <span style="">extends Class</span>&lt;? <span style="">extends Annotation</span>&gt;&gt; annotations();
 
     <span style="font-style:italic">// 处理注解和被注解的元素, 是 SetMultimap 类型, 说明可以处理多个注解,
 </span><span style="font-style:italic"></span>    <span style="font-style:italic">// 同时每个注解可能注释了多个不同的元素
-</span><span style="font-style:italic"></span>    Set&lt;Element&gt; process(SetMultimap&lt;Class&lt;? <span style="font-weight:bold">extends</span> Annotation&gt;, Element&gt; var1);
+</span><span style="font-style:italic"></span>    <span style="">Set&lt;Element&gt; process</span>(SetMultimap&lt;Class&lt;? <span style="">extends Annotation</span>&gt;, <span style="">Element&gt; var1</span>);
 }</code></pre></div>
 <h4 id="basicannotationprocessor-elementname">BasicAnnotationProcessor.ElementName</h4>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// 该类主要用来存放节点名称, 并且区分包节点和类型节点
-</span><span style="font-style:italic"></span><span style="font-weight:bold">private</span> static <span style="font-weight:bold">final</span> class ElementName {
-    <span style="font-weight:bold">private</span> final BasicAnnotationProcessor.ElementName.Kind kind;
-    <span style="font-weight:bold">private</span> final String name;
+</span><span style="font-style:italic"></span><span style="">private static final class </span>ElementName {
+    <span style="">private final BasicAnnotationProcessor.ElementName.Kind kind</span>;
+    <span style="">private final String name</span>;
     <span style="font-style:italic">// ... 其中一些方法简化, 是一些构造方法和一些比较相关的方法
-</span><span style="font-style:italic"></span>    <span style="font-weight:bold">private</span> static <span style="font-weight:bold">enum</span> Kind {
+</span><span style="font-style:italic"></span>    <span style="">private static enum Kind </span>{
         PACKAGE_NAME,
         TYPE_NAME;
     }
