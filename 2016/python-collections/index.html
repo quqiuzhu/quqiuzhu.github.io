@@ -89,52 +89,35 @@
       </header>
 
       <div class="post-content">
-        
-
-<p>Python 支持四种内建的集合类型 dict, list, set 和 tuple, 这些类型覆盖了大多数的使用场景。作为补充，collections 提供了几种高性能容器数据类型，Counter, deque, defaultdict 和 OrderedDict，以及 namedtuple() 函数。
-<!-- more --></p>
-
+        <p>Python 支持四种内建的集合类型 dict, list, set 和 tuple, 这些类型覆盖了大多数的使用场景。作为补充，collections 提供了几种高性能容器数据类型，Counter, deque, defaultdict 和 OrderedDict，以及 namedtuple() 函数。</p>
+<!-- raw HTML omitted -->
 <h2 id="counter">Counter</h2>
-
 <p>先不忙讲 Counter 怎么用，先想想如果你来实现一个计数器，应该怎么实现，有哪些功能。我列一下，至少有 3 个功能。</p>
-
 <ol>
 <li>接收要统计的数据</li>
 <li>更新统计数据</li>
 <li>获取统计结果</li>
 </ol>
-
 <p>其中 1 和 3 都涉及和 Python 内建类型之间的转换，2 涉及 Counter 之间的交互。</p>
-
-<h4 id="接收要统计的数据">接收要统计的数据</h4>
-
+<h4 id="heading">接收要统计的数据</h4>
 <p>数据一般是从构造函数传入，参数可以为 iterable 对象，也可以是 mapping 或者关键字参数。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">c = Counter(<span style="font-style:italic">&#39;quqiuzhu&#39;</span>)
-c = Counter({<span style="font-style:italic">&#39;qu&#39;</span>: 1, <span style="font-style:italic">&#39;qiu&#39;</span>: 2, <span style="font-style:italic">&#39;zhu&#39;</span>: 3})
-c = Counter(qu=1, qiu=2, zhu=3)</code></pre></div>
-<p>上面的例子看起来好像是 Counter 里面的 key 必须是字符串类型，value 必须是 int 类型的，实际上并没有这样的限制。比如可以像这样</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">cc = Counter({<span style="font-style:italic">&#39;qu&#39;</span>: 1, 4: 2, <span style="font-style:italic">&#39;zhu&#39;</span>: <span style="font-style:italic">&#39;str&#39;</span>})</code></pre></div>
-<p>不过在 Counter 之间计算的时候会有一些问题，比如两个 Counter 相加的时候。</p>
-
-<h4 id="更新统计数据">更新统计数据</h4>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">c = Counter(<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">quqiuzhu</span><span style="font-style:italic">&#39;</span>)
+c = Counter({<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">qu</span><span style="font-style:italic">&#39;</span>: 1, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">qiu</span><span style="font-style:italic">&#39;</span>: 2, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">zhu</span><span style="font-style:italic">&#39;</span>: 3})
+c = Counter(qu=1, qiu=2, zhu=3)
+</code></pre></div><p>上面的例子看起来好像是 Counter 里面的 key 必须是字符串类型，value 必须是 int 类型的，实际上并没有这样的限制。比如可以像这样</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">cc = Counter({<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">qu</span><span style="font-style:italic">&#39;</span>: 1, 4: 2, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">zhu</span><span style="font-style:italic">&#39;</span>: <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">str</span><span style="font-style:italic">&#39;</span>})
+</code></pre></div><p>不过在 Counter 之间计算的时候会有一些问题，比如两个 Counter 相加的时候。</p>
+<h4 id="heading1">更新统计数据</h4>
 <p>单个数据的更新和访问，支持下标访问，如果 Counter 中没有该记录，则返回 0。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">c[<span style="font-style:italic">&#39;quqiuzhu.com&#39;</span>] <span style="font-style:italic"># 0</span>
-c[<span style="font-style:italic">&#39;quqiuzhu.com&#39;</span>] = 10 <span style="font-style:italic"># 10</span></code></pre></div>
-<p>批量更新有两个方法，<code>subtract([iterable-or-mapping])</code> 和 <code>update([iterable-or-mapping])</code>，参数可以是 iterable, dict, 关键字参数或者 Counter 对象。 <code>subtract</code> 方法对 key 相同的 value 简单的应用减法运算，如果 value 不支持减法运算的话，就会出错，比如上面提到的，value 为 字符串的情况。</p>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">c[<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">quqiuzhu.com</span><span style="font-style:italic">&#39;</span>] <span style="font-style:italic"># 0</span>
+c[<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">quqiuzhu.com</span><span style="font-style:italic">&#39;</span>] = 10 <span style="font-style:italic"># 10</span>
+</code></pre></div><p>批量更新有两个方法，<code>subtract([iterable-or-mapping])</code> 和 <code>update([iterable-or-mapping])</code>，参数可以是 iterable, dict, 关键字参数或者 Counter 对象。 <code>subtract</code> 方法对 key 相同的 value 简单的应用减法运算，如果 value 不支持减法运算的话，就会出错，比如上面提到的，value 为 字符串的情况。</p>
 <p>Counter 之间也可以进行 +, -, |, &amp; 运算，和你想象中的一样，都是相同 key 的 value 值之间的运算。</p>
-
-<h4 id="获取统计结果">获取统计结果</h4>
-
+<h4 id="heading2">获取统计结果</h4>
 <p><code>most_common([n])</code> 获取计数最多的 n 个 (key, value)的列表，<code>items()</code> 返回所有的，<code>elements()</code> 获取统计计数大于等于 2 的。</p>
-
 <p>可以使用 set, list, dict 转为相应类型。</p>
-
 <h2 id="deque">deque</h2>
-
 <p>实现了双端队列的 API, 当队列为定长队列时，如果队列 isFull，则丢弃另一端的 items。</p>
-
 <ul>
 <li>append(x)</li>
 <li>appendleft(x)</li>
@@ -148,92 +131,81 @@ c[<span style="font-style:italic">&#39;quqiuzhu.com&#39;</span>] = 10 <span styl
 <li>reverse() 原地反转, 返回None</li>
 <li>rotate(n)</li>
 </ul>
-
 <p>支持随机访问，但性能不是很好。有只读属性 maxlen, 支持函数操作 len(d), reversed(d), copy.copy(d), copy.deepcopy(d)</p>
-
-<h2 id="defaultdict-与-ordereddict">defaultdict 与 OrderedDict</h2>
-
+<h2 id="defaultdict--ordereddict">defaultdict 与 OrderedDict</h2>
 <p>该结构扩展自内建类型 dict 。给所有新的 key 一个默认值，该默认值来自于参数 default_factory。
 用法如下:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">d = defaultdict(list)
-d[<span style="font-style:italic">&#39;k&#39;</span>] <span style="font-style:italic"># []</span></code></pre></div>
-<p>由于当前没有 key &lsquo;k&rsquo;, 所以 defaultdict 调用 default_factory 函数，创建了一个默认值。 这里的 default_factory 是 list 函数。</p>
-
+d[<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">k</span><span style="font-style:italic">&#39;</span>] <span style="font-style:italic"># []</span>
+</code></pre></div><p>由于当前没有 key &lsquo;k&rsquo;, 所以 defaultdict 调用 default_factory 函数，创建了一个默认值。 这里的 default_factory 是 list 函数。</p>
 <p>OrderedDict items 是按照顺序存放的，用来做相等性检测是很好的。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">d = {<span style="font-style:italic">&#39;banana&#39;</span>: 3, <span style="font-style:italic">&#39;apple&#39;</span>:4, <span style="font-style:italic">&#39;pear&#39;</span>: 1, <span style="font-style:italic">&#39;orange&#39;</span>: 2}
-OrderedDict(sorted(d.items(), key=<span style="font-weight:bold">lambda</span> t: t[0]))</code></pre></div>
-<p>可以指定排序函数</p>
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">d = {<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">banana</span><span style="font-style:italic">&#39;</span>: 3, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">apple</span><span style="font-style:italic">&#39;</span>:4, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">pear</span><span style="font-style:italic">&#39;</span>: 1, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">orange</span><span style="font-style:italic">&#39;</span>: 2}
+OrderedDict(sorted(d.items(), key=<span style="font-weight:bold">lambda</span> t: t[0]))
+</code></pre></div><p>可以指定排序函数</p>
 <h2 id="namedtuple">namedtuple()</h2>
-
 <p>这是非常经典，非常有意思的一个函数，其简单用法如下：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">Point = namedtuple(<span style="font-style:italic">&#39;Point&#39;</span>, [<span style="font-style:italic">&#39;x&#39;</span>, <span style="font-style:italic">&#39;y&#39;</span>])</code></pre></div>
-<p>这个 Point 是一个类，该类增强了内建的 tuple 类型。 使其支持一般的 tuple操作，也同时支持名称访问，上面的代码，其实现为</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">Point = namedtuple(<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">Point</span><span style="font-style:italic">&#39;</span>, [<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">x</span><span style="font-style:italic">&#39;</span>, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">y</span><span style="font-style:italic">&#39;</span>])
+</code></pre></div><p>这个 Point 是一个类，该类增强了内建的 tuple 类型。 使其支持一般的 tuple操作，也同时支持名称访问，上面的代码，其实现为</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">class</span> <span style="font-weight:bold">Point</span>(tuple):
-    <span style="font-style:italic">&#39;Point(x, y)&#39;</span>
+    <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">Point(x, y)</span><span style="font-style:italic">&#39;</span>
 
     __slots__ = ()
 
-    _fields = (<span style="font-style:italic">&#39;x&#39;</span>, <span style="font-style:italic">&#39;y&#39;</span>)
+    _fields = (<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">x</span><span style="font-style:italic">&#39;</span>, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">y</span><span style="font-style:italic">&#39;</span>)
 
     <span style="font-weight:bold">def</span> __new__(_cls, x, y):
-        <span style="font-style:italic">&#39;Create a new instance of Point(x, y)&#39;</span>
+        <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">Create a new instance of Point(x, y)</span><span style="font-style:italic">&#39;</span>
         <span style="font-weight:bold">return</span> _tuple.__new__(_cls, (x, y))
 
     @classmethod
     <span style="font-weight:bold">def</span> _make(cls, iterable, new=tuple.__new__, len=len):
-        <span style="font-style:italic">&#39;Make a new Point object from a sequence or iterable&#39;</span>
+        <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">Make a new Point object from a sequence or iterable</span><span style="font-style:italic">&#39;</span>
         result = new(cls, iterable)
         <span style="font-weight:bold">if</span> len(result) != 2:
-            <span style="font-weight:bold">raise</span> <span style="font-weight:bold">TypeError</span>(<span style="font-style:italic">&#39;Expected 2 arguments, got </span><span style="font-weight:bold;font-style:italic">%d</span><span style="font-style:italic">&#39;</span> % len(result))
+            <span style="font-weight:bold">raise</span> <span style="font-weight:bold">TypeError</span>(<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">Expected 2 arguments, got </span><span style="font-weight:bold;font-style:italic">%d</span><span style="font-style:italic">&#39;</span> % len(result))
         <span style="font-weight:bold">return</span> result
 
     <span style="font-weight:bold">def</span> __repr__(self):
-        <span style="font-style:italic">&#39;Return a nicely formatted representation string&#39;</span>
-        <span style="font-weight:bold">return</span> <span style="font-style:italic">&#39;Point(x=</span><span style="font-weight:bold;font-style:italic">%r</span><span style="font-style:italic">, y=</span><span style="font-weight:bold;font-style:italic">%r</span><span style="font-style:italic">)&#39;</span> % self
+        <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">Return a nicely formatted representation string</span><span style="font-style:italic">&#39;</span>
+        <span style="font-weight:bold">return</span> <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">Point(x=</span><span style="font-weight:bold;font-style:italic">%r</span><span style="font-style:italic">, y=</span><span style="font-weight:bold;font-style:italic">%r</span><span style="font-style:italic">)</span><span style="font-style:italic">&#39;</span> % self
 
     <span style="font-weight:bold">def</span> _asdict(self):
-        <span style="font-style:italic">&#39;Return a new OrderedDict which maps field names to their values&#39;</span>
+        <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">Return a new OrderedDict which maps field names to their values</span><span style="font-style:italic">&#39;</span>
         <span style="font-weight:bold">return</span> OrderedDict(zip(self._fields, self))
 
     <span style="font-weight:bold">def</span> _replace(_self, **kwds):
-        <span style="font-style:italic">&#39;Return a new Point object replacing specified fields with new values&#39;</span>
-        result = _self._make(map(kwds.pop, (<span style="font-style:italic">&#39;x&#39;</span>, <span style="font-style:italic">&#39;y&#39;</span>), _self))
+        <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">Return a new Point object replacing specified fields with new values</span><span style="font-style:italic">&#39;</span>
+        result = _self._make(map(kwds.pop, (<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">x</span><span style="font-style:italic">&#39;</span>, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">y</span><span style="font-style:italic">&#39;</span>), _self))
         <span style="font-weight:bold">if</span> kwds:
-            <span style="font-weight:bold">raise</span> <span style="font-weight:bold">ValueError</span>(<span style="font-style:italic">&#39;Got unexpected field names: </span><span style="font-weight:bold;font-style:italic">%r</span><span style="font-style:italic">&#39;</span> % kwds.keys())
+            <span style="font-weight:bold">raise</span> <span style="font-weight:bold">ValueError</span>(<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">Got unexpected field names: </span><span style="font-weight:bold;font-style:italic">%r</span><span style="font-style:italic">&#39;</span> % kwds.keys())
         <span style="font-weight:bold">return</span> result
 
     <span style="font-weight:bold">def</span> __getnewargs__(self):
-        <span style="font-style:italic">&#39;Return self as a plain tuple.   Used by copy and pickle.&#39;</span>
+        <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">Return self as a plain tuple.   Used by copy and pickle.</span><span style="font-style:italic">&#39;</span>
         <span style="font-weight:bold">return</span> tuple(self)
 
     __dict__ = _property(_asdict)
 
     <span style="font-weight:bold">def</span> __getstate__(self):
-        <span style="font-style:italic">&#39;Exclude the OrderedDict from pickling&#39;</span>
+        <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">Exclude the OrderedDict from pickling</span><span style="font-style:italic">&#39;</span>
         <span style="font-weight:bold">pass</span>
 
-    x = _property(_itemgetter(0), doc=<span style="font-style:italic">&#39;Alias for field number 0&#39;</span>)
+    x = _property(_itemgetter(0), doc=<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">Alias for field number 0</span><span style="font-style:italic">&#39;</span>)
 
-    y = _property(_itemgetter(1), doc=<span style="font-style:italic">&#39;Alias for field number 1&#39;</span>)</code></pre></div>
-<p>其内部实现为 String 定义模板加上 <code>exec class_definition in namespace</code> 来实现。有兴趣的可以查看其源代码。</p>
-
+    y = _property(_itemgetter(1), doc=<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">Alias for field number 1</span><span style="font-style:italic">&#39;</span>)
+</code></pre></div><p>其内部实现为 String 定义模板加上 <code>exec class_definition in namespace</code> 来实现。有兴趣的可以查看其源代码。</p>
 <p>新建一个 namedtuple 条目</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">p = Point(11, 22)
-p.x <span style="font-style:italic"># 11</span></code></pre></div>
-<p>总结以上，其 API 列表为</p>
-
+p.x <span style="font-style:italic"># 11</span>
+</code></pre></div><p>总结以上，其 API 列表为</p>
 <ul>
 <li>somenamedtuple._make(iterable)</li>
 <li>somenamedtuple._asdict()</li>
 <li>somenamedtuple._replace(kwargs)</li>
 </ul>
-
-<h2 id="abc-集合抽象基类">ABC 集合抽象基类</h2>
-
+<h2 id="abc-">ABC 集合抽象基类</h2>
 <p>下面的表格摘自 <a href="https://docs.python.org/2/library/collections.html">Python 官方文档</a></p>
-
-<p><img src="http://quqiuzhu.com/images/python_abc.png" alt="" /></p>
+<p><img src="http://quqiuzhu.com/images/python_abc.png" alt=""></p>
 
       </div>
 

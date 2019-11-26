@@ -91,11 +91,9 @@
       </header>
 
       <div class="post-content">
-        <p>今天早上看了一篇文章, 名字叫<a href="https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f" title="How it feels to learn JavaScript in 2016">How it feels to learn JavaScript in 2016</a> 。模拟一个新加入项目, 了解过一点ES5和前端开发, 但对 2016 年 JavaScript 变化一无所知的人与作者的对话, 介绍了 2016 年 JavaScript 与前端开发的最新情况。
-<!-- more --></p>
-
+        <p>今天早上看了一篇文章, 名字叫<a href="https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f" title="How it feels to learn JavaScript in 2016">How it feels to learn JavaScript in 2016</a> 。模拟一个新加入项目, 了解过一点ES5和前端开发, 但对 2016 年 JavaScript 变化一无所知的人与作者的对话, 介绍了 2016 年 JavaScript 与前端开发的最新情况。</p>
+<!-- raw HTML omitted -->
 <p>观整体趋势, JS 和 React 必将成为移动开发和Web前端开发的主流, 如果通过 NodeJs 等框架来写后端, 单单写 JS 就可以成为全栈工程师。 JS 后劲足, 早在 2014 年, 我就听说有人在嵌入式开发中引入了 JS, 因此 JS 变得越来越重要。以下是我看完之后记下的一些点</p>
-
 <ul>
 <li>React &amp; React DOM 使用 JSX 语法来写组件, 不再直接使用 HTML</li>
 <li>Babel 是将 ES6 或 ES2016+ 语法的 JS 转换为旧版本的 JS, 以便浏览器兼容的库</li>
@@ -109,13 +107,10 @@
 <li>Fetch 或者 Fetch polyfill 使用 Promises 做异步编程</li>
 <li>需要响应状态变化, 有 <a href="https://github.com/reactjs/redux" title="Redux">Redux</a>, Flux, Flummox 等等</li>
 </ul>
-
 <p>一个简单的总结就是</p>
-
 <blockquote>
 <p>Code everything in Typescript. All modules that use Fetch compile them to target ES6, transpile them with Babel on a stage-3 preset, and load them with SystemJS. If you don’t have Fetch, polyfill it, or use Bluebird, Request or Axios, and handle all your promises with await</p>
 </blockquote>
-
 <p>一个项目里面包含了这些的使用, 就是 <a href="https://github.com/vuejs/vue-hackernews-2.0" title="vue-hackernews-2.0">vue-hackernews-2.0</a></p>
 
       </div>

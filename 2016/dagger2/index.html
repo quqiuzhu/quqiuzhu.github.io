@@ -89,25 +89,16 @@
       </header>
 
       <div class="post-content">
-        
-
-<p>国庆假期学习了 <a href="https://github.com/google/dagger">Dagger 2</a>, 在这里进行一些总结。 Dagger 2 是一个由 Google 工程师开发的依赖注入库，该项目 fork 自在 Square 工作的前 Google 工程师开发的 <a href="https://github.com/square/dagger">Dagger 1</a>。</p>
-
+        <p>国庆假期学习了 <a href="https://github.com/google/dagger">Dagger 2</a>, 在这里进行一些总结。 Dagger 2 是一个由 Google 工程师开发的依赖注入库，该项目 fork 自在 Square 工作的前 Google 工程师开发的 <a href="https://github.com/square/dagger">Dagger 1</a>。</p>
 <p>如果你想了解 Dagger 2 的基本概念和使用方式，推荐看 Codepath 的这篇文章 <a href="https://github.com/codepath/android_guides/wiki/Dependency-Injection-with-Dagger-2">Dependency Injection with Dagger 2</a>。Dagger 2 通过注解 <code>@Module</code> 和 <code>@Provide</code> 标注提供依赖的类和方法, 通过 <code>@Inject</code> 标注请求依赖的实例, 通过 <code>@Component</code> 将两者连接起来, 而且提供了其他的一些 Feature。看完这些之后，你可能会有两个问题</p>
-
 <ol>
 <li>为什么要重新开发 Dagger 2, Dagger 1 哪里不好？</li>
 <li>我现在知道怎么用了, 但是它是怎么实现的？</li>
 </ol>
-
 <p>第一个问题，在 Google 开发者大会上，Dagger 2 的开发者的演讲 <a href="https://www.youtube.com/watch?v=oK_XtfXPkqw">DAGGER 2 - A New Type of dependency injection</a> 中，不仅讲了 Dagger 1的优缺点，还讲了依赖注入如何从 Spring -&gt; Guice -&gt; Dagger 1 -&gt; Dagger 2。 Spring 主要的缺点是繁琐, 那段替代复杂的依赖注入的 XML 和原来的 Java 代码一样丑陋；Guice 的缺点是图错误在运行时才能发现，并且开发者难以调试；Dagger 1 的缺点是，生成的代码丑陋，出错难以调试，并且运行时开销不可忽视；Dagger 2在 Dagger 1 的基础上，解决了性能问题，并且生成的代码更加优雅。</p>
-
-<p>第二个问题，其实在上面提到的 <a href="https://www.youtube.com/watch?v=oK_XtfXPkqw">DAGGER 2 - A New Type of dependency injection</a> 的演讲中，Dagger 2 的开发者已经解释了他们是如何设计 Dagger 2 的。但他使用CoffeeMaker 来举例，而我对 CoffeeMaker 并不熟悉，因此每当看到 Heater 和 Pump 的时候就在想它到底是什么，也许我应该好好玩一下公司的咖啡机。相比之下，我更喜欢 <a href="http://jakewharton.com">Jake Wharton</a>的演讲 <a href="https://www.youtube.com/watch?v=plK0zyRLIP8">Jake Wharton&rsquo;s Devoxx Dagger 2 Talk</a>。</p>
-
-<!-- more -->
-
-<h2 id="dagger使用">Dagger使用</h2>
-
+<p>第二个问题，其实在上面提到的 <a href="https://www.youtube.com/watch?v=oK_XtfXPkqw">DAGGER 2 - A New Type of dependency injection</a> 的演讲中，Dagger 2 的开发者已经解释了他们是如何设计 Dagger 2 的。但他使用CoffeeMaker 来举例，而我对 CoffeeMaker 并不熟悉，因此每当看到 Heater 和 Pump 的时候就在想它到底是什么，也许我应该好好玩一下公司的咖啡机。相比之下，我更喜欢 <a href="http://jakewharton.com">Jake Wharton</a>的演讲 <a href="https://www.youtube.com/watch?v=plK0zyRLIP8">Jake Wharton's Devoxx Dagger 2 Talk</a>。</p>
+<!-- raw HTML omitted -->
+<h2 id="dagger">Dagger使用</h2>
 <ul>
 <li>时间安排2天, 包含玩一下 dagger 项目中的例子程序</li>
 <li>annotation processors compile-time checks 在编译时检测, 所以运行时很高效</li>
@@ -116,9 +107,7 @@
 <li>更容易的单元测试和集成测试</li>
 <li>限定实例, 易于管理实例的生成和销毁</li>
 </ul>
-
 <h3 id="creating-singletons">Creating Singletons</h3>
-
 <ul>
 <li>@Module Dagger 模块, Dagger 在此寻找可以构造某个对象的实例的方法</li>
 <li>@Module 可以用来解决依赖关系, 定义所依赖的对象</li>
@@ -129,95 +118,88 @@
 <li>Dagger 注解不能修饰父类, 其依赖强类型</li>
 <li>@Component 修饰的接口, 最终会生成一个以 Dagger 开始的一个类, 比如以下代码生成 DaggerNetComponent 类</li>
 <li>在 Application 中初始化相关 Component</li>
-
-<li><p>在需要注入的类中, 使用已经实例化的 Component, 调用其 inject() 方法</p>
+<li>在需要注入的类中, 使用已经实例化的 Component, 调用其 inject() 方法</li>
+</ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Singleton
 @Component(modules={AppModule.class, NetModule.class})
-<span style="">public interface </span>NetComponent {
-<span style="">void inject</span>(<span style="">MainActivity activity</span>);
-<span style="font-style:italic">// void inject(MyFragment fragment);
-</span><span style="font-style:italic">// void inject(MyService service);
-</span><span style="font-style:italic"></span>}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="">public class MyApp extends </span>Application {
-
-<span style="">private NetComponent </span>mNetComponent;
-
-@Override
-<span style="">public void </span>onCreate() {
-    <span style="font-weight:bold">super</span>.onCreate();
-
-    <span style="font-style:italic">// Dagger%COMPONENT_NAME%
-</span><span style="font-style:italic"></span>    mNetComponent = DaggerNetComponent.builder()
-            <span style="font-style:italic">// list of modules that are part of this component need to be created here too
-</span><span style="font-style:italic"></span>            .appModule(<span style="font-weight:bold">new</span> AppModule(<span style="font-weight:bold">this</span>)) <span style="font-style:italic">// This also corresponds to the name of your module: %component_name%Module
-</span><span style="font-style:italic"></span>            .netModule(<span style="font-weight:bold">new</span> NetModule(<span style="font-style:italic">&#34;https://api.github.com&#34;</span>))
-            .build();
-
-    <span style="font-style:italic">// If a Dagger 2 component does not have any constructor arguments for any of its modules,
-</span><span style="font-style:italic"></span>    <span style="font-style:italic">// then we can use .create() as a shortcut instead:
-</span><span style="font-style:italic"></span>    <span style="font-style:italic">//  mNetComponent = com.codepath.dagger.components.DaggerNetComponent.create();
+<span style="font-weight:bold">public</span> <span style="font-weight:bold">interface</span> <span style="font-weight:bold">NetComponent</span> {
+   <span style="">void</span> inject(MainActivity activity);
+   <span style="font-style:italic">// void inject(MyFragment fragment);
+</span><span style="font-style:italic"></span>   <span style="font-style:italic">// void inject(MyService service);
 </span><span style="font-style:italic"></span>}
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">MyApp</span> <span style="font-weight:bold">extends</span> Application {
 
-<span style="">public NetComponent </span>getNetComponent() {
-   <span style="font-weight:bold">return</span> mNetComponent;
+    <span style="font-weight:bold">private</span> NetComponent mNetComponent;
+
+    @Override
+    <span style="font-weight:bold">public</span> <span style="">void</span> onCreate() {
+        <span style="font-weight:bold">super</span>.onCreate();
+
+        <span style="font-style:italic">// Dagger%COMPONENT_NAME%
+</span><span style="font-style:italic"></span>        mNetComponent = DaggerNetComponent.builder()
+                <span style="font-style:italic">// list of modules that are part of this component need to be created here too
+</span><span style="font-style:italic"></span>                .appModule(<span style="font-weight:bold">new</span> AppModule(<span style="font-weight:bold">this</span>)) <span style="font-style:italic">// This also corresponds to the name of your module: %component_name%Module
+</span><span style="font-style:italic"></span>                .netModule(<span style="font-weight:bold">new</span> NetModule(<span style="font-style:italic">&#34;https://api.github.com&#34;</span>))
+                .build();
+
+        <span style="font-style:italic">// If a Dagger 2 component does not have any constructor arguments for any of its modules,
+</span><span style="font-style:italic"></span>        <span style="font-style:italic">// then we can use .create() as a shortcut instead:
+</span><span style="font-style:italic"></span>        <span style="font-style:italic">//  mNetComponent = com.codepath.dagger.components.DaggerNetComponent.create();
+</span><span style="font-style:italic"></span>    }
+
+    <span style="font-weight:bold">public</span> NetComponent getNetComponent() {
+       <span style="font-weight:bold">return</span> mNetComponent;
+    }
 }
-}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="">public class MyActivity extends </span>Activity {
-@Inject <span style="">OkHttpClient mOkHttpClient</span>;
-@Inject <span style="">SharedPreferences sharedPreferences</span>;
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">MyActivity</span> <span style="font-weight:bold">extends</span> Activity {
+  @Inject OkHttpClient mOkHttpClient;
+  @Inject SharedPreferences sharedPreferences;
 
-<span style="">public void </span>onCreate(<span style="">Bundle savedInstance</span>) {
-    <span style="font-style:italic">// assign singleton instances to fields
-</span><span style="font-style:italic"></span>    <span style="font-style:italic">// We need to cast to `MyApp` in order to get the right method
-</span><span style="font-style:italic"></span>    ((MyApp) getApplication()).getNetComponent().inject(<span style="font-weight:bold">this</span>);
+  <span style="font-weight:bold">public</span> <span style="">void</span> onCreate(Bundle savedInstance) {
+        <span style="font-style:italic">// assign singleton instances to fields
+</span><span style="font-style:italic"></span>        <span style="font-style:italic">// We need to cast to `MyApp` in order to get the right method
+</span><span style="font-style:italic"></span>        ((MyApp) getApplication()).getNetComponent().inject(<span style="font-weight:bold">this</span>);
+    }
 }
-}</code></pre></div></li>
-</ul>
-
-<h3 id="qualified-types">Qualified types</h3>
-
+</code></pre></div><h3 id="qualified-types">Qualified types</h3>
 <ul>
 <li>@Provides 如果提供了返回一种类型的多种方法, 到到底选择哪一个呢, 就可以通过限定符来指定</li>
-
-<li><p>通过 Dagger 提供的 @Qualifier 注解可以定义限定符, 就像定义 annotation 一样</p>
+<li>通过 Dagger 提供的 @Qualifier 注解可以定义限定符, 就像定义 annotation 一样</li>
+</ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Provides @Named(<span style="font-style:italic">&#34;cached&#34;</span>)
 @Singleton
-<span style="">OkHttpClient provideOkHttpClient</span>(<span style="">Cache cache</span>) {
-<span style="">OkHttpClient client </span>= <span style="font-weight:bold">new</span> OkHttpClient();
-client.setCache(cache);
-<span style="font-weight:bold">return</span> client;
+OkHttpClient provideOkHttpClient(Cache cache) {
+    OkHttpClient client = <span style="font-weight:bold">new</span> OkHttpClient();
+    client.setCache(cache);
+    <span style="font-weight:bold">return</span> client;
 }
 
 @Provides @Named(<span style="font-style:italic">&#34;non_cached&#34;</span>) @Singleton
-<span style="">OkHttpClient provideOkHttpClient</span>() {
-<span style="">OkHttpClient client </span>= <span style="font-weight:bold">new</span> OkHttpClient();
-<span style="font-weight:bold">return</span> client;
+OkHttpClient provideOkHttpClient() {
+    OkHttpClient client = <span style="font-weight:bold">new</span> OkHttpClient();
+    <span style="font-weight:bold">return</span> client;
 }
 
-@Inject @Named(<span style="font-style:italic">&#34;cached&#34;</span>) <span style="">OkHttpClient client</span>;
-@Inject @Named(<span style="font-style:italic">&#34;non_cached&#34;</span>) <span style="">OkHttpClient client2</span>;
+@Inject @Named(<span style="font-style:italic">&#34;cached&#34;</span>) OkHttpClient client;
+@Inject @Named(<span style="font-style:italic">&#34;non_cached&#34;</span>) OkHttpClient client2;
 
 @Qualifier
 @Documented
 @Retention(RUNTIME)
 <span style="font-weight:bold">public</span> @interface DefaultPreferences {
-}</code></pre></div></li>
-</ul>
-
-<h3 id="scopes">Scopes</h3>
-
+}
+</code></pre></div><h3 id="scopes">Scopes</h3>
 <ul>
 <li>Scopes 是用来管理各种 Component 的生命周期的, 或者说是管理其使用范围的</li>
-
-<li><p>可以通过 Dagger 提供的注解 @Scope 来定制自己的 Scope, 但如何实现没有详细说明</p>
+<li>可以通过 Dagger 提供的注解 @Scope 来定制自己的 Scope, 但如何实现没有详细说明</li>
+</ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Scope
 @Documented
 @Retention(value=RetentionPolicy.RUNTIME)
 <span style="font-weight:bold">public</span> @interface MyActivityScope
 {
-}</code></pre></div></li>
-</ul>
-
-<h3 id="dependent-components-or-subcomponents">dependent components or subcomponents</h3>
-
+}
+</code></pre></div><h3 id="dependent-components-or-subcomponents">dependent components or subcomponents</h3>
 <ul>
 <li>Component 并非一定要一直存在, 有些 Component 只存在于一个 Activity 的周期之内, 或者等到 User login 之后才能做事</li>
 <li>dependent components 是父类指定可以注入的类, 子Component去按照指定的实现, 父类去掉 inject 函数, 由子类独立实现</li>
@@ -228,197 +210,187 @@ client.setCache(cache);
 <li>看过 <a href="https://github.com/vinc3m1/nowdothis" title="nowdothis">Dagger demo</a> 得出结论, Scope 就是个标识, 其规范在哪些范围使用, 范围是什么主要看 Component 是什么时候创建的, 比如有个 ImgurActivityComponent, 其初始化是在 ImgurUploadActivity 的 onCreate 方法内, 这些行为都遵守了 @PerImgurActivity 这个 Scope 的约定, 如果有人在另外的 Activity 中创建 ImgurActivityComponent, 使用其注入了某个类, 开发者可以实现, 但是这个 Scope 就被破坏了。</li>
 <li>另外可以使用 @Inject 修饰 Constructor, 使其能够被用来注入, 但是什么时候使用 @Inject, 什么时候使用 @Provide 肯定有个优先级的。</li>
 <li>Constructor Injection 的两种方式如下, @Inject 和 @Provide</li>
-
-<li><p>Lazy injections</p>
+<li>Lazy injections</li>
+</ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// parent component
 </span><span style="font-style:italic"></span>@Singleton
 @Component(modules={AppModule.class, NetModule.class})
-<span style="">public interface </span>NetComponent {
-<span style="font-style:italic">// remove injection methods if downstream modules will perform injection
+<span style="font-weight:bold">public</span> <span style="font-weight:bold">interface</span> <span style="font-weight:bold">NetComponent</span> {
+    <span style="font-style:italic">// remove injection methods if downstream modules will perform injection
 </span><span style="font-style:italic"></span>
-<span style="font-style:italic">// downstream components need these exposed
-</span><span style="font-style:italic">// the method name does not matter, only the return type
-</span><span style="font-style:italic"></span><span style="">Retrofit retrofit</span>();
-<span style="">OkHttpClient okHttpClient</span>();
-<span style="">SharedPreferences sharedPreferences</span>();
-}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Provides <span style="">MyThing provideMyThing</span>(
-		<span style="">SharedPreferences sp</span>,
-		<span style="">Context context</span>) {
+    <span style="font-style:italic">// downstream components need these exposed
+</span><span style="font-style:italic"></span>    <span style="font-style:italic">// the method name does not matter, only the return type
+</span><span style="font-style:italic"></span>    Retrofit retrofit();
+    OkHttpClient okHttpClient();
+    SharedPreferences sharedPreferences();
+}
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Provides MyThing provideMyThing(
+		SharedPreferences sp,
+		Context context) {
 
 	<span style="font-weight:bold">return</span> <span style="font-weight:bold">new</span> MyThing(sp, context);
 }
 
 @PerApp
-<span style="">class MyThing </span>{
+<span style="font-weight:bold">class</span> <span style="font-weight:bold">MyThing</span> {
 
-	<span style="">private final </span>SharedPRefs<span style="">…</span>
-	<span style="">private final </span>Context ...
+	<span style="font-weight:bold">private</span> <span style="font-weight:bold">final</span> SharedPRefs<span style="">…</span>
+	<span style="font-weight:bold">private</span> <span style="font-weight:bold">final</span> Context ...
 
-	@Inject <span style="">public MyThing</span>(
-<span style="">SharedPreferences sp</span>,
-		<span style="">Context context</span>) {
+	@Inject <span style="font-weight:bold">public</span> MyThing(
+SharedPreferences sp,
+		Context context) {
 
 	}
-}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Inject <span style="">Lazy&lt;SharedPreferences&gt; mLazySharedPrefs</span>;
-<span style="">void onSaveBtnClicked</span>() {
-mLazySharedPrefs.get()
-            .edit().putString(<span style="font-style:italic">&#34;status&#34;</span>, <span style="font-style:italic">&#34;lazy...&#34;</span>)
-            .apply();
-}</code></pre></div></li>
-</ul>
-
-<h3 id="相关资料">相关资料</h3>
-
+}
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Inject Lazy&lt;SharedPreferences&gt; mLazySharedPrefs;
+<span style="">void</span> onSaveBtnClicked() {
+    mLazySharedPrefs.get()
+                .edit().putString(<span style="font-style:italic">&#34;status&#34;</span>, <span style="font-style:italic">&#34;lazy...&#34;</span>)
+                .apply();
+}
+</code></pre></div><h3 id="heading">相关资料</h3>
 <ul>
-<li><a href="https://docs.google.com/presentation/d/1bkctcKjbLlpiI0Nj9v0QpCcNIiZBhVsJsJp1dgU5n98/" title="Dagger 2 in Android">Vince Mi&rsquo;s Codepath Meetup Dagger 2 Slides</a></li>
-<li><a href="https://speakerdeck.com/jakewharton/dependency-injection-with-dagger-2-devoxx-2014" title="Dependency Injection with Dagger 2 (Devoxx 2014)">Jake Wharton&rsquo;s Devoxx Dagger 2 Slides</a> Tweeter API 设计</li>
-<li><a href="https://www.youtube.com/watch?v=plK0zyRLIP8" title="Jake Wharton's Devoxx Dagger 2 Talk">Jake Wharton&rsquo;s Devoxx Dagger 2 Talk</a> 50分钟</li>
+<li><a href="https://docs.google.com/presentation/d/1bkctcKjbLlpiI0Nj9v0QpCcNIiZBhVsJsJp1dgU5n98/" title="Dagger 2 in Android">Vince Mi's Codepath Meetup Dagger 2 Slides</a></li>
+<li><a href="https://speakerdeck.com/jakewharton/dependency-injection-with-dagger-2-devoxx-2014" title="Dependency Injection with Dagger 2 (Devoxx 2014)">Jake Wharton's Devoxx Dagger 2 Slides</a> Tweeter API 设计</li>
+<li><a href="https://www.youtube.com/watch?v=plK0zyRLIP8" title="Jake Wharton's Devoxx Dagger 2 Talk">Jake Wharton's Devoxx Dagger 2 Talk</a> 50分钟</li>
 <li><a href="https://www.youtube.com/watch?v=oK_XtfXPkqw" title="Dagger 2 Google Developers Talk">Dagger 2 Google Developers Talk</a> 40分钟</li>
 <li><a href="https://blog.gouline.net/dagger-2-even-sharper-less-square-b52101863542#.flwjtyxlk" title="Dagger 2: Even sharper, less square">Dagger 2: Even sharper, less square</a> 比较 Dagger 1, 指出3缺点</li>
 <li><a href="https://www.youtube.com/watch?v=0XHx9jtxIxU">Architecting Android Applications with Dagger</a> dagger 与 android 构架</li>
 </ul>
-
-<h2 id="依赖注入-注解与apt">依赖注入, 注解与APT</h2>
-
-<h3 id="依赖注入">依赖注入</h3>
-
+<h2 id="-apt">依赖注入, 注解与APT</h2>
+<h3 id="heading1">依赖注入</h3>
 <ul>
 <li>DI, IoC <a href="http://www.martinfowler.com/articles/injection.html" title="Inversion of Control Containers and the Dependency Injection pattern">经典文章</a> 对比 <a href="http://www.cnblogs.com/gaochundong/archive/2013/04/12/service_locator_pattern.html" title="Service Locator 模式">Service Locator 模式</a></li>
 <li>三种DI方式
-
 <ol>
 <li>Constructor Injection 是根据某种类型, 调用其一个默认实现的子类, Container 会提供一个配置接口, 并且为一个类返回一个默认实现, 当然主要是通过调用其构造方法, 并且可以配置传参</li>
 <li>Setter Injection 是在需要被注入的类中有一个 Setter 方法, 用来设置相关依赖, 在此框架会返回一个默认的实现作为参数, Spring 通过 xml 文件配置类的某一个具体实现</li>
 <li>Interface Injection 通过声明接口，框架给出默认实现，并且给出关联相关代码，而实现依赖注入, 但这里的例子没有使用注解, 而是直接使用了 Java Code</li>
-</ol></li>
+</ol>
+</li>
+<li>Service Locator 与 Dependency Injection 比较，两者都是为了去耦合，依赖注入难以理解和调试</li>
+</ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">class</span> <span style="font-weight:bold">MovieLister</span>...
+  <span style="font-weight:bold">public</span> MovieLister(MovieFinder finder) {
+      <span style="font-weight:bold">this</span>.finder = finder;       
+  }
 
-<li><p>Service Locator 与 Dependency Injection 比较，两者都是为了去耦合，依赖注入难以理解和调试</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="">class MovieLister</span>...
-<span style="">public MovieLister</span>(<span style="">MovieFinder finder</span>) {
-  <span style="font-weight:bold">this</span>.finder = finder;       
+<span style="font-weight:bold">class</span> <span style="font-weight:bold">ColonMovieFinder</span>...
+  <span style="font-weight:bold">public</span> ColonMovieFinder(String filename) {
+      <span style="font-weight:bold">this</span>.filename = filename;
+  }
+
+<span style="font-weight:bold">private</span> MutablePicoContainer configureContainer() {
+    MutablePicoContainer pico = <span style="font-weight:bold">new</span> DefaultPicoContainer();
+    Parameter[] finderParams =  {<span style="font-weight:bold">new</span> ConstantParameter(<span style="font-style:italic">&#34;movies1.txt&#34;</span>)};
+    pico.registerComponentImplementation(MovieFinder.class, ColonMovieFinder.class, finderParams);
+    pico.registerComponentImplementation(MovieLister.class);
+    <span style="font-weight:bold">return</span> pico;
 }
 
-<span style="">class ColonMovieFinder</span>...
-<span style="">public ColonMovieFinder</span>(<span style="">String filename</span>) {
-  <span style="font-weight:bold">this</span>.filename = filename;
+<span style="font-weight:bold">public</span> <span style="">void</span> testWithPico() {
+    MutablePicoContainer pico = configureContainer();
+    MovieLister lister = (MovieLister) pico.getComponentInstance(MovieLister.class);
+    Movie[] movies = lister.moviesDirectedBy(<span style="font-style:italic">&#34;Sergio Leone&#34;</span>);
+    assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#34;</span>, movies[0].getTitle());
 }
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">class</span> <span style="font-weight:bold">MovieLister</span>...
+  <span style="font-weight:bold">private</span> MovieFinder finder;
+  <span style="font-weight:bold">public</span> <span style="">void</span> setFinder(MovieFinder finder) {
+    <span style="font-weight:bold">this</span>.finder = finder;
+  }
 
-<span style="">private MutablePicoContainer </span>configureContainer() {
-<span style="">MutablePicoContainer pico </span>= <span style="font-weight:bold">new</span> DefaultPicoContainer();
-<span style="">Parameter[] finderParams </span>=  {<span style="font-weight:bold">new</span> ConstantParameter(<span style="font-style:italic">&#34;movies1.txt&#34;</span>)};
-pico.registerComponentImplementation(MovieFinder.class, ColonMovieFinder.class, finderParams);
-pico.registerComponentImplementation(MovieLister.class);
-<span style="font-weight:bold">return</span> pico;
-}
-
-<span style="">public void </span>testWithPico() {
-<span style="">MutablePicoContainer pico </span>= configureContainer();
-<span style="">MovieLister lister </span>= (MovieLister) pico.getComponentInstance(MovieLister.class);
-<span style="">Movie[] movies </span>= lister.moviesDirectedBy(<span style="font-style:italic">&#34;Sergio Leone&#34;</span>);
-assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#34;</span>, movies[0].getTitle());
-}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="">class MovieLister</span>...
-<span style="">private MovieFinder </span>finder;
-<span style="">public void </span>setFinder(<span style="">MovieFinder finder</span>) {
-<span style="font-weight:bold">this</span>.finder = finder;
-}
-
-<span style="">class ColonMovieFinder</span>...
-<span style="">public void </span>setFilename(<span style="">String filename</span>) {
-  <span style="font-weight:bold">this</span>.filename = filename;
-}
+<span style="font-weight:bold">class</span> <span style="font-weight:bold">ColonMovieFinder</span>...
+  <span style="font-weight:bold">public</span> <span style="">void</span> setFilename(String filename) {
+      <span style="font-weight:bold">this</span>.filename = filename;
+  }
 
 &lt;beans&gt;
-&lt;<span style="">bean id</span>=<span style="font-style:italic">&#34;MovieLister&#34;</span> class=<span style="font-style:italic">&#34;spring.MovieLister&#34;</span>&gt;
-    &lt;<span style="">property name</span>=<span style="font-style:italic">&#34;finder&#34;</span>&gt;
-        &lt;<span style="">ref local</span>=<span style="font-style:italic">&#34;MovieFinder&#34;</span>/&gt;
-    &lt;/property&gt;
-&lt;/bean&gt;
-&lt;<span style="">bean id</span>=<span style="font-style:italic">&#34;MovieFinder&#34;</span> class=<span style="font-style:italic">&#34;spring.ColonMovieFinder&#34;</span>&gt;
-    &lt;<span style="">property name</span>=<span style="font-style:italic">&#34;filename&#34;</span>&gt;
-        &lt;value&gt;movies1.txt&lt;/value&gt;
-    &lt;/property&gt;
-&lt;/bean&gt;
-&lt;/<span style="">beans&gt;
-</span><span style="">
-</span><span style="">public void testWithSpring</span>() <span style="">throws Exception </span>{
-<span style="">ApplicationContext ctx </span>= <span style="font-weight:bold">new</span> FileSystemXmlApplicationContext(<span style="font-style:italic">&#34;spring.xml&#34;</span>);
-<span style="">MovieLister lister </span>= (MovieLister) ctx.getBean(<span style="font-style:italic">&#34;MovieLister&#34;</span>);
-<span style="">Movie[] movies </span>= lister.moviesDirectedBy(<span style="font-style:italic">&#34;Sergio Leone&#34;</span>);
-assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#34;</span>, movies[0].getTitle());
-}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="">public interface </span>InjectFinder {
-<span style="">void injectFinder</span>(<span style="">MovieFinder finder</span>);
+    &lt;bean id=<span style="font-style:italic">&#34;MovieLister&#34;</span> class=<span style="font-style:italic">&#34;spring.MovieLister&#34;</span>&gt;
+        &lt;property name=<span style="font-style:italic">&#34;finder&#34;</span>&gt;
+            &lt;ref local=<span style="font-style:italic">&#34;MovieFinder&#34;</span>/&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+    &lt;bean id=<span style="font-style:italic">&#34;MovieFinder&#34;</span> class=<span style="font-style:italic">&#34;spring.ColonMovieFinder&#34;</span>&gt;
+        &lt;property name=<span style="font-style:italic">&#34;filename&#34;</span>&gt;
+            &lt;value&gt;movies1.txt&lt;/value&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;
+
+<span style="font-weight:bold">public</span> <span style="">void</span> testWithSpring() <span style="font-weight:bold">throws</span> Exception {
+    ApplicationContext ctx = <span style="font-weight:bold">new</span> FileSystemXmlApplicationContext(<span style="font-style:italic">&#34;spring.xml&#34;</span>);
+    MovieLister lister = (MovieLister) ctx.getBean(<span style="font-style:italic">&#34;MovieLister&#34;</span>);
+    Movie[] movies = lister.moviesDirectedBy(<span style="font-style:italic">&#34;Sergio Leone&#34;</span>);
+    assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#34;</span>, movies[0].getTitle());
+}
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">public</span> <span style="font-weight:bold">interface</span> <span style="font-weight:bold">InjectFinder</span> {
+  <span style="">void</span> injectFinder(MovieFinder finder);
 }
 
-<span style="">class MovieLister implements InjectFinder </span>{
-<span style="">public void </span>injectFinder(<span style="">MovieFinder finder</span>) {
-  <span style="font-weight:bold">this</span>.finder = finder;
-}
-}
-
-<span style="">public interface </span>Injector {
-<span style="">public void </span>inject(<span style="">Object target</span>);
+<span style="font-weight:bold">class</span> <span style="font-weight:bold">MovieLister</span> <span style="font-weight:bold">implements</span> InjectFinder {
+  <span style="font-weight:bold">public</span> <span style="">void</span> injectFinder(MovieFinder finder) {
+      <span style="font-weight:bold">this</span>.finder = finder;
+  }
 }
 
-<span style="">class ColonMovieFinder implements MovieFinder</span>, Injector {
-<span style="">public void </span>injectFilename(<span style="">String filename</span>) {
-  <span style="font-weight:bold">this</span>.filename = filename;
-}
-<span style="">public void </span>inject(<span style="">Object target</span>) {
-((InjectFinder) target).injectFinder(<span style="font-weight:bold">this</span>);        
-}
+<span style="font-weight:bold">public</span> <span style="font-weight:bold">interface</span> <span style="font-weight:bold">Injector</span> {
+  <span style="font-weight:bold">public</span> <span style="">void</span> inject(Object target);
 }
 
-<span style="">class Tester </span>{
-<span style="">private Container </span>container;
-
-<span style="">private void </span>configureContainer() {
-container = <span style="font-weight:bold">new</span> Container();
-registerComponents();
-registerInjectors();
-container.start();
+<span style="font-weight:bold">class</span> <span style="font-weight:bold">ColonMovieFinder</span> <span style="font-weight:bold">implements</span> MovieFinder, Injector {
+  <span style="font-weight:bold">public</span> <span style="">void</span> injectFilename(String filename) {
+      <span style="font-weight:bold">this</span>.filename = filename;
+  }
+  <span style="font-weight:bold">public</span> <span style="">void</span> inject(Object target) {
+    ((InjectFinder) target).injectFinder(<span style="font-weight:bold">this</span>);        
+  }
 }
 
-<span style="">private void </span>registerComponents() {
-container.registerComponent(<span style="font-style:italic">&#34;MovieLister&#34;</span>, MovieLister.class);
-container.registerComponent(<span style="font-style:italic">&#34;MovieFinder&#34;</span>, ColonMovieFinder.class);
+<span style="font-weight:bold">class</span> <span style="font-weight:bold">Tester</span> {
+  <span style="font-weight:bold">private</span> Container container;
+
+  <span style="font-weight:bold">private</span> <span style="">void</span> configureContainer() {
+   container = <span style="font-weight:bold">new</span> Container();
+   registerComponents();
+   registerInjectors();
+   container.start();
+  }
+
+  <span style="font-weight:bold">private</span> <span style="">void</span> registerComponents() {
+    container.registerComponent(<span style="font-style:italic">&#34;MovieLister&#34;</span>, MovieLister.class);
+    container.registerComponent(<span style="font-style:italic">&#34;MovieFinder&#34;</span>, ColonMovieFinder.class);
+  }
+
+  <span style="font-weight:bold">private</span> <span style="">void</span> registerInjectors() {
+    container.registerInjector(InjectFinder.class, container.lookup(<span style="font-style:italic">&#34;MovieFinder&#34;</span>));
+  }
+
+  <span style="font-weight:bold">public</span> <span style="">void</span> testIface() {
+    configureContainer();
+    MovieLister lister = (MovieLister)container.lookup(<span style="font-style:italic">&#34;MovieLister&#34;</span>);
+    Movie[] movies = lister.moviesDirectedBy(<span style="font-style:italic">&#34;Sergio Leone&#34;</span>);
+    assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#34;</span>, movies[0].getTitle());
+  }
 }
-
-<span style="">private void </span>registerInjectors() {
-container.registerInjector(InjectFinder.class, container.lookup(<span style="font-style:italic">&#34;MovieFinder&#34;</span>));
-}
-
-<span style="">public void </span>testIface() {
-configureContainer();
-<span style="">MovieLister lister </span>= (MovieLister)container.lookup(<span style="font-style:italic">&#34;MovieLister&#34;</span>);
-<span style="">Movie[] movies </span>= lister.moviesDirectedBy(<span style="font-style:italic">&#34;Sergio Leone&#34;</span>);
-assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#34;</span>, movies[0].getTitle());
-}
-}</code></pre></div></li>
-</ul>
-
-<p>首先, 这个 InjectFinder 是被注入的那个类需要实现的接口, 名字有点问题, 难以理解。 需要使用 finder 的类实现 InjectFinder 接口, 会自动注入相关类。 registerComponent 是注册类, 可以通过 lookup 获取其实例。</p>
-
+</code></pre></div><p>首先, 这个 InjectFinder 是被注入的那个类需要实现的接口, 名字有点问题, 难以理解。 需要使用 finder 的类实现 InjectFinder 接口, 会自动注入相关类。 registerComponent 是注册类, 可以通过 lookup 获取其实例。</p>
 <p>registerInjector 表达一种关系, 谁注入谁的关系, 上面经过 registerInjectors 之后 InjectFinder 与 ColonMovieFinder 就关联起来了, ColonMovieFinder 会注入到 InjectFinder 里面去。</p>
-
 <h3 id="jsr-330">JSR 330</h3>
-
 <ul>
 <li>JSR 330 - 2009 年发布, Spring 2.5 后支持, 依赖注入的标准</li>
 <li>@Inject 注入顺序为构造器，字段，最后是方法。超类的字段、方法将优先于子类的字段、方法被注入</li>
-<li>@Qualifier 给定的类型 T 与可选的限定器，注入器必须能够注入用户指定的类, 循环依赖, Provider<T> 然后显式调用其 get 方法。</li>
-<li>Provider<T> 一般由注入器实现, 可返回多个实例, 而且打破循环依赖的问题</li>
+<li>@Qualifier 给定的类型 T 与可选的限定器，注入器必须能够注入用户指定的类, 循环依赖, Provider<!-- raw HTML omitted --> 然后显式调用其 get 方法。</li>
+<li>Provider<!-- raw HTML omitted --> 一般由注入器实现, 可返回多个实例, 而且打破循环依赖的问题</li>
 <li>@Named 是默认实现的一个限定器, 参数是一个 String 类型, 大多数时候够用</li>
 <li>@Scope 用于标识作用域注解, 重新定义一个新 Scope, 不应该含有属性</li>
-
-<li><p>@Singleton 是一个Scope 实现, 对象只创建一次</p>
+<li>@Singleton 是一个Scope 实现, 对象只创建一次</li>
+</ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@java.lang.annotation.Documented
 @java.lang.annotation.Retention(RUNTIME)
 @javax.inject.Scope
-<span style="font-weight:bold">public</span> @interface RequestScoped {}</code></pre></div></li>
-</ul>
-
-<h3 id="注解及apt">注解及APT</h3>
-
+<span style="font-weight:bold">public</span> @interface RequestScoped {}
+</code></pre></div><h3 id="apt">注解及APT</h3>
 <ul>
 <li>Dagger中, 注解的作用是在编译期间帮助生成代码, 运行时, 与注解已无关系</li>
 <li><a href="https://github.com/square/javapoet" title="javapoet">javapoet</a>及其<a href="http://www.jianshu.com/p/95f12f72f69a" title="javapoet——让你从重复无聊的代码中解放出来">详解</a> 用来生成 java 源文件的库</li>
@@ -427,31 +399,31 @@ assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#
 <li>一个编译时注解处理的 <a href="https://github.com/zjutkz/Knight" title="knight">简单实例</a>及其<a href="http://zjutkz.net/2016/04/07/%E4%B8%87%E8%83%BD%E7%9A%84APT%EF%BC%81%E7%BC%96%E8%AF%91%E6%97%B6%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%A6%99%E7%94%A8/" title="万能的APT！编译时注解的妙用">详解</a></li>
 <li><a href="http://blog.csdn.net/a1018875550/article/details/52166916" title="Android注解-编译时生成代码 (APT)">APT</a> 及相关项目 <a href="https://github.com/a1018875550/ViewInject/tree/master" title="ViewInject">ViewInject</a>, 完整用心地讲了具体实现</li>
 <li>@AutoService 可以自动(为 Processor)生成配置信息</li>
-
-<li><p>Android Studio 2.2 已经自带 annotationProcessor, 不再需要 APT, 即便不使用 Java 8</p>
+<li>Android Studio 2.2 已经自带 annotationProcessor, 不再需要 APT, 即便不使用 Java 8</li>
+</ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// 内置注解
-</span><span style="font-style:italic">// 方法注解，表示此注解修饰的方法覆盖了父类或是接口的方法
-</span><span style="font-style:italic">// 如果不是这样，则输出警告
+</span><span style="font-style:italic"></span><span style="font-style:italic">// 方法注解，表示此注解修饰的方法覆盖了父类或是接口的方法
+</span><span style="font-style:italic"></span><span style="font-style:italic">// 如果不是这样，则输出警告
 </span><span style="font-style:italic"></span>@Override
 
 <span style="font-style:italic">// 对于此注解所修饰的对象（类、域、方法等）
-</span><span style="font-style:italic">// 当你使用了它们时编译器将输出“已废弃”警告
+</span><span style="font-style:italic"></span><span style="font-style:italic">// 当你使用了它们时编译器将输出“已废弃”警告
 </span><span style="font-style:italic"></span>@Deprecated
 
 <span style="font-style:italic">// 关闭警告，通过给此注解的元素赋值
-</span><span style="font-style:italic">// 可以关闭特定警告
+</span><span style="font-style:italic"></span><span style="font-style:italic">// 可以关闭特定警告
 </span><span style="font-style:italic"></span>@SuppressWarnings
 
 
 
 <span style="font-style:italic">// 元注解
-</span><span style="font-style:italic">// 定义注解所能作用的目标，说明该注解能作用于何种对象（类、方法、域……之类）。
+</span><span style="font-style:italic"></span><span style="font-style:italic">// 定义注解所能作用的目标，说明该注解能作用于何种对象（类、方法、域……之类）。
 </span><span style="font-style:italic"></span>@Target
 
 <span style="font-style:italic">// 定义注解保存级别
-</span><span style="font-style:italic">// 1.源代码注解，被编译器丢弃
-</span><span style="font-style:italic">// 2.类注解，class文件中可用，被VM丢弃
-</span><span style="font-style:italic">// 3.运行时可用，搭配反射
+</span><span style="font-style:italic"></span><span style="font-style:italic">// 1.源代码注解，被编译器丢弃
+</span><span style="font-style:italic"></span><span style="font-style:italic">// 2.类注解，class文件中可用，被VM丢弃
+</span><span style="font-style:italic"></span><span style="font-style:italic">// 3.运行时可用，搭配反射
 </span><span style="font-style:italic"></span>@Retention
 
 <span style="font-style:italic">// 标志将此注解包含至javadoc中
@@ -466,93 +438,84 @@ assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.ANNOTATION_TYPE)
 <span style="font-weight:bold">public</span> @interface Target {
-<span style="">ElementType[] value</span>() <span style="font-weight:bold">default</span> {ElementType.ANNOTATION_TYPE};
-}</code></pre></div></li>
-</ul>
-
-<h2 id="dagger-2-源码">Dagger 2 源码</h2>
-
+    ElementType[] value() <span style="font-weight:bold">default</span> {ElementType.ANNOTATION_TYPE};
+}
+</code></pre></div><h2 id="dagger-2-">Dagger 2 源码</h2>
 <ul>
 <li>dagger 并不是一个 android project, 而是一个 java project, 构建工具为 maven</li>
 <li>maven 构建工具, 它如何构建, 如何集成, 如何打包 之后再说, 但其所有注解打概念得搞清楚</li>
 <li>源码 中一大部分是新功能, 新概念, 比如 MultiBindings 支持Set 和 Map的多绑定实现插件式开发; Producer 用来支持异步编程模型, 还是先看文档熟悉一下比较好</li>
 </ul>
-
-<h3 id="新概念">新概念</h3>
-
+<h3 id="heading2">新概念</h3>
 <ul>
 <li>MultiBindings 就是把一些值组成一个集合, 有 set 和 map, @IntoSet 和 @StringKey 等等, 用于实现插件式构架, 稍显复杂</li>
 <li>@ProducerModule, @Produces, @ProductionComponent 是提供异步依赖注入的注解, 类似注解 @Module, @Provides, @Component</li>
-<li>@Produces 返回一个 ListenableFuture<T>, 如果其中 T 被依赖, 并且也被 @Produces 修饰, 可以通过注解 @Production 修饰 Executor 来指定</li>
-<li>错误处理, 被依赖的 T, 就是 Produced<T>, 如果需要做错误处理, 则在此完成, MultiBindings 和 Lazy execution 同样支持</li>
-
-<li><p>返回 Scope 和相应的 Component 一致  @ProductionScope</p>
+<li>@Produces 返回一个 ListenableFuture<!-- raw HTML omitted -->, 如果其中 T 被依赖, 并且也被 @Produces 修饰, 可以通过注解 @Production 修饰 Executor 来指定</li>
+<li>错误处理, 被依赖的 T, 就是 Produced<!-- raw HTML omitted -->, 如果需要做错误处理, 则在此完成, MultiBindings 和 Lazy execution 同样支持</li>
+<li>返回 Scope 和相应的 Component 一致  @ProductionScope</li>
+</ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@ProducerModule(includes = UserModule.class)
-<span style="">final class </span>UserResponseModule {
-@Produces
-<span style="">static ListenableFuture</span>&lt;<span style="">UserData&gt; lookUpUserData</span>(
-  <span style="">User user</span>, <span style="">UserDataStub stub</span>) {
-<span style="font-weight:bold">return</span> stub.lookUpData(user);
-}
+<span style="font-weight:bold">final</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">UserResponseModule</span> {
+  @Produces
+  <span style="font-weight:bold">static</span> ListenableFuture&lt;UserData&gt; lookUpUserData(
+      User user, UserDataStub stub) {
+    <span style="font-weight:bold">return</span> stub.lookUpData(user);
+  }
 
-@Produces
-<span style="">static Html </span>renderHtml(<span style="">UserData data</span>, <span style="">UserHtmlTemplate template</span>) {
-<span style="font-weight:bold">return</span> template.render(data);
-}
+  @Produces
+  <span style="font-weight:bold">static</span> Html renderHtml(UserData data, UserHtmlTemplate template) {
+    <span style="font-weight:bold">return</span> template.render(data);
+  }
 }
 
 @Module
-<span style="">final class </span>ExecutorModule {
-@Provides
-@Production
-<span style="">static Executor </span>executor() {
-<span style="font-weight:bold">return</span> Executors.newCachedThreadPool();
+<span style="font-weight:bold">final</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">ExecutorModule</span> {
+  @Provides
+  @Production
+  <span style="font-weight:bold">static</span> Executor executor() {
+    <span style="font-weight:bold">return</span> Executors.newCachedThreadPool();
+  }
 }
-}</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Produces
-<span style="">static Html </span>renderHtml(
-<span style="">Produced&lt;UserData&gt; data</span>,
-<span style="">UserHtmlTemplate template</span>,
-<span style="">ErrorHtmlTemplate errorTemplate</span>) {
-<span style="font-weight:bold">try</span> {
-<span style="font-weight:bold">return</span> template.render(data.get());
-} <span style="font-weight:bold">catch</span> (<span style="">ExecutionException e</span>) {
-<span style="font-weight:bold">return</span> errorTemplate.render(<span style="font-style:italic">&#34;user data failed&#34;</span>, e.getCause());
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Produces
+<span style="font-weight:bold">static</span> Html renderHtml(
+    Produced&lt;UserData&gt; data,
+    UserHtmlTemplate template,
+    ErrorHtmlTemplate errorTemplate) {
+  <span style="font-weight:bold">try</span> {
+    <span style="font-weight:bold">return</span> template.render(data.get());
+  } <span style="font-weight:bold">catch</span> (ExecutionException e) {
+    <span style="font-weight:bold">return</span> errorTemplate.render(<span style="font-style:italic">&#34;user data failed&#34;</span>, e.getCause());
+  }
 }
-}</code></pre></div></li>
-</ul>
-
-<h3 id="componentprocessor">ComponentProcessor</h3>
-
+</code></pre></div><h3 id="componentprocessor">ComponentProcessor</h3>
 <ul>
 <li>getSupportedOptions, initSteps 和 postRound 来自于 BasicAnnotationProcessor</li>
 <li><a href="https://github.com/google/auto" title="Auto">google auto</a>, 这个项目是用来帮助自动生成代码的</li>
 <li><a href="https://github.com/google/guava" title="Google Core Libraries for Java 6+">google guava</a> 是 Google 开源的 Java 库, 在Java标准库上面的一些封装, 让 java 更加优雅, <a href="https://github.com/google/guava/wiki" title="Guava User Guide">guava guide</a></li>
 <li>BasicAnnotationProcessor 中接口 ProcessingStep, ElementName</li>
 </ul>
-
-<h4 id="basicannotationprocessor-processingstep">BasicAnnotationProcessor.ProcessingStep</h4>
+<h4 id="basicannotationprocessorprocessingstep">BasicAnnotationProcessor.ProcessingStep</h4>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// 处理阶段, 每个处理阶段可以处理一些注解的逻辑
-</span><span style="font-style:italic"></span><span style="">public interface </span>ProcessingStep {
+</span><span style="font-style:italic"></span><span style="font-weight:bold">public</span> <span style="font-weight:bold">interface</span> <span style="font-weight:bold">ProcessingStep</span> {
     <span style="font-style:italic">// 返回该阶段需要处理的注解类型
-</span><span style="font-style:italic"></span>    Set&lt;? <span style="">extends Class</span>&lt;? <span style="">extends Annotation</span>&gt;&gt; annotations();
+</span><span style="font-style:italic"></span>    Set&lt;? <span style="font-weight:bold">extends</span> Class&lt;? <span style="font-weight:bold">extends</span> Annotation&gt;&gt; annotations();
 
     <span style="font-style:italic">// 处理注解和被注解的元素, 是 SetMultimap 类型, 说明可以处理多个注解,
 </span><span style="font-style:italic"></span>    <span style="font-style:italic">// 同时每个注解可能注释了多个不同的元素
-</span><span style="font-style:italic"></span>    <span style="">Set&lt;Element&gt; process</span>(SetMultimap&lt;Class&lt;? <span style="">extends Annotation</span>&gt;, <span style="">Element&gt; var1</span>);
-}</code></pre></div>
-<h4 id="basicannotationprocessor-elementname">BasicAnnotationProcessor.ElementName</h4>
+</span><span style="font-style:italic"></span>    Set&lt;Element&gt; process(SetMultimap&lt;Class&lt;? <span style="font-weight:bold">extends</span> Annotation&gt;, Element&gt; var1);
+}
+</code></pre></div><h4 id="basicannotationprocessorelementname">BasicAnnotationProcessor.ElementName</h4>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// 该类主要用来存放节点名称, 并且区分包节点和类型节点
-</span><span style="font-style:italic"></span><span style="">private static final class </span>ElementName {
-    <span style="">private final BasicAnnotationProcessor.ElementName.Kind kind</span>;
-    <span style="">private final String name</span>;
+</span><span style="font-style:italic"></span><span style="font-weight:bold">private</span> <span style="font-weight:bold">static</span> <span style="font-weight:bold">final</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">ElementName</span> {
+    <span style="font-weight:bold">private</span> <span style="font-weight:bold">final</span> BasicAnnotationProcessor.ElementName.Kind kind;
+    <span style="font-weight:bold">private</span> <span style="font-weight:bold">final</span> String name;
     <span style="font-style:italic">// ... 其中一些方法简化, 是一些构造方法和一些比较相关的方法
-</span><span style="font-style:italic"></span>    <span style="">private static enum Kind </span>{
+</span><span style="font-style:italic"></span>    <span style="font-weight:bold">private</span> <span style="font-weight:bold">static</span> <span style="font-weight:bold">enum</span> Kind {
         PACKAGE_NAME,
         TYPE_NAME;
     }
-}</code></pre></div>
-<h4 id="basicannotationprocessor-5个变量">BasicAnnotationProcessor 5个变量</h4>
-
+}
+</code></pre></div><h4 id="basicannotationprocessor-5">BasicAnnotationProcessor 5个变量</h4>
 <ul>
 <li>deferredElementNames 未处理的元素</li>
 <li>elementsDeferredBySteps 未处理的元素(按照 ProcessingStep 区分)</li>
@@ -561,18 +524,14 @@ assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#
 <li>messager 用于编译过程中报告错误</li>
 <li>steps 所有处理步骤(ProcessingStep)</li>
 </ul>
-
 <h4 id="roundenvironment">RoundEnvironment</h4>
-
 <ul>
 <li>这个注释处理是一轮一轮进行的, RoundEnvironment 代表这一轮的处理环境</li>
 <li>processingOver 表示上一轮处理完成, errorRaised 表示前面有错误发生</li>
 <li>getRootElements 上一轮处理的根元素</li>
 <li>getElementsAnnotatedWith 获取被注解的元素, 有两个重载的方法</li>
 </ul>
-
-<h4 id="basicannotationprocessor-处理流程">BasicAnnotationProcessor 处理流程</h4>
-
+<h4 id="basicannotationprocessor-">BasicAnnotationProcessor 处理流程</h4>
 <ul>
 <li>init 初始化, 暴露 initSteps 给子类, 让其返回其想要实现的 ProcessingStep</li>
 <li>process 函数先检查了一些状态, 然后通过 deferredElementNames 得到了 deferredElements, 但奇怪的是, deferredElementNames 和 elements 怎么初始化</li>

@@ -93,17 +93,12 @@
       </header>
 
       <div class="post-content">
-        
-
-<p>Requests是目前最流行的Python HTTP库，使用者众多，包括Amazon, Google, Twitter等大公司和美国国家安全局等政府机构。在<a href="https://github.com/kennethreitz/requests" title="Requests: HTTP for Humans">github</a>上有2w多的star。Requests的接口简单，符合人的直觉而且功能强大。比如持久 Cookie 的会话, Keep-Alive &amp; 连接池,文件分块上传, 流下载, SSL 认证等。其大部分功能由其内置的<a href="https://github.com/shazow/urllib3" title="urllib3">urllib3</a>库实现。所以Requests最关心的不是如何实现协议，而是如何设计接口，正如作者<a href="https://github.com/kennethreitz" title="kennethreitz">github</a>自我介绍，「The only thing I really care about is interface design」。
-<!-- more --></p>
-
-<h2 id="http基础">HTTP基础</h2>
-
+        <p>Requests是目前最流行的Python HTTP库，使用者众多，包括Amazon, Google, Twitter等大公司和美国国家安全局等政府机构。在<a href="https://github.com/kennethreitz/requests" title="Requests: HTTP for Humans">github</a>上有2w多的star。Requests的接口简单，符合人的直觉而且功能强大。比如持久 Cookie 的会话, Keep-Alive &amp; 连接池,文件分块上传, 流下载, SSL 认证等。其大部分功能由其内置的<a href="https://github.com/shazow/urllib3" title="urllib3">urllib3</a>库实现。所以Requests最关心的不是如何实现协议，而是如何设计接口，正如作者<a href="https://github.com/kennethreitz" title="kennethreitz">github</a>自我介绍，「The only thing I really care about is interface design」。</p>
+<!-- raw HTML omitted -->
+<h2 id="http">HTTP基础</h2>
 <h4 id="url">URL</h4>
-
 <p>一个统一资源定位符被分为下面的六段</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">http://user:passwd@httpbin.org:80/basic-auth/user/passwd?name=quqiuzhu#1
+<pre><code>http://user:passwd@httpbin.org:80/basic-auth/user/passwd?name=quqiuzhu#1
 
 &lt;scheme&gt;://&lt;netloc&gt;/&lt;path&gt;;&lt;params&gt;?&lt;query&gt;#&lt;fragment&gt;
 
@@ -111,27 +106,22 @@
 &lt;netloc&gt;    user:passwd@httpbin.org:80
 &lt;path&gt;      basic-auth/user/passwd
 &lt;query&gt;     name=quqiuzhu
-&lt;fragment&gt;  1</pre></div>
-<p>其中<code>&lt;params&gt;</code>叫做matrix parameters，<code>&lt;query&gt;</code>叫query parameters，<code>&lt;params&gt;</code>支持较少，关于这两种参数的讨论，请看<a href="http://stackoverflow.com/questions/2048121/url-matrix-parameters-vs-request-parameters" title="URL matrix parameters vs. request parameters">stackoverflow</a>。</p>
-
+&lt;fragment&gt;  1
+</code></pre><p>其中<code>&lt;params&gt;</code>叫做matrix parameters，<code>&lt;query&gt;</code>叫query parameters，<code>&lt;params&gt;</code>支持较少，关于这两种参数的讨论，请看<a href="http://stackoverflow.com/questions/2048121/url-matrix-parameters-vs-request-parameters" title="URL matrix parameters vs. request parameters">stackoverflow</a>。</p>
 <p><code>&lt;netloc&gt;</code> 可继续细分为<code>&lt;auth&gt;</code>, <code>&lt;host&gt;</code>, <code>&lt;port&gt;</code>, 一般情况下，没有<code>&lt;auth&gt;</code>部分，和<code>&lt;port&gt;</code>部分。因为在url中明文传递用户名密码和不安全，而且对外提供服务的网站一般都采用默认端口(HTTP:80, HTTPS:443)。</p>
-
 <p><code>&lt;fragment&gt;</code> 通常用作一个网页的页内分段跳转。</p>
-
-<h4 id="http">HTTP</h4>
-
-<p><a href="https://github.com/astaxie/bat" title="bat">bat</a>是一个类似cUrl的API测试工具，执行命令时，其能完整显示整个HTTP协议的传输过程，比如当我对<a href="http://httpbin.org/ip做一个GET请求时，其命令为">http://httpbin.org/ip做一个GET请求时，其命令为</a></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">➜  ~ bat http://httpbin.org/ip</pre></div>
-<p>其构造的请求(Request)如下</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">GET /ip HTTP/1.1
+<h4 id="http1">HTTP</h4>
+<p><a href="https://github.com/astaxie/bat" title="bat">bat</a>是一个类似cUrl的API测试工具，执行命令时，其能完整显示整个HTTP协议的传输过程，比如当我对http://httpbin.org/ip做一个GET请求时，其命令为</p>
+<pre><code>➜  ~ bat http://httpbin.org/ip
+</code></pre><p>其构造的请求(Request)如下</p>
+<pre><code>GET /ip HTTP/1.1
 Host: httpbin.org
 Accept: application/json
 Accept-Encoding: gzip, deflate
-User-Agent: bat/0.1.0</pre></div>
-<p>第一行是请求行，分别是谓词(方法)、路径和协议版本; 其后跟着的是头部信息(Host、Accept、Accept-Encoding 和User-Agent); 如果是POST或者PUT等请求，还可能会有BODY部分。</p>
-
+User-Agent: bat/0.1.0
+</code></pre><p>第一行是请求行，分别是谓词(方法)、路径和协议版本; 其后跟着的是头部信息(Host、Accept、Accept-Encoding 和User-Agent); 如果是POST或者PUT等请求，还可能会有BODY部分。</p>
 <p>回复(Response)的文本如下</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">HTTP/1.1 200 OK
+<pre><code>HTTP/1.1 200 OK
 Server : nginx
 Date : Sun, 04 Sep 2016 11:59:35 GMT
 Content-Type : application/json
@@ -142,16 +132,12 @@ Access-Control-Allow-Credentials : true
 
 
 {
-  &#34;origin&#34;: &#34;111.0.186.217&#34;
-}</pre></div>
-<p>第一行是回复行，分别为协议版本，状态码和状态描述; 其后是头部信息; 之后是空行(<code>\r\n</code>);再后面跟着的是BODY信息。</p>
-
+  &quot;origin&quot;: &quot;111.0.186.217&quot;
+}
+</code></pre><p>第一行是回复行，分别为协议版本，状态码和状态描述; 其后是头部信息; 之后是空行(<code>\r\n</code>);再后面跟着的是BODY信息。</p>
 <p>以上是一个HTTP请求的基本框架，是其他所有功能的基础。</p>
-
 <h2 id="urllib3">urllib3</h2>
-
 <p>Requests大部分HTTP协议功能是urllib3实现的，一直看到最后，会发现urllib3最底层是调用了Python标准库的httplib(Python3 http.client)。它实现下面这些功能</p>
-
 <ul>
 <li>Connection pooling</li>
 <li>File uploads with multipart encoding</li>
@@ -159,40 +145,34 @@ Access-Control-Allow-Credentials : true
 <li>Support for gzip and deflate encoding</li>
 <li>Proxy support for HTTP and SOCKS</li>
 </ul>
-
-<h4 id="连接池">连接池</h4>
-
+<h4 id="heading">连接池</h4>
 <p>urllib3 对外暴露的结构就两个，PoolManager 和 HTTPConnectionPool(HTTPSConnectionPool)。PoolManager管理了一堆的 ConnectionPool，每一个独立的(scheme, host, port)元祖使用同一个ConnectionPool, (scheme, host, port)是从请求的URL中解析出来的。</p>
-
 <p>PoolManager使用自己实现的RecentlyUsedContainer容器来管理ConnectionPool，一旦
 ConnectionPool超过限制，则逐出最远使用的ConnectionPool。ConnectionPool内部使用LifoQueue来管理 HTTPConnection，HTTPSConnection和VerifiedHTTPSConnection。XXXXConnection都继承至httplib的httplib.HTTPConnection或者httplib.HTTPSConnection。</p>
-
 <p>典型使用案例</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&gt;&gt;&gt; http = urllib3.PoolManager(num_pools=50)
-&gt;&gt;&gt; r = http.request(&#39;GET&#39;, &#39;http://httpbin.org/ip&#39;)
+<pre><code>&gt;&gt;&gt; http = urllib3.PoolManager(num_pools=50)
+&gt;&gt;&gt; r = http.request('GET', 'http://httpbin.org/ip')
 &gt;&gt;&gt; r.data
-&#39;{\n  &#34;origin&#34;: &#34;111.0.186.217&#34;\n}\n&#39;</pre></div>
-<p>同样可以使用 ConnectionPool</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&gt;&gt;&gt; http = urllib3.HTTPConnectionPool(&#39;httpbin.org&#39;)
-&gt;&gt;&gt; r = http.request(&#39;GET&#39;, &#39;http://httpbin.org/ip&#39;)
+'{\n  &quot;origin&quot;: &quot;111.0.186.217&quot;\n}\n'
+</code></pre><p>同样可以使用 ConnectionPool</p>
+<pre><code>&gt;&gt;&gt; http = urllib3.HTTPConnectionPool('httpbin.org')
+&gt;&gt;&gt; r = http.request('GET', 'http://httpbin.org/ip')
 &gt;&gt;&gt; r.data
-&#39;{\n  &#34;origin&#34;: &#34;111.0.186.217&#34;\n}\n&#39;</pre></div>
-<p>PoolManager 与 ConnectionPool有相似的API，是因为它们有共同的父类RequestMethods</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">class RequestMethods(object):
+'{\n  &quot;origin&quot;: &quot;111.0.186.217&quot;\n}\n'
+</code></pre><p>PoolManager 与 ConnectionPool有相似的API，是因为它们有共同的父类RequestMethods</p>
+<pre><code>class RequestMethods(object):
     def urlopen(self, method, url, body=None, headers=None,
                 encode_multipart=True, multipart_boundary=None,
                 **kw)
     def request(self, method, url, fields=None, headers=None,
                 **urlopen_kw)
-    ...</pre></div>
-<h4 id="multipart编码文件上传">multipart编码文件上传</h4>
-
+    ...
+</code></pre><h4 id="multipart">multipart编码文件上传</h4>
 <p>urllib3 中POST, PUT, PATCH等方法，可以使用两种Content-Type上传数据，一种是application/x-www-form-urlencoded，一般用来传递非文件数据，还有一种就是multipart/form-data，可以传输数据也可以传输文件。</p>
-
 <p>使用bat命令查看Content-Type为application/x-www-form-urlencoded的请求</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">➜  ~ bat -f=true http://httpbin.org/post name=qiuzhu age=18</pre></div>
-<p>HTTP请求</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">POST /post HTTP/1.1
+<pre><code>➜  ~ bat -f=true http://httpbin.org/post name=qiuzhu age=18
+</code></pre><p>HTTP请求</p>
+<pre><code>POST /post HTTP/1.1
 Host: httpbin.org
 Accept: application/json
 Accept-Encoding: gzip, deflate
@@ -200,11 +180,11 @@ Content-Type: application/x-www-form-urlencoded
 User-Agent: bat/0.1.0
 
 
-name=qiuzhu&amp;age=18</pre></div>
-<p>使用bat上传文件，其Content-Type为multipart/form-data的请求</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">➜  ~ bat -f=true http://httpbin.org/post name=qiuzhu f@f.txt</pre></div>
-<p>HTTP请求</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">POST /post HTTP/1.1
+name=qiuzhu&amp;age=18
+</code></pre><p>使用bat上传文件，其Content-Type为multipart/form-data的请求</p>
+<pre><code>➜  ~ bat -f=true http://httpbin.org/post name=qiuzhu f@f.txt
+</code></pre><p>HTTP请求</p>
+<pre><code>POST /post HTTP/1.1
 Host: httpbin.org
 Accept: application/json
 Accept-Encoding: gzip, deflate
@@ -213,35 +193,30 @@ User-Agent: bat/0.1.0
 
 
 --386e4e1c64f
-Content-Disposition: form-data; name=&#34;f&#34;; filename=&#34;f.txt&#34;
+Content-Disposition: form-data; name=&quot;f&quot;; filename=&quot;f.txt&quot;
 Content-Type: application/octet-stream
 
 text in the f.txt
 
 --386e4e1c64f
-Content-Disposition: form-data; name=&#34;name&#34;
+Content-Disposition: form-data; name=&quot;name&quot;
 
 qiuzhu
---386e4e1c64f--</pre></div>
-<p>区别在于，application/x-www-form-urlencoded类型的请求会使用urlencode来编码数据，然而multipart/form-data会使用一个边界字符串来区分每一个数据Item，以及请求的起始和结束位置。</p>
-
+--386e4e1c64f--
+</code></pre><p>区别在于，application/x-www-form-urlencoded类型的请求会使用urlencode来编码数据，然而multipart/form-data会使用一个边界字符串来区分每一个数据Item，以及请求的起始和结束位置。</p>
 <p>filepost模块中的encode_multipart_formdata和fields模块的RequestField都实现了相关功能。使用方式如下</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&gt;&gt;&gt; file_data = open(&#39;/Users/xshare/Desktop/f.txt&#39;).read()
+<pre><code>&gt;&gt;&gt; file_data = open('/Users/xshare/Desktop/f.txt').read()
 &gt;&gt;&gt; http = urllib3.PoolManager()
 &gt;&gt;&gt; r = http.request(
-        &#39;POST&#39;,
-        &#39;http://httpbin.org/post&#39;,
-        fields={&#39;filefield&#39;: (&#39;f.txt&#39;, file_data)}
+        'POST',
+        'http://httpbin.org/post',
+        fields={'filefield': ('f.txt', file_data)}
 )
-&gt;&gt;&gt; r.data</pre></div>
-<h4 id="自动跳转-与-gzip-deflate编码">自动跳转 与 gzip/deflate编码</h4>
-
+&gt;&gt;&gt; r.data
+</code></pre><h4 id="--gzipdeflate">自动跳转 与 gzip/deflate编码</h4>
 <p>重试和自动跳转的逻辑很简单，就是检测到重定向状态码(303)之后，重试次数加1，如果超过最大重试次数，则抛出异常。</p>
-
 <p>Retry不仅能实现redirects的计数，而且还有Read和Connect的重试。</p>
-
 <p>自动跳转的逻辑实现在 PoolManager 的 urlopen中，值得注意的是，跳转之后，method为变为GET。</p>
-
 <p>当HTTP Response的Content-Type为gzip/deflate时，对该数据进行编码，使用的库为zlib，这部分的逻辑实现在 response模块的 HTTPResponse中。</p>
 
       </div>
