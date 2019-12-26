@@ -23,7 +23,7 @@
 
     
     
-    <link rel="stylesheet" href="https://quqiuzhu.com/css/coder.min.d82ce87248795163aa8fb82483d051bfe609859587ed85a175a6fa76c868e631.css" integrity="sha256-2Czockh5UWOqj7gkg9BRv&#43;YJhZWH7YWhdab6dsho5jE="
+    <link rel="stylesheet" href="https://quqiuzhu.com/css/coder.min.e7f92773eeff2c735118a3ba44689134642453f82cd54f6f58a8f074a49fe506.css" integrity="sha256-5/knc&#43;7/LHNRGKO6RGiRNGQkU/gs1U9vWKjwdKSf5QY="
       crossorigin="anonymous" media="screen" />
 
     
@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.60.0-DEV" />
+    <meta name="generator" content="Hugo 0.63.0-DEV" />
   </head>
 
   <body class=" ">
@@ -100,9 +100,9 @@
 descr.__set__(self, inst, value) --&gt; None
 descr.__delete__(self, inst) --&gt; None
 </code></pre></div><p>描述符协议调用者是属性，所以参数 self 是指属性，inst 指的是实例。</p>
-<h2 id="heading1">描述符实现方式</h2>
+<h2 id="heading-1">描述符实现方式</h2>
 <p>有三种典型的方式来实现描述符，类、property() 和 property 装饰器</p>
-<h3 id="heading2">类</h3>
+<h3 id="heading-2">类</h3>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">class</span> <span style="font-weight:bold">NameDescripter</span>(object):
     <span style="font-weight:bold">def</span> __init__(self):
         self._name = <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">&#39;</span>
@@ -170,7 +170,7 @@ out: __get__
     <span style="font-weight:bold">def</span> name(self):
         <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">__delete__</span><span style="font-style:italic">&#39;</span>, self._name
         self._name = <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">&#39;</span>
-</code></pre></div><h2 id="heading3">方法描述符</h2>
+</code></pre></div><h2 id="heading-3">方法描述符</h2>
 <p>方法是一种特殊的属性，其描述符实现原理如下</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">class</span> <span style="font-weight:bold">Function</span>(object):
     . . .
@@ -178,10 +178,10 @@ out: __get__
         <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">Simulate func_descr_get() in Objects/funcobject.c</span><span style="font-style:italic">&#34;</span>
         <span style="font-weight:bold">return</span> types.MethodType(self, obj, objtype)
 </code></pre></div><p>Python 中 <code>.</code> 是 <code>getattr()</code> 函数的语法糖。所以方法调用 <code>object.func()</code> 相当于 <code>getattr(object, 'func') 然后调用 __call__()</code>。当然，获取属性的方式不只是 <code>getattr(object, 'func')</code> 那么简单，获取属性是一连串的序列的判断和调用，下面会讲。</p>
-<h2 id="heading4">属性</h2>
+<h2 id="heading-4">属性</h2>
 <p>属性的查找遵循LEGB原则：Local，Enclosing，Global以及Builtin。现在实例中找，找不到就去类中找，再去父类中找，一直找到 object 还找不到就去。</p>
 <p>上面只是罗列一些点，但并没有展开，强烈推荐三篇参考的文章，比 Python Expert Programming 写得清晰很多。</p>
-<h3 id="heading5">参考</h3>
+<h3 id="heading-5">参考</h3>
 <ol>
 <li><a href="https://www.ibm.com/developerworks/cn/opensource/os-pythondescriptors/">Python 描述符简介</a></li>
 <li><a href="http://pyzh.readthedocs.org/en/latest/Descriptor-HOW-TO-Guide.html">Python 描述器引导(翻译)</a></li>
