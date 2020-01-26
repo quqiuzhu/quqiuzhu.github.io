@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    <meta name="generator" content="Hugo 0.64.0-DEV" />
   </head>
 
   <body class=" ">
@@ -99,7 +99,7 @@
 <li>获取统计结果</li>
 </ol>
 <p>其中 1 和 3 都涉及和 Python 内建类型之间的转换，2 涉及 Counter 之间的交互。</p>
-<h4 id="heading">接收要统计的数据</h4>
+<h4 id="接收要统计的数据">接收要统计的数据</h4>
 <p>数据一般是从构造函数传入，参数可以为 iterable 对象，也可以是 mapping 或者关键字参数。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">c = Counter(<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">quqiuzhu</span><span style="font-style:italic">&#39;</span>)
 c = Counter({<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">qu</span><span style="font-style:italic">&#39;</span>: 1, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">qiu</span><span style="font-style:italic">&#39;</span>: 2, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">zhu</span><span style="font-style:italic">&#39;</span>: 3})
@@ -107,13 +107,13 @@ c = Counter(qu=1, qiu=2, zhu=3)
 </code></pre></div><p>上面的例子看起来好像是 Counter 里面的 key 必须是字符串类型，value 必须是 int 类型的，实际上并没有这样的限制。比如可以像这样</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">cc = Counter({<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">qu</span><span style="font-style:italic">&#39;</span>: 1, 4: 2, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">zhu</span><span style="font-style:italic">&#39;</span>: <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">str</span><span style="font-style:italic">&#39;</span>})
 </code></pre></div><p>不过在 Counter 之间计算的时候会有一些问题，比如两个 Counter 相加的时候。</p>
-<h4 id="heading-1">更新统计数据</h4>
+<h4 id="更新统计数据">更新统计数据</h4>
 <p>单个数据的更新和访问，支持下标访问，如果 Counter 中没有该记录，则返回 0。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">c[<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">quqiuzhu.com</span><span style="font-style:italic">&#39;</span>] <span style="font-style:italic"># 0</span>
 c[<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">quqiuzhu.com</span><span style="font-style:italic">&#39;</span>] = 10 <span style="font-style:italic"># 10</span>
 </code></pre></div><p>批量更新有两个方法，<code>subtract([iterable-or-mapping])</code> 和 <code>update([iterable-or-mapping])</code>，参数可以是 iterable, dict, 关键字参数或者 Counter 对象。 <code>subtract</code> 方法对 key 相同的 value 简单的应用减法运算，如果 value 不支持减法运算的话，就会出错，比如上面提到的，value 为 字符串的情况。</p>
 <p>Counter 之间也可以进行 +, -, |, &amp; 运算，和你想象中的一样，都是相同 key 的 value 值之间的运算。</p>
-<h4 id="heading-2">获取统计结果</h4>
+<h4 id="获取统计结果">获取统计结果</h4>
 <p><code>most_common([n])</code> 获取计数最多的 n 个 (key, value)的列表，<code>items()</code> 返回所有的，<code>elements()</code> 获取统计计数大于等于 2 的。</p>
 <p>可以使用 set, list, dict 转为相应类型。</p>
 <h2 id="deque">deque</h2>
@@ -132,7 +132,7 @@ c[<span style="font-style:italic"></span><span style="font-style:italic">&#39;</
 <li>rotate(n)</li>
 </ul>
 <p>支持随机访问，但性能不是很好。有只读属性 maxlen, 支持函数操作 len(d), reversed(d), copy.copy(d), copy.deepcopy(d)</p>
-<h2 id="defaultdict--ordereddict">defaultdict 与 OrderedDict</h2>
+<h2 id="defaultdict-与-ordereddict">defaultdict 与 OrderedDict</h2>
 <p>该结构扩展自内建类型 dict 。给所有新的 key 一个默认值，该默认值来自于参数 default_factory。
 用法如下:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">d = defaultdict(list)
@@ -203,7 +203,7 @@ p.x <span style="font-style:italic"># 11</span>
 <li>somenamedtuple._asdict()</li>
 <li>somenamedtuple._replace(kwargs)</li>
 </ul>
-<h2 id="abc-">ABC 集合抽象基类</h2>
+<h2 id="abc-集合抽象基类">ABC 集合抽象基类</h2>
 <p>下面的表格摘自 <a href="https://docs.python.org/2/library/collections.html">Python 官方文档</a></p>
 <p><img src="http://quqiuzhu.com/images/python_abc.png" alt=""></p>
 
@@ -228,7 +228,7 @@ p.x <span style="font-style:italic"># 11</span>
     
       <p>浙ICP备17015868号</p>
         
-     © 2019
+     © 2020
     
     
   </section>

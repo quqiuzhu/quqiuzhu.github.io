@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    <meta name="generator" content="Hugo 0.64.0-DEV" />
   </head>
 
   <body class=" ">
@@ -96,9 +96,9 @@
 <li>我现在知道怎么用了, 但是它是怎么实现的？</li>
 </ol>
 <p>第一个问题，在 Google 开发者大会上，Dagger 2 的开发者的演讲 <a href="https://www.youtube.com/watch?v=oK_XtfXPkqw">DAGGER 2 - A New Type of dependency injection</a> 中，不仅讲了 Dagger 1的优缺点，还讲了依赖注入如何从 Spring -&gt; Guice -&gt; Dagger 1 -&gt; Dagger 2。 Spring 主要的缺点是繁琐, 那段替代复杂的依赖注入的 XML 和原来的 Java 代码一样丑陋；Guice 的缺点是图错误在运行时才能发现，并且开发者难以调试；Dagger 1 的缺点是，生成的代码丑陋，出错难以调试，并且运行时开销不可忽视；Dagger 2在 Dagger 1 的基础上，解决了性能问题，并且生成的代码更加优雅。</p>
-<p>第二个问题，其实在上面提到的 <a href="https://www.youtube.com/watch?v=oK_XtfXPkqw">DAGGER 2 - A New Type of dependency injection</a> 的演讲中，Dagger 2 的开发者已经解释了他们是如何设计 Dagger 2 的。但他使用CoffeeMaker 来举例，而我对 CoffeeMaker 并不熟悉，因此每当看到 Heater 和 Pump 的时候就在想它到底是什么，也许我应该好好玩一下公司的咖啡机。相比之下，我更喜欢 <a href="http://jakewharton.com">Jake Wharton</a>的演讲 <a href="https://www.youtube.com/watch?v=plK0zyRLIP8">Jake Wharton's Devoxx Dagger 2 Talk</a>。</p>
+<p>第二个问题，其实在上面提到的 <a href="https://www.youtube.com/watch?v=oK_XtfXPkqw">DAGGER 2 - A New Type of dependency injection</a> 的演讲中，Dagger 2 的开发者已经解释了他们是如何设计 Dagger 2 的。但他使用CoffeeMaker 来举例，而我对 CoffeeMaker 并不熟悉，因此每当看到 Heater 和 Pump 的时候就在想它到底是什么，也许我应该好好玩一下公司的咖啡机。相比之下，我更喜欢 <a href="http://jakewharton.com">Jake Wharton</a>的演讲 <a href="https://www.youtube.com/watch?v=plK0zyRLIP8">Jake Wharton&rsquo;s Devoxx Dagger 2 Talk</a>。</p>
 <!-- raw HTML omitted -->
-<h2 id="dagger">Dagger使用</h2>
+<h2 id="dagger使用">Dagger使用</h2>
 <ul>
 <li>时间安排2天, 包含玩一下 dagger 项目中的例子程序</li>
 <li>annotation processors compile-time checks 在编译时检测, 所以运行时很高效</li>
@@ -249,17 +249,17 @@ SharedPreferences sp,
                 .edit().putString(<span style="font-style:italic">&#34;status&#34;</span>, <span style="font-style:italic">&#34;lazy...&#34;</span>)
                 .apply();
 }
-</code></pre></div><h3 id="heading">相关资料</h3>
+</code></pre></div><h3 id="相关资料">相关资料</h3>
 <ul>
-<li><a href="https://docs.google.com/presentation/d/1bkctcKjbLlpiI0Nj9v0QpCcNIiZBhVsJsJp1dgU5n98/" title="Dagger 2 in Android">Vince Mi's Codepath Meetup Dagger 2 Slides</a></li>
-<li><a href="https://speakerdeck.com/jakewharton/dependency-injection-with-dagger-2-devoxx-2014" title="Dependency Injection with Dagger 2 (Devoxx 2014)">Jake Wharton's Devoxx Dagger 2 Slides</a> Tweeter API 设计</li>
-<li><a href="https://www.youtube.com/watch?v=plK0zyRLIP8" title="Jake Wharton's Devoxx Dagger 2 Talk">Jake Wharton's Devoxx Dagger 2 Talk</a> 50分钟</li>
+<li><a href="https://docs.google.com/presentation/d/1bkctcKjbLlpiI0Nj9v0QpCcNIiZBhVsJsJp1dgU5n98/" title="Dagger 2 in Android">Vince Mi&rsquo;s Codepath Meetup Dagger 2 Slides</a></li>
+<li><a href="https://speakerdeck.com/jakewharton/dependency-injection-with-dagger-2-devoxx-2014" title="Dependency Injection with Dagger 2 (Devoxx 2014)">Jake Wharton&rsquo;s Devoxx Dagger 2 Slides</a> Tweeter API 设计</li>
+<li><a href="https://www.youtube.com/watch?v=plK0zyRLIP8" title="Jake Wharton's Devoxx Dagger 2 Talk">Jake Wharton&rsquo;s Devoxx Dagger 2 Talk</a> 50分钟</li>
 <li><a href="https://www.youtube.com/watch?v=oK_XtfXPkqw" title="Dagger 2 Google Developers Talk">Dagger 2 Google Developers Talk</a> 40分钟</li>
 <li><a href="https://blog.gouline.net/dagger-2-even-sharper-less-square-b52101863542#.flwjtyxlk" title="Dagger 2: Even sharper, less square">Dagger 2: Even sharper, less square</a> 比较 Dagger 1, 指出3缺点</li>
 <li><a href="https://www.youtube.com/watch?v=0XHx9jtxIxU">Architecting Android Applications with Dagger</a> dagger 与 android 构架</li>
 </ul>
-<h2 id="-apt">依赖注入, 注解与APT</h2>
-<h3 id="heading-1">依赖注入</h3>
+<h2 id="依赖注入-注解与apt">依赖注入, 注解与APT</h2>
+<h3 id="依赖注入">依赖注入</h3>
 <ul>
 <li>DI, IoC <a href="http://www.martinfowler.com/articles/injection.html" title="Inversion of Control Containers and the Dependency Injection pattern">经典文章</a> 对比 <a href="http://www.cnblogs.com/gaochundong/archive/2013/04/12/service_locator_pattern.html" title="Service Locator 模式">Service Locator 模式</a></li>
 <li>三种DI方式
@@ -390,7 +390,7 @@ SharedPreferences sp,
 @java.lang.annotation.Retention(RUNTIME)
 @javax.inject.Scope
 <span style="font-weight:bold">public</span> @interface RequestScoped {}
-</code></pre></div><h3 id="apt">注解及APT</h3>
+</code></pre></div><h3 id="注解及apt">注解及APT</h3>
 <ul>
 <li>Dagger中, 注解的作用是在编译期间帮助生成代码, 运行时, 与注解已无关系</li>
 <li><a href="https://github.com/square/javapoet" title="javapoet">javapoet</a>及其<a href="http://www.jianshu.com/p/95f12f72f69a" title="javapoet——让你从重复无聊的代码中解放出来">详解</a> 用来生成 java 源文件的库</li>
@@ -440,13 +440,13 @@ SharedPreferences sp,
 <span style="font-weight:bold">public</span> @interface Target {
     ElementType[] value() <span style="font-weight:bold">default</span> {ElementType.ANNOTATION_TYPE};
 }
-</code></pre></div><h2 id="dagger-2-">Dagger 2 源码</h2>
+</code></pre></div><h2 id="dagger-2-源码">Dagger 2 源码</h2>
 <ul>
 <li>dagger 并不是一个 android project, 而是一个 java project, 构建工具为 maven</li>
 <li>maven 构建工具, 它如何构建, 如何集成, 如何打包 之后再说, 但其所有注解打概念得搞清楚</li>
 <li>源码 中一大部分是新功能, 新概念, 比如 MultiBindings 支持Set 和 Map的多绑定实现插件式开发; Producer 用来支持异步编程模型, 还是先看文档熟悉一下比较好</li>
 </ul>
-<h3 id="heading-2">新概念</h3>
+<h3 id="新概念">新概念</h3>
 <ul>
 <li>MultiBindings 就是把一些值组成一个集合, 有 set 和 map, @IntoSet 和 @StringKey 等等, 用于实现插件式构架, 稍显复杂</li>
 <li>@ProducerModule, @Produces, @ProductionComponent 是提供异步依赖注入的注解, 类似注解 @Module, @Provides, @Component</li>
@@ -515,7 +515,7 @@ SharedPreferences sp,
         TYPE_NAME;
     }
 }
-</code></pre></div><h4 id="basicannotationprocessor-5">BasicAnnotationProcessor 5个变量</h4>
+</code></pre></div><h4 id="basicannotationprocessor-5个变量">BasicAnnotationProcessor 5个变量</h4>
 <ul>
 <li>deferredElementNames 未处理的元素</li>
 <li>elementsDeferredBySteps 未处理的元素(按照 ProcessingStep 区分)</li>
@@ -531,7 +531,7 @@ SharedPreferences sp,
 <li>getRootElements 上一轮处理的根元素</li>
 <li>getElementsAnnotatedWith 获取被注解的元素, 有两个重载的方法</li>
 </ul>
-<h4 id="basicannotationprocessor-">BasicAnnotationProcessor 处理流程</h4>
+<h4 id="basicannotationprocessor-处理流程">BasicAnnotationProcessor 处理流程</h4>
 <ul>
 <li>init 初始化, 暴露 initSteps 给子类, 让其返回其想要实现的 ProcessingStep</li>
 <li>process 函数先检查了一些状态, 然后通过 deferredElementNames 得到了 deferredElements, 但奇怪的是, deferredElementNames 和 elements 怎么初始化</li>
@@ -562,7 +562,7 @@ SharedPreferences sp,
     
       <p>浙ICP备17015868号</p>
         
-     © 2019
+     © 2020
     
     
   </section>

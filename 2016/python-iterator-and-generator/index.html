@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    <meta name="generator" content="Hugo 0.64.0-DEV" />
   </head>
 
   <body class=" ">
@@ -89,7 +89,7 @@
       </header>
 
       <div class="post-content">
-        <h2 id="heading">迭代器</h2>
+        <h2 id="迭代器">迭代器</h2>
 <p>一个迭代器是一个实现了<code>__iter__()</code>方法和 <code>next()</code>方法的对象，但是我发现这两个并不需要一起实现，就像Java中一样，返回迭代子的对象和迭代子是分离的。 <code>__iter__()</code> 只是返回迭代器，真正进行迭代的是实现了 <code>next()</code>方法的，所以可以在 <code>for i in r</code> 的r中实现一个<code>__iter__()</code>方法，然后返回一个实现了<code>next()</code>方法的对象</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">class</span> <span style="font-weight:bold">Itrator</span>(object):
     <span style="font-weight:bold">def</span> __init__(self):
@@ -110,7 +110,7 @@
     <span style="font-weight:bold">print</span> i
 </code></pre></div><!-- raw HTML omitted -->
 <p>当然一般上都可以把这两个方法写在同一个类里面，python里和Java是一样的，一个是Iterable，一个是Itrator。</p>
-<h2 id="heading-1">生成器</h2>
+<h2 id="生成器">生成器</h2>
 <p>有两种生成器，第一种是产生值的生成器，像下面这样的</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> power(values):
     <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">xxxx</span><span style="font-style:italic">&#39;</span>
@@ -130,18 +130,18 @@
                 <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">hahaha</span><span style="font-style:italic">&#39;</span>
         <span style="font-weight:bold">else</span>:
             <span style="font-weight:bold">raise</span> <span style="font-weight:bold">StopIteration</span>
-</code></pre></div><h3 id="heading-2">第一种生成器</h3>
+</code></pre></div><h3 id="第一种生成器">第一种生成器</h3>
 <p>这种生成器是可以迭代的，因为生成器函数会返回一个生成器对象，而生成器实现了<code>next</code> 和 <code>__iter__</code>方法，所以是可以迭代的。</p>
 <p>另外，由于生成器函数默认会返回一个生成器，所以生成器方法中return 语句不能返回任何东西，否则就会出错。</p>
 <p>生成器最重要的一个特性，是可以暂停并保持生成器方法的状态，直到调用下一个生成器方法，这一种特性被用在协同程序中。</p>
 <p>一开始调用生成器函数时，除了返回一个生成器对象之外，不会执行任何代码。因此，在上面的power 方法中，即便是 print &lsquo;xxxx'语句在 关键字yield之前，也不会执行。这些代码是初始代码，将会在第一个next方法调用的时候执行。</p>
-<h3 id="heading-3">第二种生成器</h3>
+<h3 id="第二种生成器">第二种生成器</h3>
 <p>这种生成器需要外面给它传值，有四个方法,分别是 <code>next()</code>, <code>send(val)</code>, <code>throw(err)</code>, <code>close()</code>。</p>
 <p><code>send(val)</code> 方法给生成器传值，每一次传值就是一次迭代</p>
 <p><code>next()</code> 方法等价于 <code>send(None)</code>， 因此迭代该生成器，就相当于不断发送None 值，直到遇到 StopIteration 异常。</p>
 <p><code>close()</code> 相当于做了一个停止的标记，之后不能再调用 send 和 next 方法，否则会得到 StopIteration 异常，但是可以调用throw方法。</p>
 <p><code>throw(err)</code> 方法会向生成器发出异常，而不是向外发出。要理解这一点并不难，因为这样外面调用者就可以随意停止迭代了。</p>
-<h3 id="heading-4">生成器的几个应用</h3>
+<h3 id="生成器的几个应用">生成器的几个应用</h3>
 <ul>
 <li>协程</li>
 <li>生成器表达式（类似列表推导）</li>
@@ -250,7 +250,7 @@ d [<span style="font-style:italic"></span><span style="font-style:italic">&#39;<
     
       <p>浙ICP备17015868号</p>
         
-     © 2019
+     © 2020
     
     
   </section>

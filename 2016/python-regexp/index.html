@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.63.0-DEV" />
+    <meta name="generator" content="Hugo 0.64.0-DEV" />
   </head>
 
   <body class=" ">
@@ -95,7 +95,7 @@
 <p>正则表达式（或 RE）是一种小型的、高度专业化的编程语言，经常使用会感受到它的神奇之处。Python 正则表达式被编译成一系列的字节码，然后由用 C 编写的匹配引擎执行的。</p>
 <p>本文开始给出一个匹配规则的表格，然后谈谈常用的正则表达式。然后讲了 Python 中 re 模块的函数及其相关的使用方式，最后以实例的形式给出了相关函数的用法。</p>
 <!-- raw HTML omitted -->
-<h2 id="heading">正则匹配表</h2>
+<h2 id="正则匹配表">正则匹配表</h2>
 <table>
 <thead>
 <tr>
@@ -156,7 +156,7 @@
 <blockquote>
 <p>上面的表格中 <code>|</code> 以 <!-- raw HTML omitted -->I<!-- raw HTML omitted --> 代替</p>
 </blockquote>
-<h2 id="heading-1">常用正则表达式</h2>
+<h2 id="常用正则表达式">常用正则表达式</h2>
 <ul>
 <li>中文字符: <code>[\u4e00-\u9fa5]</code></li>
 <li>HTML标记: <code>&lt;(\S*?)[^&gt;]*&gt;.*?&lt;/\1&gt;|&lt;.*? /&gt;</code></li>
@@ -167,7 +167,7 @@
 <li>URL: <code>^http://([\w-]+\.)+[\w-]+(/[\w-./?%&amp;=]*)?$</code></li>
 <li>QQ号: <code>[1-9][0-9]{4,}</code></li>
 </ul>
-<h2 id="python--re-">Python 的 re 模块</h2>
+<h2 id="python-的-re-模块">Python 的 re 模块</h2>
 <p>使用正则表达式，我们通常有下面的几种需求</p>
 <ul>
 <li>验证是否匹配字符串</li>
@@ -208,7 +208,7 @@ S = DOTALL = sre_compile.SRE_FLAG_DOTALL
 
 <span style="font-style:italic"># ignore whitespace and comments</span>
 X = VERBOSE = sre_compile.SRE_FLAG_VERBOSE 
-</code></pre></div><h2 id="heading-2">例子</h2>
+</code></pre></div><h2 id="例子">例子</h2>
 <p><code>match()</code> 和 <code>search()</code> 如果匹配的话，会返回一个匹配对象，否则会返回 None。匹配对象有 <code>group()</code> 与 <code>groups()</code> 方法。 <code>group()</code> 会返回匹配的字符串， 而<code>groups()</code> 返回存在的子组元组的元组，如果不存在匹配的子组，则返回<code>()</code>。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">g = re.match(<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">foo</span><span style="font-style:italic">&#39;</span>, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">foo</span><span style="font-style:italic">&#39;</span>) <span style="font-style:italic"># 匹配对象</span>
 g.group() <span style="font-style:italic"># &#39;foo&#39;</span>
@@ -271,7 +271,7 @@ l <span style="font-style:italic"># [&#39;&#39;, &#39;&#39;, &#39;d&#39;]</span>
     
       <p>浙ICP备17015868号</p>
         
-     © 2019
+     © 2020
     
     
   </section>
