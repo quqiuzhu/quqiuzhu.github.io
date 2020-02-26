@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.64.0-DEV" />
+    <meta name="generator" content="Hugo 0.66.0-DEV" />
   </head>
 
   <body class=" ">
@@ -93,26 +93,26 @@
 <p>Python中函数是一等公民，装饰器的作用就是接收一个函数，返回其增强版本的函数。例如:</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> decorator(function):
     <span style="font-weight:bold">def</span> _mydecorator(*args, **kw):
-        <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">do something before</span><span style="font-style:italic">&#39;</span>
+        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;do something before&#39;</span>
         res = function(*args, **kw)
-        <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">do somthing after</span><span style="font-style:italic">&#39;</span>
+        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;do somthing after&#39;</span>
         <span style="font-weight:bold">return</span> res
     <span style="font-weight:bold">return</span> _mydecorator
 
 @decorator
 <span style="font-weight:bold">def</span> function():
-    <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">function executing</span><span style="font-style:italic">&#39;</span>
+    <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;function executing&#39;</span>
 
 function()
 
-<span style="">输</span><span style="">出</span><span style="">：</span>
+<span style="">输出：</span>
 do something before
 function executing
 do somthing after
 </code></pre></div><!-- raw HTML omitted -->
 <p>装饰器是语法糖，因此装饰器可以用其他一般的语句来实现，我们将上面例子中的<code>function</code>定义部分作出下面改动</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> function():
-    <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">function executing</span><span style="font-style:italic">&#39;</span>
+    <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;function executing&#39;</span>
     
 function = decorator(function)
 </code></pre></div><p>实现同样的功能，所以装饰器一点也不厉害，就是函数调用加上赋值运算的语法糖。</p>
@@ -120,27 +120,27 @@ function = decorator(function)
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> otherdecorator(args1, args2):
     <span style="font-weight:bold">def</span> _otherdecorator(function):
         <span style="font-weight:bold">def</span> __otherdecorator(*args, **kw):
-            <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">do something before with args </span><span style="font-weight:bold;font-style:italic">%s</span><span style="font-style:italic">, </span><span style="font-weight:bold;font-style:italic">%s</span><span style="font-style:italic">&#39;</span> % (args1, args2)
+            <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;do something before with args </span><span style="font-weight:bold;font-style:italic">%s</span><span style="font-style:italic">, </span><span style="font-weight:bold;font-style:italic">%s</span><span style="font-style:italic">&#39;</span> % (args1, args2)
             res = function(*args, **kw)
-            <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">do something after with args </span><span style="font-weight:bold;font-style:italic">%s</span><span style="font-style:italic">, </span><span style="font-weight:bold;font-style:italic">%s</span><span style="font-style:italic">&#39;</span> % (args1, args2)
+            <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;do something after with args </span><span style="font-weight:bold;font-style:italic">%s</span><span style="font-style:italic">, </span><span style="font-weight:bold;font-style:italic">%s</span><span style="font-style:italic">&#39;</span> % (args1, args2)
             <span style="font-weight:bold">return</span> res
         <span style="font-weight:bold">return</span> __otherdecorator
     <span style="font-weight:bold">return</span> _otherdecorator
 
-@otherdecorator(<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">name</span><span style="font-style:italic">&#39;</span>, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">age</span><span style="font-style:italic">&#39;</span>)
+@otherdecorator(<span style="font-style:italic">&#39;name&#39;</span>, <span style="font-style:italic">&#39;age&#39;</span>)
 <span style="font-weight:bold">def</span> function():
-    <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">function executing</span><span style="font-style:italic">&#39;</span>
+    <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;function executing&#39;</span>
     
 function()
-<span style="">输</span><span style="">出</span><span style="">：</span>
+<span style="">输出：</span>
 do something before <span style="font-weight:bold">with</span> args name, age
 function executing
 do something after <span style="font-weight:bold">with</span> args name, age
 </code></pre></div><p>有参数的函数的定义相当于</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> function():
-    <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">function executing</span><span style="font-style:italic">&#39;</span>
+    <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;function executing&#39;</span>
 
-function = otherdecorator(<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">name</span><span style="font-style:italic">&#39;</span>, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">age</span><span style="font-style:italic">&#39;</span>)(function)
+function = otherdecorator(<span style="font-style:italic">&#39;name&#39;</span>, <span style="font-style:italic">&#39;age&#39;</span>)(function)
 </code></pre></div><p>装饰器还有类的实现方式，类实现<code>__call__</code>方法的时候可以被调用，这里不再多讲。</p>
 <p>应用</p>
 <ul>
@@ -163,9 +163,9 @@ function = otherdecorator(<span style="font-style:italic"></span><span style="fo
 <p><code>contexmanager</code> 是用来帮助我们自定义 contexmanager 的, 其中 yield 语句前一部分在 <code>__enter__()</code> 中执行，yield 语句 执行 with 语句体, yield 语句后的部分在 <code>__exit__()</code> 中执行。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">@contextmanager
 <span style="font-weight:bold">def</span> cm():
-    <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">do something before</span><span style="font-style:italic">&#39;</span>
+    <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;do something before&#39;</span>
     <span style="font-weight:bold">yield</span>
-    <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">do something after</span><span style="font-style:italic">&#39;</span>
+    <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;do something after&#39;</span>
 </code></pre></div><p>很容易想出来 <code>contextmanager</code> 装饰器的实现方式，这里不再多讲。</p>
 <p><code>closing(that)</code> 函数是一个 <code>contextmanager</code>，不是装饰器，它的作用就是最终会调用 that 的 close 方法，如果不想自己实现上下文管理器，但是也要支持上下文管理器的功能的话，就只需要实现 close 方法，然后使用 <code>with closing(that) as f</code> 就好了。</p>
 <p><code>nested()</code> 函数用来解决嵌套with语句的问题，可以这样使用</p>

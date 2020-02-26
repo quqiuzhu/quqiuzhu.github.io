@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.64.0-DEV" />
+    <meta name="generator" content="Hugo 0.66.0-DEV" />
   </head>
 
   <body class=" ">
@@ -402,28 +402,28 @@ SharedPreferences sp,
 <li>Android Studio 2.2 已经自带 annotationProcessor, 不再需要 APT, 即便不使用 Java 8</li>
 </ul>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// 内置注解
-</span><span style="font-style:italic"></span><span style="font-style:italic">// 方法注解，表示此注解修饰的方法覆盖了父类或是接口的方法
-</span><span style="font-style:italic"></span><span style="font-style:italic">// 如果不是这样，则输出警告
+</span><span style="font-style:italic">// 方法注解，表示此注解修饰的方法覆盖了父类或是接口的方法
+</span><span style="font-style:italic">// 如果不是这样，则输出警告
 </span><span style="font-style:italic"></span>@Override
 
 <span style="font-style:italic">// 对于此注解所修饰的对象（类、域、方法等）
-</span><span style="font-style:italic"></span><span style="font-style:italic">// 当你使用了它们时编译器将输出“已废弃”警告
+</span><span style="font-style:italic">// 当你使用了它们时编译器将输出“已废弃”警告
 </span><span style="font-style:italic"></span>@Deprecated
 
 <span style="font-style:italic">// 关闭警告，通过给此注解的元素赋值
-</span><span style="font-style:italic"></span><span style="font-style:italic">// 可以关闭特定警告
+</span><span style="font-style:italic">// 可以关闭特定警告
 </span><span style="font-style:italic"></span>@SuppressWarnings
 
 
 
 <span style="font-style:italic">// 元注解
-</span><span style="font-style:italic"></span><span style="font-style:italic">// 定义注解所能作用的目标，说明该注解能作用于何种对象（类、方法、域……之类）。
+</span><span style="font-style:italic">// 定义注解所能作用的目标，说明该注解能作用于何种对象（类、方法、域……之类）。
 </span><span style="font-style:italic"></span>@Target
 
 <span style="font-style:italic">// 定义注解保存级别
-</span><span style="font-style:italic"></span><span style="font-style:italic">// 1.源代码注解，被编译器丢弃
-</span><span style="font-style:italic"></span><span style="font-style:italic">// 2.类注解，class文件中可用，被VM丢弃
-</span><span style="font-style:italic"></span><span style="font-style:italic">// 3.运行时可用，搭配反射
+</span><span style="font-style:italic">// 1.源代码注解，被编译器丢弃
+</span><span style="font-style:italic">// 2.类注解，class文件中可用，被VM丢弃
+</span><span style="font-style:italic">// 3.运行时可用，搭配反射
 </span><span style="font-style:italic"></span>@Retention
 
 <span style="font-style:italic">// 标志将此注解包含至javadoc中

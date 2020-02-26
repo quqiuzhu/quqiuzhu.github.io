@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.64.0-DEV" />
+    <meta name="generator" content="Hugo 0.66.0-DEV" />
   </head>
 
   <body class=" ">
@@ -134,7 +134,7 @@ lock = Lock()
 
 <span style="font-weight:bold">def</span> proc2(pipe):
     <span style="font-weight:bold">while</span> True:
-        <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">proc2 rev:</span><span style="font-style:italic">&#34;</span>, pipe.recv()
+        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#34;proc2 rev:&#34;</span>, pipe.recv()
 
 pipe = Pipe()
 Process(target=proc1, args=(pipe[0],)).start()
@@ -162,7 +162,7 @@ Process(target=proc2, args=(pipe[1],)).start()
 
 <span style="font-weight:bold">def</span> consumer(q):
     <span style="font-weight:bold">while</span> True:
-        <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">consumer</span><span style="font-style:italic">&#34;</span>, q.get()
+        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#34;consumer&#34;</span>, q.get()
 
 q = Queue(40)
 <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> xrange(10):
@@ -173,7 +173,7 @@ Process(target=consumer, args=(q,)).start()
 <p>也有一个强化版本的 JoinableQueue, 新增两个方法 task_done() 和 join()。 task_done() 是给消费者使用的，每完成队列中的一个任务，调用一次该方法。当所有的 tasks 都完成之后，交给调用 join() 的进程执行。</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> consumer(q):
     <span style="font-weight:bold">while</span> True:
-        <span style="font-weight:bold">print</span> <span style="font-style:italic"></span><span style="font-style:italic">&#34;</span><span style="font-style:italic">consumer</span><span style="font-style:italic">&#34;</span>, q.get()
+        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#34;consumer&#34;</span>, q.get()
         q.task_done()
 
 jobs = JoinableQueue()
@@ -197,8 +197,8 @@ jobs.join()
     <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(len(a)):
         a[i] += 10
 
-num = Value(<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">d</span><span style="font-style:italic">&#39;</span>, 0.0)
-ints= Array(<span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">i</span><span style="font-style:italic">&#39;</span>, range(10))
+num = Value(<span style="font-style:italic">&#39;d&#39;</span>, 0.0)
+ints= Array(<span style="font-style:italic">&#39;i&#39;</span>, range(10))
 
 p = Process(target=func, args=(num, ints))
 p.start()
@@ -219,7 +219,7 @@ lst = manager.list(range(5,10))
 p = Process(target=func, args=(dct, lst))
 p.start()
 p.join()
-<span style="font-weight:bold">print</span> dct, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">|</span><span style="font-style:italic">&#39;</span>, lst
+<span style="font-weight:bold">print</span> dct, <span style="font-style:italic">&#39;|&#39;</span>, lst
 Out: {88: 88} | [9, 8, 7, 6, 5]
 </code></pre></div><p>一个 Manager 对象是一个服务进程，推荐多进程程序中，数据共享就用一个 manager 管理。</p>
 <h2 id="进程管理">进程管理</h2>
@@ -249,11 +249,11 @@ Pool 的 API 列表如下：</p>
     <span style="font-weight:bold">return</span> x*x
 
 <span style="font-weight:bold">def</span> callback(x):
-    <span style="font-weight:bold">print</span> x, <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">in callback</span><span style="font-style:italic">&#39;</span>
+    <span style="font-weight:bold">print</span> x, <span style="font-style:italic">&#39;in callback&#39;</span>
     
 pool = Pool(processes=4)
 result = pool.map_async(func, range(8), 8, callback)
-<span style="font-weight:bold">print</span> result.get(), <span style="font-style:italic"></span><span style="font-style:italic">&#39;</span><span style="font-style:italic">in main</span><span style="font-style:italic">&#39;</span>
+<span style="font-weight:bold">print</span> result.get(), <span style="font-style:italic">&#39;in main&#39;</span>
 Out:
 [0, 1, 4, 9, 16, 25, 36, 49] <span style="font-weight:bold">in</span> callback
 [0, 1, 4, 9, 16, 25, 36, 49] <span style="font-weight:bold">in</span> main
