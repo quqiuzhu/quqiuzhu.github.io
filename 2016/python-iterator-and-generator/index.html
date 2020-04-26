@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.69.0-DEV" />
+    <meta name="generator" content="Hugo 0.70.0-DEV" />
   </head>
 
   <body class=" ">
@@ -134,7 +134,7 @@
 <p>这种生成器是可以迭代的，因为生成器函数会返回一个生成器对象，而生成器实现了<code>next</code> 和 <code>__iter__</code>方法，所以是可以迭代的。</p>
 <p>另外，由于生成器函数默认会返回一个生成器，所以生成器方法中return 语句不能返回任何东西，否则就会出错。</p>
 <p>生成器最重要的一个特性，是可以暂停并保持生成器方法的状态，直到调用下一个生成器方法，这一种特性被用在协同程序中。</p>
-<p>一开始调用生成器函数时，除了返回一个生成器对象之外，不会执行任何代码。因此，在上面的power 方法中，即便是 print &lsquo;xxxx'语句在 关键字yield之前，也不会执行。这些代码是初始代码，将会在第一个next方法调用的时候执行。</p>
+<p>一开始调用生成器函数时，除了返回一个生成器对象之外，不会执行任何代码。因此，在上面的power 方法中，即便是 print &lsquo;xxxx&rsquo;语句在 关键字yield之前，也不会执行。这些代码是初始代码，将会在第一个next方法调用的时候执行。</p>
 <h3 id="第二种生成器">第二种生成器</h3>
 <p>这种生成器需要外面给它传值，有四个方法,分别是 <code>next()</code>, <code>send(val)</code>, <code>throw(err)</code>, <code>close()</code>。</p>
 <p><code>send(val)</code> 方法给生成器传值，每一次传值就是一次迭代</p>
