@@ -24,7 +24,7 @@ googleAnalytics = "UA-140819128-1"
     favicon_32 = "favicon.png"
     favicon_16 = "favicon.png"
 
-    footercontent = "浙ICP备17015868号"
+    footercontent = "<a href="https://beian.miit.gov.cn">浙ICP备17015868号-1</a>"
 
     hidecredits = true
     hidecopyright = false
