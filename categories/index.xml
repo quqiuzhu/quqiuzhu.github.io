@@ -5,10 +5,6 @@
     <link>https://quqiuzhu.com/categories/</link>
     <description>Recent content in Categories on 看见未来</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>zh-CN</language>
-    
-	<atom:link href="https://quqiuzhu.com/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>zh-CN</language><atom:link href="https://quqiuzhu.com/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
