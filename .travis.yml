@@ -8,12 +8,11 @@ go:
   - "1.16"
 
 # before_install
-# install - install any dependencies required
-install:
-    - apt-get update
-    - apt install -y wget curl
+before_install:
+    - sudo apt-get update
+    - sudo apt install -y wget curl
     - wget https://github.com/gohugoio/hugo/releases/download/v0.86.0/hugo_extended_0.86.0_Linux-64bit.deb
-    - dpkg -i hugo_extended_0.86.0_Linux-64bit.deb
+    - sudo dpkg -i hugo_extended_0.86.0_Linux-64bit.deb
     - hugo version
     - pwd
 
