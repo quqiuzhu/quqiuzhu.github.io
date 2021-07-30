@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.81.0-DEV" />
+    <meta name="generator" content="Hugo 0.86.0" />
   </head>
 
   <body class=" ">
@@ -94,7 +94,7 @@
 <!-- raw HTML omitted -->
 <h2 id="process">Process</h2>
 <p>先来看一段代码</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">from</span> <span style="font-weight:bold">multiprocessing</span> <span style="font-weight:bold">import</span> Process, current_process
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">from</span> <span style="font-weight:bold">multiprocessing</span> <span style="font-weight:bold">import</span> Process, current_process
 <span style="font-weight:bold">def</span> func():
     time.sleep(1)
     proc = current_process()
@@ -112,7 +112,7 @@ proc.name, proc.pid
 <h2 id="进程同步">进程同步</h2>
 <h3 id="lock">Lock</h3>
 <p>锁是为了确保数据一致性，比如读写锁，每个进程给一个变量增加 1 ，但是如果在一个进程读取但还没有写入的时候，另外的进程也同时读取了，并写入该值，则最后写入的值是错误的，这时候就需要锁。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> func(lock):
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> func(lock):
     lock.acquire()
     <span style="font-style:italic"># do mysql query select update ...</span>
     lock.release()
@@ -126,15 +126,15 @@ lock = Lock()
 <p>Semaphore 和 Lock 稍有不同，Semaphore 相当于 N 把锁，获取其中一把就可以执行了。 信号量的总数 N 在构造时传入，<code>s = Semaphore(N)</code>。 和 Lock 一样，如果信号量为0，则进程堵塞，直到信号大于0。</p>
 <h3 id="pipes">Pipes</h3>
 <p>Pipe 是在两个进程之间通信的工具，Pipe Constructor 会返回两个端</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">conn1, conn2 = Pipe(True)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">conn1, conn2 = Pipe(<span style="font-weight:bold">True</span>)
 </code></pre></div><p>如果是全双工的(构造函数参数为True)，则双端口都可接收发送，否则前面的端口用于接收，后面的端口用于发送。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> proc1(pipe):
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> proc1(pipe):
    <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> xrange(10000):
        pipe.send(i)
 
 <span style="font-weight:bold">def</span> proc2(pipe):
-    <span style="font-weight:bold">while</span> True:
-        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#34;proc2 rev:&#34;</span>, pipe.recv()
+    <span style="font-weight:bold">while</span> <span style="font-weight:bold">True</span>:
+        print <span style="font-style:italic">&#34;proc2 rev:&#34;</span>, pipe.recv()
 
 pipe = Pipe()
 Process(target=proc1, args=(pipe[0],)).start()
@@ -156,13 +156,13 @@ Process(target=proc2, args=(pipe[1],)).start()
 </ul>
 <p>当 Queue 为 Queue.Full 状态时，再 put() 会堵塞，当状态为 Queue.Empty 时，再 get() 也是。当 put() 或 get() 设置了超时参数，而超时的时候，会抛出异常。</p>
 <p>Queue 主要用于多个进程产生和消费，一般使用情况如下</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> producer(q):
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> producer(q):
     <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> xrange(10):
         q.put(i)
 
 <span style="font-weight:bold">def</span> consumer(q):
-    <span style="font-weight:bold">while</span> True:
-        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#34;consumer&#34;</span>, q.get()
+    <span style="font-weight:bold">while</span> <span style="font-weight:bold">True</span>:
+        print <span style="font-style:italic">&#34;consumer&#34;</span>, q.get()
 
 q = Queue(40)
 <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> xrange(10):
@@ -171,9 +171,9 @@ Process(target=consumer, args=(q,)).start()
 </code></pre></div><p>十个生产者进程，一个消费者进程，共用同一个队列进行同步。</p>
 <p>有一个简化版本的 multiprocessing.queues.SimpleQueue, 只支持3个方法 empty(), get(), put()。</p>
 <p>也有一个强化版本的 JoinableQueue, 新增两个方法 task_done() 和 join()。 task_done() 是给消费者使用的，每完成队列中的一个任务，调用一次该方法。当所有的 tasks 都完成之后，交给调用 join() 的进程执行。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> consumer(q):
-    <span style="font-weight:bold">while</span> True:
-        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#34;consumer&#34;</span>, q.get()
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> consumer(q):
+    <span style="font-weight:bold">while</span> <span style="font-weight:bold">True</span>:
+        print <span style="font-style:italic">&#34;consumer&#34;</span>, q.get()
         q.task_done()
 
 jobs = JoinableQueue()
@@ -182,7 +182,7 @@ jobs = JoinableQueue()
 
 <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> xrange(10):
     p = Process(target=consumer, args=(jobs,))
-    p.daemon = True
+    p.daemon = <span style="font-weight:bold">True</span>
     p.start()
 
 jobs.join()
@@ -192,7 +192,7 @@ jobs.join()
 <p>前一节中, Pipe、Queue 都有一定数据共享的功能，但是他们会堵塞进程, 这里介绍的两种数据共享方式都不会堵塞进程, 而且都是多进程安全的。</p>
 <h3 id="共享内存">共享内存</h3>
 <p>共享内存有两个结构，一个是 <code>Value</code>, 一个是 <code>Array</code>，这两个结构内部都实现了锁机制，因此是多进程安全的。 用法如下：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> func(n, a):
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> func(n, a):
     n.value = 50
     <span style="font-weight:bold">for</span> i <span style="font-weight:bold">in</span> range(len(a)):
         a[i] += 10
@@ -206,7 +206,7 @@ p.join()
 </code></pre></div><p>Value 和 Array 都需要设置其中存放值的类型，d 是 double 类型，i 是 int 类型，具体的对应关系在Python 标准库的 sharedctypes 模块中查看。</p>
 <h3 id="服务进程-manager">服务进程 Manager</h3>
 <p>上面的共享内存支持两种结构 Value 和 Array, 这些值在主进程中管理，很分散。 Python 中还有一统天下，无所不能的 Server process，专门用来做数据共享。 其支持的类型非常多，比如list, dict, Namespace, Lock, RLock, Semaphore, BoundedSemaphore, Condition, Event, Queue, Value 和 Array 用法如下：</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">from</span> <span style="font-weight:bold">multiprocessing</span> <span style="font-weight:bold">import</span> Process, Manager
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">from</span> <span style="font-weight:bold">multiprocessing</span> <span style="font-weight:bold">import</span> Process, Manager
 
 <span style="font-weight:bold">def</span> func(dct, lst):
     dct[88] = 88
@@ -219,17 +219,17 @@ lst = manager.list(range(5,10))
 p = Process(target=func, args=(dct, lst))
 p.start()
 p.join()
-<span style="font-weight:bold">print</span> dct, <span style="font-style:italic">&#39;|&#39;</span>, lst
+print dct, <span style="font-style:italic">&#39;|&#39;</span>, lst
 Out: {88: 88} | [9, 8, 7, 6, 5]
 </code></pre></div><p>一个 Manager 对象是一个服务进程，推荐多进程程序中，数据共享就用一个 manager 管理。</p>
 <h2 id="进程管理">进程管理</h2>
 <p>如果有50个任务要执行, 但是 CPU 只有4核, 你可以创建50个进程来做这个事情。但是大可不必，徒增管理开销。如果你只想创建4个进程，让他们轮流替你完成任务，不用自己去管理具体的进程的创建销毁，那 Pool 是非常有用的。</p>
 <p>Pool 是进程池，进程池能够管理一定的进程，当有空闲进程时，则利用空闲进程完成任务，直到所有任务完成为止，用法如下</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> func(x):
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> func(x):
     <span style="font-weight:bold">return</span> x*x
 
 pool = Pool(processes=4)
-<span style="font-weight:bold">print</span> pool.map(func, range(8))
+print pool.map(func, range(8))
 </code></pre></div><p>Pool 进程池创建4个进程，不管有没有任务，都一直在进程池中等候，等到有数据的时候就开始执行。
 Pool 的 API 列表如下：</p>
 <ul>
@@ -245,15 +245,15 @@ Pool 的 API 列表如下：</p>
 </ul>
 <h3 id="异步执行">异步执行</h3>
 <p>apply_async 和 map_async 执行之后立即返回，然后异步返回结果。 使用方法如下</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> func(x):
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> func(x):
     <span style="font-weight:bold">return</span> x*x
 
 <span style="font-weight:bold">def</span> callback(x):
-    <span style="font-weight:bold">print</span> x, <span style="font-style:italic">&#39;in callback&#39;</span>
+    print x, <span style="font-style:italic">&#39;in callback&#39;</span>
     
 pool = Pool(processes=4)
 result = pool.map_async(func, range(8), 8, callback)
-<span style="font-weight:bold">print</span> result.get(), <span style="font-style:italic">&#39;in main&#39;</span>
+print result.get(), <span style="font-style:italic">&#39;in main&#39;</span>
 Out:
 [0, 1, 4, 9, 16, 25, 36, 49] <span style="font-weight:bold">in</span> callback
 [0, 1, 4, 9, 16, 25, 36, 49] <span style="font-weight:bold">in</span> main
@@ -301,7 +301,7 @@ Out:
 
     
 
-<script type="text/javascript" src="https://quqiuzhu.com/bundle.min.71f6cc734ea8c75ac28fd27a49444fac11880210be81de4b7bf8c1a7c59871d5a08807d5b36de3de68282328b61032de05fa94ac41c8ff2c4e3992d18d92ae1b.js" integrity="sha512-cfbMc06ox1rCj9J6SURPrBGIAhC&#43;gd5Le/jBp8WYcdWgiAfVs23j3mgoIyi2EDLeBfqUrEHI/yxOOZLRjZKuGw=="></script>
+<script type="text/javascript" src="https://quqiuzhu.com/bundle.min.6e69e85dd5983e29ee3d3d981c3008270531c7faad47072b266d46db0e44b49357be605190a1c26ee07cbcb22afda651ae35f605c9187cb42bc3c047b3b226d4.js" integrity="sha512-bmnoXdWYPinuPT2YHDAIJwUxx/qtRwcrJm1G2w5EtJNXvmBRkKHCbuB8vLIq/aZRrjX2BckYfLQrw8BHs7Im1A=="></script>
 
 
 <script type="application/javascript">
@@ -316,7 +316,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 
 
   </body>

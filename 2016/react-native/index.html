@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.81.0-DEV" />
+    <meta name="generator" content="Hugo 0.86.0" />
   </head>
 
   <body class=" ">
@@ -98,12 +98,12 @@
 <!-- raw HTML omitted -->
 <h2 id="环境搭建">环境搭建</h2>
 <p>因为我是一名使用 Mac 的 Android 开发者，所以 Mac下的 Android 环境、HomeBrew 包管理器都已具备。只需要装 Node 和 React Native 命令行工具即可。 安装 Node 主要是希望使用其包管理工具 npm 。安装命令如下</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">brew install node
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">brew install node
 npm install -g react-native-cli
 </code></pre></div><p>在此提醒一下，请注意 HomeBrew 的提示，如果有命令没有安装成功，按照 HomeBrew 的提示操作。</p>
 <h2 id="react-native-页面">React Native 页面</h2>
 <p>React 推荐使用 JSX 语法来写页面，因为其可读性较强。因为 JSX 是一种类 XML 的语法，对于习惯于使用布局文件的 Android 开发者来说并不陌生。 使用 React Component 来开发我们的应用界面</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">class Greeting extends Component {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">class Greeting extends Component {
   render() {
     return (
       &lt;Text&gt;Hello world!&lt;/Text&gt;
@@ -111,7 +111,7 @@ npm install -g react-native-cli
   }
 }
 </code></pre></div><p>通过 XML 能给 Componet 传递属性，Component 内部能够通过 <code>this.props</code> 获取到该属性。比如从上面的例子改为从外部接受属性参数的形式。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">class Greeting extends Component {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">class Greeting extends Component {
   render() {
     return (
       &lt;Text&gt;this.props.words&lt;/Text&gt;
@@ -128,7 +128,7 @@ class App extends Component {
   }
 }
 </code></pre></div><p>在一个 Component 里面，props 的值是不会变的，如果在 Component 的生命周期内需要改变样式，需要使用 state。 下面该组件一会显示 Hello world!， 一会又显示 你好!</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">class Greeting extends Component {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">class Greeting extends Component {
   constructor(props) {
     super(props);
     this.state = { engish: true };
@@ -145,7 +145,7 @@ class App extends Component {
   }
 }
 </code></pre></div><p>Component 能通过 StyleSheet 指定样式, flexbox 布局进行定位元素位置。 上述页面使用 StyleSheet</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">class Greeting extends Component {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">class Greeting extends Component {
   render() {
     return (
       &lt;Text style={styles.bigblue}&gt;Hello world!&lt;/Text&gt;
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
 )
 </code></pre></div><h2 id="原生应用集成">原生应用集成</h2>
 <p>在 Application 中加入下列代码，并将 React 写成的页面打成 bundle 放到 src/assets 下, 并命名为 index.android.js。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"> ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"> ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
    @Override
    public boolean getUseDeveloperSupport() {
        return false;
@@ -184,13 +184,13 @@ public ReactNativeHost getReactNativeHost() {
    return mReactNativeHost;
 }
 </code></pre></div><p>然后在需要使用 React 的页面使用 ReactRootView 代替，并在该页面维持 ReactInstanceManager 的状态。使用下面的就能展示 React 写的页面了。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">mReactRootView.startReactApplication(reactInstancemanager, moduleName, bundle);
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">mReactRootView.startReactApplication(reactInstancemanager, moduleName, bundle);
 </code></pre></div><p>reactInstancemanager 为 Application 中维护的同一个 reactInstancemanager 可以通过 getReactNativeHost.getReactInstanceManager() 获取。</p>
 <p>moduleName 为当前页面的模块名</p>
 <p>bundle 为 Native 传给 React 的参数</p>
 <h3 id="react-如何调用-native-方法">React 如何调用 Native 方法</h3>
 <p>可以在 ReactPackage 中返回给 React 一些 Native 实现的 module 实例如下</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">public class YourReactPackage implements ReactPackage {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">public class YourReactPackage implements ReactPackage {
 
     @Override
     public List&lt;Class&lt;? extends JavaScriptModule&gt;&gt; createJSModules() {
@@ -229,13 +229,13 @@ public class YourModule extends ReactContextBaseJavaModule {
 </code></pre></div><p>然后在 React 中可以通过 <code>NativeModules.YourModule</code> 访问到 Native 方法，比如上面实现的 event 方法。</p>
 <h3 id="native-如何调用-react-方法">Native 如何调用 React 方法</h3>
 <p>Native 主动与 React 沟通的方式，不是调用 React 方法，而是用事件通知的方式。首先看 Native 如何发通知。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">public void sendReactEvent(String eventName， WriteableMap params) {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">public void sendReactEvent(String eventName， WriteableMap params) {
    reactInstanceManager.getCurrentReactContext()
    		.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
 			.emit(eventName, params);
 }
 </code></pre></div><p>Reac 方面，使用下面的方法监听 Native 发来的事件并作出反应。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">DeviceEventEmitter.addListener(eventName, (params) =&gt; {
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">DeviceEventEmitter.addListener(eventName, (params) =&gt; {
 	// Do Something
 })
 </code></pre></div>
@@ -269,7 +269,7 @@ public class YourModule extends ReactContextBaseJavaModule {
 
     
 
-<script type="text/javascript" src="https://quqiuzhu.com/bundle.min.71f6cc734ea8c75ac28fd27a49444fac11880210be81de4b7bf8c1a7c59871d5a08807d5b36de3de68282328b61032de05fa94ac41c8ff2c4e3992d18d92ae1b.js" integrity="sha512-cfbMc06ox1rCj9J6SURPrBGIAhC&#43;gd5Le/jBp8WYcdWgiAfVs23j3mgoIyi2EDLeBfqUrEHI/yxOOZLRjZKuGw=="></script>
+<script type="text/javascript" src="https://quqiuzhu.com/bundle.min.6e69e85dd5983e29ee3d3d981c3008270531c7faad47072b266d46db0e44b49357be605190a1c26ee07cbcb22afda651ae35f605c9187cb42bc3c047b3b226d4.js" integrity="sha512-bmnoXdWYPinuPT2YHDAIJwUxx/qtRwcrJm1G2w5EtJNXvmBRkKHCbuB8vLIq/aZRrjX2BckYfLQrw8BHs7Im1A=="></script>
 
 
 <script type="application/javascript">
@@ -284,7 +284,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 
 
   </body>

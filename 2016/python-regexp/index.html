@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.81.0-DEV" />
+    <meta name="generator" content="Hugo 0.86.0" />
   </head>
 
   <body class=" ">
@@ -187,11 +187,11 @@
 <li>split(pattern, string, maxsplit=0, flags=0)</li>
 </ul>
 <p>一般的处理流程是编译正则表达式，获取一个 regex 对象，然后使用该对象的方法。每个函数对象里面包含的方法和 re 包中包含的一样(除了 compile 函数)。 实际上是 re 模块里面的函数调用了 regex 对象的相应的方法，下面是 re 包中 match 函数的实现，其他函数也是类似的。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> match(pattern, string, flags=0):
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">def</span> match(pattern, string, flags=0):
     <span style="font-weight:bold">return</span> _compile(pattern, flags).match(string)
 </code></pre></div><p>re 包中的函数是先编译 regex 对象，然后调用其方法的。因为 re 模块有一块缓存区用来保存匹配过的正则表达式，所以速度也不会很慢，但是还是建议使用 regex 对象。</p>
 <p>上面的函数都有一个 flags 参数，其实只是用来编译的，因为 re 包中的函数需要先编译再调用其他方法，所以每个函数都有一个 flag 参数。每个 flag 表示的含义如下</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-style:italic"># ignore case</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-style:italic"># ignore case</span>
 I = IGNORECASE = sre_compile.SRE_FLAG_IGNORECASE 
 
 <span style="font-style:italic"># assume current 8-bit locale</span>
@@ -210,7 +210,7 @@ S = DOTALL = sre_compile.SRE_FLAG_DOTALL
 X = VERBOSE = sre_compile.SRE_FLAG_VERBOSE 
 </code></pre></div><h2 id="例子">例子</h2>
 <p><code>match()</code> 和 <code>search()</code> 如果匹配的话，会返回一个匹配对象，否则会返回 None。匹配对象有 <code>group()</code> 与 <code>groups()</code> 方法。 <code>group()</code> 会返回匹配的字符串， 而<code>groups()</code> 返回存在的子组元组的元组，如果不存在匹配的子组，则返回<code>()</code>。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">g = re.match(<span style="font-style:italic">&#39;foo&#39;</span>, <span style="font-style:italic">&#39;foo&#39;</span>) <span style="font-style:italic"># 匹配对象</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">g = re.match(<span style="font-style:italic">&#39;foo&#39;</span>, <span style="font-style:italic">&#39;foo&#39;</span>) <span style="font-style:italic"># 匹配对象</span>
 g.group() <span style="font-style:italic"># &#39;foo&#39;</span>
 g.groups() <span style="font-style:italic"># ()</span>
 
@@ -223,12 +223,12 @@ g = re.match(<span style="font-style:italic">&#39;^foo(\d+)$&#39;</span>, <span 
 g = re.match(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;dfoo2033d&#39;</span>) <span style="font-style:italic"># None</span>
 </code></pre></div><p>从上面最后一组的值，可以知道，<code>re.match</code> 默认从头开始匹配，但是并不默认一定要完全匹配到字符串末尾，除非使用结束符 <code>$</code> 。</p>
 <p><code>re.search</code> 与 <code>re.match</code>的区别正在于此，<code>re.search</code>并不一定要从头开始，比如说上面四组匹配结果如下</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">g = re.search(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;foo2033d&#39;</span>) <span style="font-style:italic"># 匹配成功</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">g = re.search(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;foo2033d&#39;</span>) <span style="font-style:italic"># 匹配成功</span>
 g = re.search(<span style="font-style:italic">&#39;^foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;foo2033d&#39;</span>) <span style="font-style:italic"># 匹配成功</span>
 g = re.search(<span style="font-style:italic">&#39;^foo(\d+)$&#39;</span>, <span style="font-style:italic">&#39;foo2033d&#39;</span>) <span style="font-style:italic"># None</span>
 g = re.search(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;dfoo2033d&#39;</span>) <span style="font-style:italic"># 匹配成功</span>
 </code></pre></div><p><code>re.findall</code> 跟 <code>re.search</code> 与 <code>re.match</code> 的区别是什么呢？第一，<code>re.search</code> 与 <code>re.match</code> 只匹配一次。 第二，<code>re.findall</code> 总会返回一个列表，不管匹配不匹配。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">g = re.match(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">g = re.match(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
 g.group() <span style="font-style:italic"># &#39;foo2033&#39;</span>
 g.groups() <span style="font-style:italic"># (&#39;2033&#39;,)</span>
 
@@ -238,13 +238,13 @@ l = re.findall(<span style="font-style:italic">&#39;foo\d+&#39;</span>, <span st
 l <span style="font-style:italic"># [&#39;foo2033&#39;, &#39;foo9&#39;]</span>
 </code></pre></div><p><code>re.findall</code> 返回的列表，如果正则表达式有子组，则匹配返回的子组列表，否则返回整个正则表达式的匹配列表。</p>
 <p><code>re.sub</code> 与 <code>re.subn</code> 是用来做字符串替换的，它们唯一的区别是前面的返回替换了的字符串，后面返回一个替换之后的字符串和替换次数的元组。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">r = re.sub(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>,<span style="font-style:italic">&#39;*&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">r = re.sub(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>,<span style="font-style:italic">&#39;*&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
 r <span style="font-style:italic"># &#39;**d&#39;</span>
 
 r = re.subn(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>,<span style="font-style:italic">&#39;*&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
 r <span style="font-style:italic"># (&#39;**d&#39;, 2)</span>
 </code></pre></div><p><code>re.split</code> 使用正则表达式作为分隔符，但有子组和无子组的情况是不一样的，有子组的会分割字符串，但会留下子组的匹配值。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">l = re.split(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">l = re.split(<span style="font-style:italic">&#39;foo(\d+)&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
 l <span style="font-style:italic"># [&#39;&#39;, &#39;2033&#39;, &#39;&#39;, &#39;9&#39;, &#39;d&#39;]</span>
 
 l = re.split(<span style="font-style:italic">&#39;foo\d+&#39;</span>, <span style="font-style:italic">&#39;foo2033foo9d&#39;</span>)
@@ -280,7 +280,7 @@ l <span style="font-style:italic"># [&#39;&#39;, &#39;&#39;, &#39;d&#39;]</span>
 
     
 
-<script type="text/javascript" src="https://quqiuzhu.com/bundle.min.71f6cc734ea8c75ac28fd27a49444fac11880210be81de4b7bf8c1a7c59871d5a08807d5b36de3de68282328b61032de05fa94ac41c8ff2c4e3992d18d92ae1b.js" integrity="sha512-cfbMc06ox1rCj9J6SURPrBGIAhC&#43;gd5Le/jBp8WYcdWgiAfVs23j3mgoIyi2EDLeBfqUrEHI/yxOOZLRjZKuGw=="></script>
+<script type="text/javascript" src="https://quqiuzhu.com/bundle.min.6e69e85dd5983e29ee3d3d981c3008270531c7faad47072b266d46db0e44b49357be605190a1c26ee07cbcb22afda651ae35f605c9187cb42bc3c047b3b226d4.js" integrity="sha512-bmnoXdWYPinuPT2YHDAIJwUxx/qtRwcrJm1G2w5EtJNXvmBRkKHCbuB8vLIq/aZRrjX2BckYfLQrw8BHs7Im1A=="></script>
 
 
 <script type="application/javascript">
@@ -295,7 +295,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 
 
   </body>

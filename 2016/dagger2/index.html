@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.81.0-DEV" />
+    <meta name="generator" content="Hugo 0.86.0" />
   </head>
 
   <body class=" ">
@@ -120,14 +120,14 @@
 <li>在 Application 中初始化相关 Component</li>
 <li>在需要注入的类中, 使用已经实例化的 Component, 调用其 inject() 方法</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Singleton
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Singleton
 @Component(modules={AppModule.class, NetModule.class})
 <span style="font-weight:bold">public</span> <span style="font-weight:bold">interface</span> <span style="font-weight:bold">NetComponent</span> {
    <span style="">void</span> inject(MainActivity activity);
    <span style="font-style:italic">// void inject(MyFragment fragment);
 </span><span style="font-style:italic"></span>   <span style="font-style:italic">// void inject(MyService service);
 </span><span style="font-style:italic"></span>}
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">MyApp</span> <span style="font-weight:bold">extends</span> Application {
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">MyApp</span> <span style="font-weight:bold">extends</span> Application {
 
     <span style="font-weight:bold">private</span> NetComponent mNetComponent;
 
@@ -151,7 +151,7 @@
        <span style="font-weight:bold">return</span> mNetComponent;
     }
 }
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">MyActivity</span> <span style="font-weight:bold">extends</span> Activity {
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">public</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">MyActivity</span> <span style="font-weight:bold">extends</span> Activity {
   @Inject OkHttpClient mOkHttpClient;
   @Inject SharedPreferences sharedPreferences;
 
@@ -166,7 +166,7 @@
 <li>@Provides 如果提供了返回一种类型的多种方法, 到到底选择哪一个呢, 就可以通过限定符来指定</li>
 <li>通过 Dagger 提供的 @Qualifier 注解可以定义限定符, 就像定义 annotation 一样</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Provides @Named(<span style="font-style:italic">&#34;cached&#34;</span>)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Provides @Named(<span style="font-style:italic">&#34;cached&#34;</span>)
 @Singleton
 OkHttpClient provideOkHttpClient(Cache cache) {
     OkHttpClient client = <span style="font-weight:bold">new</span> OkHttpClient();
@@ -193,7 +193,7 @@ OkHttpClient provideOkHttpClient() {
 <li>Scopes 是用来管理各种 Component 的生命周期的, 或者说是管理其使用范围的</li>
 <li>可以通过 Dagger 提供的注解 @Scope 来定制自己的 Scope, 但如何实现没有详细说明</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Scope
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Scope
 @Documented
 @Retention(value=RetentionPolicy.RUNTIME)
 <span style="font-weight:bold">public</span> @interface MyActivityScope
@@ -212,7 +212,7 @@ OkHttpClient provideOkHttpClient() {
 <li>Constructor Injection 的两种方式如下, @Inject 和 @Provide</li>
 <li>Lazy injections</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// parent component
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// parent component
 </span><span style="font-style:italic"></span>@Singleton
 @Component(modules={AppModule.class, NetModule.class})
 <span style="font-weight:bold">public</span> <span style="font-weight:bold">interface</span> <span style="font-weight:bold">NetComponent</span> {
@@ -224,7 +224,7 @@ OkHttpClient provideOkHttpClient() {
     OkHttpClient okHttpClient();
     SharedPreferences sharedPreferences();
 }
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Provides MyThing provideMyThing(
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Provides MyThing provideMyThing(
 		SharedPreferences sp,
 		Context context) {
 
@@ -243,7 +243,7 @@ SharedPreferences sp,
 
 	}
 }
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Inject Lazy&lt;SharedPreferences&gt; mLazySharedPrefs;
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Inject Lazy&lt;SharedPreferences&gt; mLazySharedPrefs;
 <span style="">void</span> onSaveBtnClicked() {
     mLazySharedPrefs.get()
                 .edit().putString(<span style="font-style:italic">&#34;status&#34;</span>, <span style="font-style:italic">&#34;lazy...&#34;</span>)
@@ -271,7 +271,7 @@ SharedPreferences sp,
 </li>
 <li>Service Locator 与 Dependency Injection 比较，两者都是为了去耦合，依赖注入难以理解和调试</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">class</span> <span style="font-weight:bold">MovieLister</span>...
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">class</span> <span style="font-weight:bold">MovieLister</span>...
   <span style="font-weight:bold">public</span> MovieLister(MovieFinder finder) {
       <span style="font-weight:bold">this</span>.finder = finder;       
   }
@@ -295,7 +295,7 @@ SharedPreferences sp,
     Movie[] movies = lister.moviesDirectedBy(<span style="font-style:italic">&#34;Sergio Leone&#34;</span>);
     assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#34;</span>, movies[0].getTitle());
 }
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">class</span> <span style="font-weight:bold">MovieLister</span>...
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">class</span> <span style="font-weight:bold">MovieLister</span>...
   <span style="font-weight:bold">private</span> MovieFinder finder;
   <span style="font-weight:bold">public</span> <span style="">void</span> setFinder(MovieFinder finder) {
     <span style="font-weight:bold">this</span>.finder = finder;
@@ -325,7 +325,7 @@ SharedPreferences sp,
     Movie[] movies = lister.moviesDirectedBy(<span style="font-style:italic">&#34;Sergio Leone&#34;</span>);
     assertEquals(<span style="font-style:italic">&#34;Once Upon a Time in the West&#34;</span>, movies[0].getTitle());
 }
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">public</span> <span style="font-weight:bold">interface</span> <span style="font-weight:bold">InjectFinder</span> {
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-weight:bold">public</span> <span style="font-weight:bold">interface</span> <span style="font-weight:bold">InjectFinder</span> {
   <span style="">void</span> injectFinder(MovieFinder finder);
 }
 
@@ -386,7 +386,7 @@ SharedPreferences sp,
 <li>@Scope 用于标识作用域注解, 重新定义一个新 Scope, 不应该含有属性</li>
 <li>@Singleton 是一个Scope 实现, 对象只创建一次</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@java.lang.annotation.Documented
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@java.lang.annotation.Documented
 @java.lang.annotation.Retention(RUNTIME)
 @javax.inject.Scope
 <span style="font-weight:bold">public</span> @interface RequestScoped {}
@@ -401,7 +401,7 @@ SharedPreferences sp,
 <li>@AutoService 可以自动(为 Processor)生成配置信息</li>
 <li>Android Studio 2.2 已经自带 annotationProcessor, 不再需要 APT, 即便不使用 Java 8</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// 内置注解
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// 内置注解
 </span><span style="font-style:italic">// 方法注解，表示此注解修饰的方法覆盖了父类或是接口的方法
 </span><span style="font-style:italic">// 如果不是这样，则输出警告
 </span><span style="font-style:italic"></span>@Override
@@ -454,7 +454,7 @@ SharedPreferences sp,
 <li>错误处理, 被依赖的 T, 就是 Produced<!-- raw HTML omitted -->, 如果需要做错误处理, 则在此完成, MultiBindings 和 Lazy execution 同样支持</li>
 <li>返回 Scope 和相应的 Component 一致  @ProductionScope</li>
 </ul>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@ProducerModule(includes = UserModule.class)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@ProducerModule(includes = UserModule.class)
 <span style="font-weight:bold">final</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">UserResponseModule</span> {
   @Produces
   <span style="font-weight:bold">static</span> ListenableFuture&lt;UserData&gt; lookUpUserData(
@@ -476,7 +476,7 @@ SharedPreferences sp,
     <span style="font-weight:bold">return</span> Executors.newCachedThreadPool();
   }
 }
-</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Produces
+</code></pre></div><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">@Produces
 <span style="font-weight:bold">static</span> Html renderHtml(
     Produced&lt;UserData&gt; data,
     UserHtmlTemplate template,
@@ -495,7 +495,7 @@ SharedPreferences sp,
 <li>BasicAnnotationProcessor 中接口 ProcessingStep, ElementName</li>
 </ul>
 <h4 id="basicannotationprocessorprocessingstep">BasicAnnotationProcessor.ProcessingStep</h4>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// 处理阶段, 每个处理阶段可以处理一些注解的逻辑
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// 处理阶段, 每个处理阶段可以处理一些注解的逻辑
 </span><span style="font-style:italic"></span><span style="font-weight:bold">public</span> <span style="font-weight:bold">interface</span> <span style="font-weight:bold">ProcessingStep</span> {
     <span style="font-style:italic">// 返回该阶段需要处理的注解类型
 </span><span style="font-style:italic"></span>    Set&lt;? <span style="font-weight:bold">extends</span> Class&lt;? <span style="font-weight:bold">extends</span> Annotation&gt;&gt; annotations();
@@ -505,7 +505,7 @@ SharedPreferences sp,
 </span><span style="font-style:italic"></span>    Set&lt;Element&gt; process(SetMultimap&lt;Class&lt;? <span style="font-weight:bold">extends</span> Annotation&gt;, Element&gt; var1);
 }
 </code></pre></div><h4 id="basicannotationprocessorelementname">BasicAnnotationProcessor.ElementName</h4>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// 该类主要用来存放节点名称, 并且区分包节点和类型节点
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="font-style:italic">// 该类主要用来存放节点名称, 并且区分包节点和类型节点
 </span><span style="font-style:italic"></span><span style="font-weight:bold">private</span> <span style="font-weight:bold">static</span> <span style="font-weight:bold">final</span> <span style="font-weight:bold">class</span> <span style="font-weight:bold">ElementName</span> {
     <span style="font-weight:bold">private</span> <span style="font-weight:bold">final</span> BasicAnnotationProcessor.ElementName.Kind kind;
     <span style="font-weight:bold">private</span> <span style="font-weight:bold">final</span> String name;
@@ -571,7 +571,7 @@ SharedPreferences sp,
 
     
 
-<script type="text/javascript" src="https://quqiuzhu.com/bundle.min.71f6cc734ea8c75ac28fd27a49444fac11880210be81de4b7bf8c1a7c59871d5a08807d5b36de3de68282328b61032de05fa94ac41c8ff2c4e3992d18d92ae1b.js" integrity="sha512-cfbMc06ox1rCj9J6SURPrBGIAhC&#43;gd5Le/jBp8WYcdWgiAfVs23j3mgoIyi2EDLeBfqUrEHI/yxOOZLRjZKuGw=="></script>
+<script type="text/javascript" src="https://quqiuzhu.com/bundle.min.6e69e85dd5983e29ee3d3d981c3008270531c7faad47072b266d46db0e44b49357be605190a1c26ee07cbcb22afda651ae35f605c9187cb42bc3c047b3b226d4.js" integrity="sha512-bmnoXdWYPinuPT2YHDAIJwUxx/qtRwcrJm1G2w5EtJNXvmBRkKHCbuB8vLIq/aZRrjX2BckYfLQrw8BHs7Im1A=="></script>
 
 
 <script type="application/javascript">
@@ -586,7 +586,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 
 
   </body>

@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.81.0-DEV" />
+    <meta name="generator" content="Hugo 0.86.0" />
   </head>
 
   <body class=" ">
@@ -98,7 +98,7 @@
 <h2 id="http基础">HTTP基础</h2>
 <h4 id="url">URL</h4>
 <p>一个统一资源定位符被分为下面的六段</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">http://user:passwd@httpbin.org:80/basic-auth/user/passwd?name=quqiuzhu#1
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">http://user:passwd@httpbin.org:80/basic-auth/user/passwd?name=quqiuzhu#1
 
 &lt;scheme&gt;://&lt;netloc&gt;/&lt;path&gt;;&lt;params&gt;?&lt;query&gt;#&lt;fragment&gt;
 
@@ -112,16 +112,16 @@
 <p><code>&lt;fragment&gt;</code> 通常用作一个网页的页内分段跳转。</p>
 <h4 id="http">HTTP</h4>
 <p><a href="https://github.com/astaxie/bat" title="bat">bat</a>是一个类似cUrl的API测试工具，执行命令时，其能完整显示整个HTTP协议的传输过程，比如当我对http://httpbin.org/ip做一个GET请求时，其命令为</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">➜  ~ bat http://httpbin.org/ip
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">➜  ~ bat http://httpbin.org/ip
 </code></pre></div><p>其构造的请求(Request)如下</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">GET /ip HTTP/1.1
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">GET /ip HTTP/1.1
 Host: httpbin.org
 Accept: application/json
 Accept-Encoding: gzip, deflate
 User-Agent: bat/0.1.0
 </code></pre></div><p>第一行是请求行，分别是谓词(方法)、路径和协议版本; 其后跟着的是头部信息(Host、Accept、Accept-Encoding 和User-Agent); 如果是POST或者PUT等请求，还可能会有BODY部分。</p>
 <p>回复(Response)的文本如下</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">HTTP/1.1 200 OK
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">HTTP/1.1 200 OK
 Server : nginx
 Date : Sun, 04 Sep 2016 11:59:35 GMT
 Content-Type : application/json
@@ -150,17 +150,17 @@ Access-Control-Allow-Credentials : true
 <p>PoolManager使用自己实现的RecentlyUsedContainer容器来管理ConnectionPool，一旦
 ConnectionPool超过限制，则逐出最远使用的ConnectionPool。ConnectionPool内部使用LifoQueue来管理 HTTPConnection，HTTPSConnection和VerifiedHTTPSConnection。XXXXConnection都继承至httplib的httplib.HTTPConnection或者httplib.HTTPSConnection。</p>
 <p>典型使用案例</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; http = urllib3.PoolManager(num_pools=50)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; http = urllib3.PoolManager(num_pools=50)
 &gt;&gt;&gt; r = http.request(&#39;GET&#39;, &#39;http://httpbin.org/ip&#39;)
 &gt;&gt;&gt; r.data
 &#39;{\n  &#34;origin&#34;: &#34;111.0.186.217&#34;\n}\n&#39;
 </code></pre></div><p>同样可以使用 ConnectionPool</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; http = urllib3.HTTPConnectionPool(&#39;httpbin.org&#39;)
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; http = urllib3.HTTPConnectionPool(&#39;httpbin.org&#39;)
 &gt;&gt;&gt; r = http.request(&#39;GET&#39;, &#39;http://httpbin.org/ip&#39;)
 &gt;&gt;&gt; r.data
 &#39;{\n  &#34;origin&#34;: &#34;111.0.186.217&#34;\n}\n&#39;
 </code></pre></div><p>PoolManager 与 ConnectionPool有相似的API，是因为它们有共同的父类RequestMethods</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">class RequestMethods(object):
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">class RequestMethods(object):
     def urlopen(self, method, url, body=None, headers=None,
                 encode_multipart=True, multipart_boundary=None,
                 **kw)
@@ -170,9 +170,9 @@ ConnectionPool超过限制，则逐出最远使用的ConnectionPool。Connection
 </code></pre></div><h4 id="multipart编码文件上传">multipart编码文件上传</h4>
 <p>urllib3 中POST, PUT, PATCH等方法，可以使用两种Content-Type上传数据，一种是application/x-www-form-urlencoded，一般用来传递非文件数据，还有一种就是multipart/form-data，可以传输数据也可以传输文件。</p>
 <p>使用bat命令查看Content-Type为application/x-www-form-urlencoded的请求</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">➜  ~ bat -f=true http://httpbin.org/post name=qiuzhu age=18
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">➜  ~ bat -f=true http://httpbin.org/post name=qiuzhu age=18
 </code></pre></div><p>HTTP请求</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">POST /post HTTP/1.1
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">POST /post HTTP/1.1
 Host: httpbin.org
 Accept: application/json
 Accept-Encoding: gzip, deflate
@@ -182,9 +182,9 @@ User-Agent: bat/0.1.0
 
 name=qiuzhu&amp;age=18
 </code></pre></div><p>使用bat上传文件，其Content-Type为multipart/form-data的请求</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">➜  ~ bat -f=true http://httpbin.org/post name=qiuzhu f@f.txt
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">➜  ~ bat -f=true http://httpbin.org/post name=qiuzhu f@f.txt
 </code></pre></div><p>HTTP请求</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">POST /post HTTP/1.1
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">POST /post HTTP/1.1
 Host: httpbin.org
 Accept: application/json
 Accept-Encoding: gzip, deflate
@@ -205,7 +205,7 @@ qiuzhu
 --386e4e1c64f--
 </code></pre></div><p>区别在于，application/x-www-form-urlencoded类型的请求会使用urlencode来编码数据，然而multipart/form-data会使用一个边界字符串来区分每一个数据Item，以及请求的起始和结束位置。</p>
 <p>filepost模块中的encode_multipart_formdata和fields模块的RequestField都实现了相关功能。使用方式如下</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; file_data = open(&#39;/Users/xshare/Desktop/f.txt&#39;).read()
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&gt;&gt;&gt; file_data = open(&#39;/Users/xshare/Desktop/f.txt&#39;).read()
 &gt;&gt;&gt; http = urllib3.PoolManager()
 &gt;&gt;&gt; r = http.request(
         &#39;POST&#39;,
@@ -249,7 +249,7 @@ qiuzhu
 
     
 
-<script type="text/javascript" src="https://quqiuzhu.com/bundle.min.71f6cc734ea8c75ac28fd27a49444fac11880210be81de4b7bf8c1a7c59871d5a08807d5b36de3de68282328b61032de05fa94ac41c8ff2c4e3992d18d92ae1b.js" integrity="sha512-cfbMc06ox1rCj9J6SURPrBGIAhC&#43;gd5Le/jBp8WYcdWgiAfVs23j3mgoIyi2EDLeBfqUrEHI/yxOOZLRjZKuGw=="></script>
+<script type="text/javascript" src="https://quqiuzhu.com/bundle.min.6e69e85dd5983e29ee3d3d981c3008270531c7faad47072b266d46db0e44b49357be605190a1c26ee07cbcb22afda651ae35f605c9187cb42bc3c047b3b226d4.js" integrity="sha512-bmnoXdWYPinuPT2YHDAIJwUxx/qtRwcrJm1G2w5EtJNXvmBRkKHCbuB8vLIq/aZRrjX2BckYfLQrw8BHs7Im1A=="></script>
 
 
 <script type="application/javascript">
@@ -264,7 +264,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 
 
   </body>

@@ -33,7 +33,7 @@
 
     
 
-    <meta name="generator" content="Hugo 0.81.0-DEV" />
+    <meta name="generator" content="Hugo 0.86.0" />
   </head>
 
   <body class=" ">
@@ -96,27 +96,27 @@
 <h2 id="描述符协议">描述符协议</h2>
 <p>一个实例 instance 有一个属性 x，对属性 x 有三种操作。 访问 <code>y = instance.x</code>， 赋值 <code>instance.x = 20</code> 和 删除 <code>del instance.x</code>，描述符正是对这三种操作进行控制。</p>
 <p>描述符协议有 3 个方法，只要实现 <code>__get__</code> 或者 <code>__set__</code> 方法就可以算是一个描述器。实现了 <code>__set__</code> 方法的描述器是数据描述器，实现了 <code>__get__</code> 方法，但是没有实现 <code>__set__</code> 方法的是非数据描述符。两种描述符在属性访问时的优先级不同，后面会讲。</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">descr.__get__(self, inst, type=None) --&gt; value
-descr.__set__(self, inst, value) --&gt; None
-descr.__delete__(self, inst) --&gt; None
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">descr.__get__(self, inst, type=<span style="font-weight:bold">None</span>) --&gt; value
+descr.__set__(self, inst, value) --&gt; <span style="font-weight:bold">None</span>
+descr.__delete__(self, inst) --&gt; <span style="font-weight:bold">None</span>
 </code></pre></div><p>描述符协议调用者是属性，所以参数 self 是指属性，inst 指的是实例。</p>
 <h2 id="描述符实现方式">描述符实现方式</h2>
 <p>有三种典型的方式来实现描述符，类、property() 和 property 装饰器</p>
 <h3 id="类">类</h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">class</span> <span style="font-weight:bold">NameDescripter</span>(object):
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">class</span> <span style="font-weight:bold">NameDescripter</span>(object):
     <span style="font-weight:bold">def</span> __init__(self):
         self._name = <span style="font-style:italic">&#39;&#39;</span>
 
     <span style="font-weight:bold">def</span> __get__(self, instance, inst_type):
-        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;__get__&#39;</span>, self._name
+        print <span style="font-style:italic">&#39;__get__&#39;</span>, self._name
         <span style="font-weight:bold">return</span> self._name
 
     <span style="font-weight:bold">def</span> __set__(self, instance, value):
-        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;__set__&#39;</span>, self._name
+        print <span style="font-style:italic">&#39;__set__&#39;</span>, self._name
         self._name = value
 
     <span style="font-weight:bold">def</span> __delete__(self, instance):
-        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;__delete__&#39;</span>, self._name
+        print <span style="font-style:italic">&#39;__delete__&#39;</span>, self._name
         self._name = <span style="font-style:italic">&#39;&#39;</span>
 
 <span style="font-weight:bold">class</span> <span style="font-weight:bold">Person</span>(object):
@@ -133,48 +133,48 @@ user.name
 out: __get__
 </code></pre></div><h3 id="property">property()</h3>
 <p>property() 定义如下:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">property(fget=None, fset=None, fdel=None, doc=None) -&gt; property attribute
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">property(fget=<span style="font-weight:bold">None</span>, fset=<span style="font-weight:bold">None</span>, fdel=<span style="font-weight:bold">None</span>, doc=<span style="font-weight:bold">None</span>) -&gt; property attribute
 </code></pre></div><p>用该函数实现上一节的 Person name 属性</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">class</span> <span style="font-weight:bold">Person</span>(object):
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">class</span> <span style="font-weight:bold">Person</span>(object):
     <span style="font-weight:bold">def</span> __init__(self):
         self._name = <span style="font-style:italic">&#39;&#39;</span>
 
     <span style="font-weight:bold">def</span> __get_name(self):
-        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;__get__&#39;</span>, self._name
+        print <span style="font-style:italic">&#39;__get__&#39;</span>, self._name
         <span style="font-weight:bold">return</span> self._name
 
     <span style="font-weight:bold">def</span> __set_name(self, value):
-        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;__set__&#39;</span>, self._name
+        print <span style="font-style:italic">&#39;__set__&#39;</span>, self._name
         self._name = value
 
     <span style="font-weight:bold">def</span> __del_name(self):
-        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;__delete__&#39;</span>, self._name
+        print <span style="font-style:italic">&#39;__delete__&#39;</span>, self._name
         self._name = <span style="font-style:italic">&#39;&#39;</span>
     name = property(__get_name, __set_name, __del_name)
 </code></pre></div><h3 id="property-装饰器">property 装饰器</h3>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">class</span> <span style="font-weight:bold">Person</span>(object):
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">class</span> <span style="font-weight:bold">Person</span>(object):
     <span style="font-weight:bold">def</span> __init__(self):
         self._name = <span style="font-style:italic">&#39;&#39;</span>
         
     @property
     <span style="font-weight:bold">def</span> name(self):
-        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;__get__&#39;</span>, self._name
+        print <span style="font-style:italic">&#39;__get__&#39;</span>, self._name
         <span style="font-weight:bold">return</span> self._name
 
     @name.setter
     <span style="font-weight:bold">def</span> name(self, value):
-        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;__set__&#39;</span>, self._name
+        print <span style="font-style:italic">&#39;__set__&#39;</span>, self._name
         self._name = value
 
     @name.deleter
     <span style="font-weight:bold">def</span> name(self):
-        <span style="font-weight:bold">print</span> <span style="font-style:italic">&#39;__delete__&#39;</span>, self._name
+        print <span style="font-style:italic">&#39;__delete__&#39;</span>, self._name
         self._name = <span style="font-style:italic">&#39;&#39;</span>
 </code></pre></div><h2 id="方法描述符">方法描述符</h2>
 <p>方法是一种特殊的属性，其描述符实现原理如下</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">class</span> <span style="font-weight:bold">Function</span>(object):
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="font-weight:bold">class</span> <span style="font-weight:bold">Function</span>(object):
     . . .
-    <span style="font-weight:bold">def</span> __get__(self, obj, objtype=None):
+    <span style="font-weight:bold">def</span> __get__(self, obj, objtype=<span style="font-weight:bold">None</span>):
         <span style="font-style:italic">&#34;Simulate func_descr_get() in Objects/funcobject.c&#34;</span>
         <span style="font-weight:bold">return</span> types.MethodType(self, obj, objtype)
 </code></pre></div><p>Python 中 <code>.</code> 是 <code>getattr()</code> 函数的语法糖。所以方法调用 <code>object.func()</code> 相当于 <code>getattr(object, 'func') 然后调用 __call__()</code>。当然，获取属性的方式不只是 <code>getattr(object, 'func')</code> 那么简单，获取属性是一连串的序列的判断和调用，下面会讲。</p>
@@ -218,7 +218,7 @@ out: __get__
 
     
 
-<script type="text/javascript" src="https://quqiuzhu.com/bundle.min.71f6cc734ea8c75ac28fd27a49444fac11880210be81de4b7bf8c1a7c59871d5a08807d5b36de3de68282328b61032de05fa94ac41c8ff2c4e3992d18d92ae1b.js" integrity="sha512-cfbMc06ox1rCj9J6SURPrBGIAhC&#43;gd5Le/jBp8WYcdWgiAfVs23j3mgoIyi2EDLeBfqUrEHI/yxOOZLRjZKuGw=="></script>
+<script type="text/javascript" src="https://quqiuzhu.com/bundle.min.6e69e85dd5983e29ee3d3d981c3008270531c7faad47072b266d46db0e44b49357be605190a1c26ee07cbcb22afda651ae35f605c9187cb42bc3c047b3b226d4.js" integrity="sha512-bmnoXdWYPinuPT2YHDAIJwUxx/qtRwcrJm1G2w5EtJNXvmBRkKHCbuB8vLIq/aZRrjX2BckYfLQrw8BHs7Im1A=="></script>
 
 
 <script type="application/javascript">
@@ -233,7 +233,6 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
 
 
   </body>
