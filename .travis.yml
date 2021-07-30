@@ -5,7 +5,7 @@
 dist: trusty
 language: go
 go:
-  - "1.14"
+  - "1.15"
 
 # before_install
 # install - install any dependencies required
